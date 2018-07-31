@@ -1,0 +1,36 @@
+{
+  "name": "ultimate-O-X",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sam-by-name/ultimate-O-X.git",
+  "author": "sam-by-name <sam-sanders@hotmail.co.uk>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server",
+    "build": "webpack --config ./client/webpack.config.js",
+    "dev": "nodemon server & yarn build --watch",
+    "test": "jest --watchAll"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}

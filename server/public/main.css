@@ -1,0 +1,73 @@
+/* * {
+  border: 1px solid red;
+} */
+
+body {
+  margin: 0;
+}
+
+
+.clear {
+  clear: both;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+.fl {
+  float: left;
+}
+
+.mainBoard {
+  font-size: 3em;
+  height: 1500px;
+  width: 1500px;
+  margin: 500px auto;
+}
+
+.miniBoard {
+  float: left;
+  margin: 50px;
+}
+
+.topRow {
+  float: left;
+}
+
+.tM {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.midRow {
+  float: left;
+}
+
+.mL {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.mM {
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.mR {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.botRow {
+  float: left;
+}
+
+.bM {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  float: left;
+}
