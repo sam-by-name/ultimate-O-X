@@ -1,3 +1,71 @@
 h1 {
   color: blue;
 }
+
+.clear {
+  clear: both;
+}
+
+.mainBoard {
+  font-size: 2vw;
+}
+
+.TopRow {
+  float: left;
+}
+
+.tL {
+  float: left;
+}
+
+.tM {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  float: left;
+}
+
+.tR {
+  float: left;
+}
+
+.MidRow {
+  float: left;
+}
+
+.mL {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  float: left;
+}
+
+.mM {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  float: left;
+}
+
+.mR {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  float: left;
+}
+
+.BotRow {
+  float: left;
+}
+
+.bL {
+  float: left;
+}
+
+.bM {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+}
+
+.bR {
+  float: left;
+}
