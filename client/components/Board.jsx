@@ -11,9 +11,9 @@ class Board extends React.Component {
     return (
       <div className='miniBoard'>
         <div className='topRow'>
-          <div className='tL cell'></div>
+          <div className='cell'></div>
           <div className='tM cell'></div>
-          <div className='tR cell'></div>
+          <div className='cell'></div>
         </div>
         <div className='clear'></div>
         <div className='midRow'>
@@ -23,9 +23,9 @@ class Board extends React.Component {
         </div>
         <div className='clear'></div>
         <div className='botRow'>
-          <div className='bL cell'></div>
+          <div className='cell'></div>
           <div className='bM cell'></div>
-          <div className='bR cell'></div>
+          <div className='cell'></div>
         </div>
         <div className='clear'></div>
       </div>

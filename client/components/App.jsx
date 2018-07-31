@@ -13,21 +13,21 @@ class App extends React.Component {
     return (
       <div className='mainBoard'>
         <div className='topRow'>
-          <Board />
-          <Board />
-          <Board />
+          <div className='fl'><Board /></div>
+          <div className='fl tM'><Board /></div>
+          <div className='fl'><Board /></div>
         </div>
         <div className='clear'></div>
         <div className='midRow'>
-          <Board />
-          <Board />
-          <Board />
+          <div className='fl mL'><Board /></div>
+          <div className='fl mM'><Board /></div>
+          <div className='fl mR'><Board /></div>
         </div>
         <div className='clear'></div>
         <div className='botRow'>
-          <Board />
-          <Board />
-          <Board />
+          <div className='fl'><Board /></div>
+          <div className='fl bM'><Board /></div>
+          <div className='fl'><Board /></div>
         </div>
         <div className='clear'></div>
       </div>
