@@ -1,6 +1,6 @@
-* {
+/* * {
   border: 1px solid red;
-}
+} */
 
 body {
   margin: 0;
@@ -12,20 +12,24 @@ body {
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   float: left;
-  padding: 25px;
 }
 
 .mainBoard {
   font-size: 3em;
-  height: 33.33%;
-  width: 33.33%;
-  margin: 300px auto;
+  height: 1100px;
+  width: 1100px;
+  margin: 0 auto;
 }
 
-.TopRow {
+.miniBoard {
+  float: left;
+  margin: 25px;
+}
+
+.topRow {
   float: left;
 }
 
@@ -34,7 +38,7 @@ body {
   border-right: 2px solid black;
 }
 
-.MidRow {
+.midRow {
   float: left;
 }
 
@@ -55,7 +59,7 @@ body {
   border-bottom: 2px solid black;
 }
 
-.BotRow {
+.botRow {
   float: left;
 }
 

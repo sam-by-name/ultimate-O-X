@@ -11,8 +11,25 @@ class App extends React.Component {
   }
   render () {
     return (
-      <div>
-        <Board />
+      <div className='mainBoard'>
+        <div className='topRow'>
+          <Board />
+          <Board />
+          <Board />
+        </div>
+        <div className='clear'></div>
+        <div className='midRow'>
+          <Board />
+          <Board />
+          <Board />
+        </div>
+        <div className='clear'></div>
+        <div className='botRow'>
+          <Board />
+          <Board />
+          <Board />
+        </div>
+        <div className='clear'></div>
       </div>
     )
   }
