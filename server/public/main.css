@@ -1,32 +1,37 @@
-h1 {
-  color: blue;
+* {
+  border: 1px solid red;
 }
+
+body {
+  margin: 0;
+}
+
 
 .clear {
   clear: both;
 }
 
+.cell {
+  width: 50px;
+  height: 50px;
+  float: left;
+  padding: 25px;
+}
+
 .mainBoard {
-  font-size: 2vw;
+  font-size: 3em;
+  height: 33.33%;
+  width: 33.33%;
+  margin: 300px auto;
 }
 
 .TopRow {
   float: left;
 }
 
-.tL {
-  float: left;
-}
-
 .tM {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  float: left;
-}
-
-.tR {
-  float: left;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .MidRow {
@@ -34,38 +39,28 @@ h1 {
 }
 
 .mL {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  float: left;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }
 
 .mM {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  float: left;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
 }
 
 .mR {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  float: left;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }
 
 .BotRow {
   float: left;
 }
 
-.bL {
-  float: left;
-}
-
 .bM {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  float: left;
-}
-
-.bR {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   float: left;
 }

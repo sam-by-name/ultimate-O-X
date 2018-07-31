@@ -11,21 +11,21 @@ class Board extends React.Component {
     return (
       <div className='mainBoard'>
         <div className='TopRow'>
-          <div className='tL'>x</div>
-          <div className='tM'>x</div>
-          <div className='tR'>x</div>
+          <div className='tL cell'>x</div>
+          <div className='tM cell'>x</div>
+          <div className='tR cell'>x</div>
         </div>
         <div className='clear'></div>
         <div className='MidRow'>
-          <div className='mL'>x</div>
-          <div className='mM'>x</div>
-          <div className='mR'>x</div>
+          <div className='mL cell'>x</div>
+          <div className='mM cell'>x</div>
+          <div className='mR cell'>x</div>
         </div>
         <div className='clear'></div>
         <div className='BotRow'>
-          <div className='bL'>x</div>
-          <div className='bM'>x</div>
-          <div className='bR'>x</div>
+          <div className='bL cell'>x</div>
+          <div className='bM cell'>x</div>
+          <div className='bR cell'>x</div>
         </div>
         <div className='clear'></div>
       </div>
