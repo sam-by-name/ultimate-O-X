@@ -12,10 +12,17 @@ class TheGame extends Component {
     this.state = {
       player: false,
       player1: '',
-      player2: ''
+      player2: '',
+      style1: {},
+      style2: {}
     }
     this.handleClick = this.handleClick.bind(this)
     this.nameCallback = this.nameCallback.bind(this)
+    this.changeStyle = this.changeStyle.bind(this)
+  }
+
+  componentDidMount () {
+    this.changeStyle()
   }
 
   handleClick () {
@@ -27,6 +34,20 @@ class TheGame extends Component {
       this.setState({
         player: false
       })
+    }
+    this.changeStyle()
+  }
+
+  changeStyle () {
+    if (this.state.player) {
+      this.setState({style1: {backgroundColor: 'red'}})
+    } else {
+      this.setState({style1: {backgroundColor: 'white'}})
+    }
+    if (!this.state.player) {
+      this.setState({style2: {backgroundColor: 'blue'}})
+    } else {
+      this.setState({style2: {backgroundColor: 'white'}})
     }
   }
 
