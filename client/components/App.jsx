@@ -6,14 +6,28 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      player: false
+    }
+    this.handleClick = this.handleClick.bind(this)
+  }
 
+  handleClick () {
+    if (!this.state.player) {
+      this.setState({
+        player: true
+      })
+    } else {
+      this.setState({
+        player: false
+      })
     }
   }
+
   render () {
     return (
-      <div className='mainBoard'>
+      <div onClick={this.handleClick} className='mainBoard'>
         <div className='topRow'>
-          <div className='fl'><Board /></div>
+          <div className='fl'><Board player={this.state.player}/></div>
           <div className='fl tM'><Board /></div>
           <div className='fl'><Board /></div>
         </div>

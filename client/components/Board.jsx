@@ -9,9 +9,15 @@ class Board extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   handleClick (e) {
-    return (
-      e.target.style.backgroundColor = 'red'
-    )
+    if (this.props.player === false) {
+      return (
+        e.target.style.backgroundColor = 'red'
+      )
+    } else if (this.props.player === true) {
+      return (
+        e.target.style.backgroundColor = 'blue'
+      )
+    }
   }
   render () {
     return (
