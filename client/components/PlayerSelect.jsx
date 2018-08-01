@@ -9,6 +9,7 @@ class PlayerSelect extends Component {
       player2: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange (e) {
@@ -16,6 +17,16 @@ class PlayerSelect extends Component {
     this.setState({
       [name]: value
     })
+  }
+
+  handleSubmit (e) {
+    this.props.callback(
+      {
+        player1: this.state.player1,
+        player2: this.state.player2
+      }
+    )
+    e.preventDefault()
   }
 
   render () {
@@ -39,6 +50,7 @@ class PlayerSelect extends Component {
               placeholder='Player two'
               onChange={this.handleChange}
               value={this.state.player2} />
+            <button onClick={this.handleSubmit} />
             <Link to='/game' type='button'>Play</Link>
           </fieldset>
         </form>

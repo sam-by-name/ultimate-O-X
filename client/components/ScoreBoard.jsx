@@ -13,10 +13,10 @@ class ScoreBoard extends Component {
     return (
       <div>
         <h2 style={style1}>
-          {this.state.player1}
+          {this.props.mainState.player1}
         </h2>
         <h2 style={style2}>
-          {this.state.player2}
+          {this.props.mainState.player2}
         </h2>
       </div>
     )

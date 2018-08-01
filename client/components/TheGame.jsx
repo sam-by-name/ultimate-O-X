@@ -4,17 +4,18 @@ import {HashRouter as Router, Route} from 'react-router-dom'
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
 // import Title from './Title'
-// import ScoreBoard from './ScoreBoard'
+import ScoreBoard from './ScoreBoard'
 
 class TheGame extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      player: false
-      // player1: name1,
-      // player2: name2
+      player: false,
+      player1: '',
+      player2: ''
     }
     this.handleClick = this.handleClick.bind(this)
+    this.nameCallback = this.nameCallback.bind(this)
   }
 
   handleClick () {
@@ -29,8 +30,12 @@ class TheGame extends Component {
     }
   }
 
-  nameCallback (nameFromPlayerSelect) {
-
+  nameCallback (playerNames) {
+    let {player1, player2} = playerNames
+    this.setState({
+      player1: player1,
+      player2: player2
+    })
   }
 
   render () {
@@ -39,11 +44,13 @@ class TheGame extends Component {
       <Router>
         <div>
           <h1 className='title' >Ultimate noughts and crosses</h1>
-          <Route exact path='/' component={PlayerSelect} />
+          <Route exact path='/' render={() =>
+            <PlayerSelect callback={this.nameCallback}/>} />
           <div onClick={this.handleClick}>
-            <Route path='/game' render={() => <MainBoard player={player}/>} />
+            <Route path='/game' render={() =>
+              <MainBoard player={player}/>} />
           </div>
-          {/* <ScoreBoard player={player}/> */}
+          <ScoreBoard mainState={this.state}/>
         </div>
       </Router>
     )
