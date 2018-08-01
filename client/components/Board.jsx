@@ -1,31 +1,37 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-class Board extends React.Component {
+class Board extends Component {
   constructor (props) {
     super(props)
     this.state = {
 
     }
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick (e) {
+    return (
+      e.target.style.backgroundColor = 'red'
+    )
   }
   render () {
     return (
       <div className='miniBoard'>
         <div className='topRow'>
-          <div className='cell'></div>
-          <div className='tM cell'></div>
-          <div className='cell'></div>
+          <div onClick={this.handleClick} className='cell'></div>
+          <div onClick={this.handleClick} className='tM cell'></div>
+          <div onClick={this.handleClick} className='cell'></div>
         </div>
         <div className='clear'></div>
         <div className='midRow'>
-          <div className='mL cell'></div>
-          <div className='mM cell'></div>
-          <div className='mR cell'></div>
+          <div onClick={this.handleClick} className='mL cell'></div>
+          <div onClick={this.handleClick} className='mM cell'></div>
+          <div onClick={this.handleClick} className='mR cell'></div>
         </div>
         <div className='clear'></div>
         <div className='botRow'>
-          <div className='cell'></div>
-          <div className='bM cell'></div>
-          <div className='cell'></div>
+          <div onClick={this.handleClick} className='cell'></div>
+          <div onClick={this.handleClick} className='bM cell'></div>
+          <div onClick={this.handleClick} className='cell'></div>
         </div>
         <div className='clear'></div>
       </div>
