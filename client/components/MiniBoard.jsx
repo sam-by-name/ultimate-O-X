@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MiniBoard = () => {
+const MiniBoard = (props) => {
   return (
     <div className='miniBoard'>
       <div className='topRow'>
