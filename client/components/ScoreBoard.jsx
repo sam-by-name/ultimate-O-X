@@ -7,24 +7,7 @@ class ScoreBoard extends Component {
       player: this.props.mainState.player
     }
   }
-  // componentDidUpdate () {
-  //   this.setState({
-  //     player: this.props.mainState.player
-  //   })
-  // }
   render () {
-    // let style1 = {}
-    // if (this.state.player) {
-    //   style1 = {backgroundColor: 'red'}
-    // } else {
-    //   style1 = {backgroundColor: 'white'}
-    // }
-    // let style2 = {}
-    // if (!this.state.player) {
-    //   style2 = {backgroundColor: 'blue'}
-    // } else {
-    //   style2 = {backgroundColor: 'white'}
-    // }
     let state = this.props.mainState
     return (
       <div>

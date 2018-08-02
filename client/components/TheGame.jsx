@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {HashRouter as Router, Route} from 'react-router-dom'
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
@@ -41,13 +41,10 @@ class TheGame extends Component {
   changeStyle () {
     if (this.state.player) {
       this.setState({style1: {backgroundColor: 'red'}})
+      this.setState({style2: {backgroundColor: 'white'}})
     } else {
       this.setState({style1: {backgroundColor: 'white'}})
-    }
-    if (!this.state.player) {
       this.setState({style2: {backgroundColor: 'blue'}})
-    } else {
-      this.setState({style2: {backgroundColor: 'white'}})
     }
   }
 
@@ -64,7 +61,7 @@ class TheGame extends Component {
     return (
       <Router>
         <div>
-          <h1 className='title' >Ultimate noughts and crosses</h1>
+          <Link to='/'><h1 className='title' >Ultimate noughts and crosses</h1></Link>
           <Route exact path='/' render={() =>
             <PlayerSelect callback={this.nameCallback}/>} />
           <div onClick={this.handleClick}>
