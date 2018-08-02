@@ -5,6 +5,7 @@ import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
 // import Title from './Title'
 import ScoreBoard from './ScoreBoard'
+import gameArr from '../../lib/gameArr'
 
 class TheGame extends Component {
   constructor (props) {
@@ -14,7 +15,8 @@ class TheGame extends Component {
       player1: '',
       player2: '',
       style1: {},
-      style2: {}
+      style2: {},
+      gameArr: gameArr
     }
     this.handleClick = this.handleClick.bind(this)
     this.nameCallback = this.nameCallback.bind(this)
