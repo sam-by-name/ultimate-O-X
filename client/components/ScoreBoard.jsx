@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from '../../../../.cache/typescript/2.9/node_modules/@types/react'
 
 class ScoreBoard extends Component {
   constructor (props) {
