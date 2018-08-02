@@ -1,6 +1,6 @@
-import React, {Component} from '../../../../.cache/typescript/2.9/node_modules/@types/react'
+import React, {Component} from 'react'
 
-class Board extends Component {
+class MiniBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -45,4 +45,4 @@ class Board extends Component {
   }
 }
 
-export default Board
+export default MiniBoard

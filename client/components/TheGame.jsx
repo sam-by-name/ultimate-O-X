@@ -1,5 +1,5 @@
-import React, {Component} from '../../../../.cache/typescript/2.9/node_modules/@types/react'
-import {HashRouter as Router, Route, Link} from '../../../../.cache/typescript/2.9/node_modules/@types/react-router-dom'
+import React, {Component} from 'react'
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
