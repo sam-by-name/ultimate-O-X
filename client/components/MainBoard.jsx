@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import MiniBoard from './MiniBoard'
+import gameArr from '../../lib/gameArr'
 
 class MainBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-
+      gameArr: gameArr
     }
     this.handleClick = this.handleClick.bind(this)
   }
