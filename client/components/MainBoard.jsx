@@ -12,9 +12,9 @@ class MainBoard extends Component {
     let player = this.props.player
     return (
       <div>
-      {this.state.gameArr.map(miniBoard => {
+      {this.state.gameArr.map((miniBoard) => {
         return(
-        <div>
+          <div>
           {miniboard.map(cell => {
             return (
               <div />
@@ -23,7 +23,6 @@ class MainBoard extends Component {
         </div>
         )
       })}
-
       </div>
     )
   }
