@@ -9,20 +9,21 @@ class MainBoard extends Component {
     }
   }
   render () {
-    let player = this.props.player
     return (
       <div>
       {this.state.gameArr.map((miniBoard) => {
-        return(
-          <div>
-          {miniboard.map(cell => {
-            return (
-              <div />
-            )
-          })}
-        </div>
-        )
-      })}
+        return miniBoard.map((cell) => {
+          return (
+          <div 
+            key= {cell.littleGrid} 
+            onClick={this.handleClick} 
+            name={cell.bigGrid} 
+            value={cell.littleGrid} 
+            className={`c${cell.littleGrid}`}>
+          </div>
+          )
+        })}
+      )}
       </div>
     )
   }
