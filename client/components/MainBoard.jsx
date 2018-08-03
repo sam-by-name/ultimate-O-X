@@ -11,6 +11,7 @@ class MainBoard extends Component {
     this.backgroundStyle = this.backgroundStyle.bind(this)
     this.gameArrEdit = this.gameArrEdit.bind(this)
     this.clearLastTaken = this.clearLastTaken.bind(this)
+    this.makesOutOfBounds = this.makesOutOfBounds.bind(this)
   }
 
   handleClick (e) {
@@ -37,12 +38,25 @@ class MainBoard extends Component {
     if (gameArr[mini][cell].isAlive && gameArr[mini][cell].isPlayable) {
       gameArr[mini][cell] = {
         isAlive: false,
-        isPlayable: false,
+        isPlayable: true,
         takenBy: player,
         lastTaken: true
       }
       this.props.handleClick()
       this.backgroundStyle(e)
+      this.makesOutOfBounds(cell)
+    }
+  }
+
+  makesOutOfBounds (cell) {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (i !== Number(cell)) {
+          gameArr[i][j].isPlayable = false
+        } else {
+          gameArr[i][j].isPlayable = true
+        }
+      }
     }
   }
 
