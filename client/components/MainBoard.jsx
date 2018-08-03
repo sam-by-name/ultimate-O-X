@@ -13,21 +13,25 @@ class MainBoard extends Component {
       <div>
       {this.state.gameArr.map((miniBoard) => {
         return (
-          <div className={`miniboard c${miniboard[0].bigGrid}`}>
-          {miniBoard.map((cell) => {
-            return (
-              <div 
-                key= {cell.littleGrid} 
-                onClick={this.handleClick} 
-                name={cell.bigGrid} 
-                value={cell.littleGrid} 
-                className={`cell c${cell.littleGrid}`}>
-              </div>
-              if (cell.littleGrid === 3,){
-                <div className='clear'/>
-              }
-            )
-          })}
+          <div className={`c${miniBoard[0].bigGrid}`}>
+            <div className="miniBoard">
+              {miniBoard.map((cell) => {
+                return (
+                  <div>
+                    <div 
+                      key= {cell.littleGrid} 
+                      onClick={this.handleClick} 
+                      name={cell.bigGrid} 
+                      value={cell.littleGrid} 
+                      className={`cell c${cell.littleGrid}`}>
+                    </div>
+                    {cell.littleGrid ===2 && <div className='clear'/> }
+                    {cell.littleGrid ===5 && <div className='clear'/> }
+                    {cell.littleGrid ===8 && <div className='clear'/> }
+                  </div>
+                )
+              })}
+            </div>
         </div>
         )
       })
