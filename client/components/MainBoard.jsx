@@ -23,8 +23,7 @@ class MainBoard extends Component {
                       onClick={this.handleClick} 
                       name={cell.bigGrid} 
                       value={cell.littleGrid} 
-                      className={`cell c${cell.littleGrid}`}>
-                    </div>
+                      className={`cell c${cell.littleGrid}`}/>
                     {cell.littleGrid ===2 && <div className='clear'/> }
                     {cell.littleGrid ===5 && <div className='clear'/> }
                     {cell.littleGrid ===8 && <div className='clear'/> }
@@ -32,7 +31,10 @@ class MainBoard extends Component {
                 )
               })}
             </div>
-        </div>
+            {miniBoard[0].bigGrid ===2 && <div className='clear'/> }
+            {miniBoard[0].bigGrid ===5 && <div className='clear'/> }
+            {miniBoard[0].bigGrid ===8 && <div className='clear'/> }
+          </div>
         )
       })
     }
