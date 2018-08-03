@@ -67,10 +67,10 @@ class TheGame extends Component {
           <Link to='/'><h1 className='title' >Ultimate noughts and crosses</h1></Link>
           <Route exact path='/' render={() =>
             <PlayerSelect callback={this.nameCallback}/>} />
-          <div onClick={this.handleClick}>
+          {/* <div onClick={this.handleClick}> */}
             <Route path='/game' render={() =>
-              <MainBoard state={this.state}/>} />
-          </div>
+              <MainBoard state={this.state} handleClick={this.handleClick}/>} />
+          {/* </div> */}
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>

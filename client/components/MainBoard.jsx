@@ -10,13 +10,12 @@ class MainBoard extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.backgroundStyle = this.backgroundStyle.bind(this)
     this.gameArrEdit = this.gameArrEdit.bind(this)
-    this.clearLastPlayed = this.clearLastPlayed.bind(this)
+    this.clearLastTaken = this.clearLastTaken.bind(this)
   }
 
   handleClick (e) {
-    this.backgroundStyle(e)
     let state = this.props.state
-    this.clearLastPlayed()
+    this.clearLastTaken()
     if (this.props.state.player) {
       this.gameArrEdit(e, state.player1)
     } else {
@@ -24,7 +23,7 @@ class MainBoard extends Component {
     }
   }
 
-  clearLastPlayed () {
+  clearLastTaken () {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         gameArr[i][j].lastTaken = false
@@ -35,11 +34,15 @@ class MainBoard extends Component {
   gameArrEdit (e, player) {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
-    gameArr[mini][cell] = {
-      isAlive: false,
-      isPlayable: false,
-      takenBy: player,
-      lastTaken: true
+    if (gameArr[mini][cell].isAlive && gameArr[mini][cell].isPlayable) {
+      gameArr[mini][cell] = {
+        isAlive: false,
+        isPlayable: false,
+        takenBy: player,
+        lastTaken: true
+      }
+      this.props.handleClick()
+      this.backgroundStyle(e)
     }
   }
 
