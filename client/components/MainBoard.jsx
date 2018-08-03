@@ -10,15 +10,25 @@ class MainBoard extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.backgroundStyle = this.backgroundStyle.bind(this)
     this.gameArrEdit = this.gameArrEdit.bind(this)
+    this.clearLastPlayed = this.clearLastPlayed.bind(this)
   }
 
   handleClick (e) {
     this.backgroundStyle(e)
     let state = this.props.state
+    this.clearLastPlayed()
     if (this.props.state.player) {
       this.gameArrEdit(e, state.player1)
     } else {
       this.gameArrEdit(e, state.player2)
+    }
+  }
+
+  clearLastPlayed () {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        gameArr[i][j].lastTaken = false
+      }
     }
   }
 
