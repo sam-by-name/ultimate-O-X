@@ -40,11 +40,15 @@ class TheGame extends Component {
 
   changeStyle () {
     if (this.state.player) {
-      this.setState({style1: {backgroundColor: 'red'}})
-      this.setState({style2: {backgroundColor: 'white'}})
+      this.setState({
+        style1: {backgroundColor: 'red'},
+        style2: {backgroundColor: 'white'}
+      })
     } else {
-      this.setState({style1: {backgroundColor: 'white'}})
-      this.setState({style2: {backgroundColor: 'blue'}})
+      this.setState({
+        style1: {backgroundColor: 'white'},
+        style2: {backgroundColor: 'blue'}
+      })
     }
   }
 
@@ -57,7 +61,6 @@ class TheGame extends Component {
   }
 
   render () {
-    let player = this.state.player
     return (
       <Router>
         <div>
@@ -66,7 +69,7 @@ class TheGame extends Component {
             <PlayerSelect callback={this.nameCallback}/>} />
           <div onClick={this.handleClick}>
             <Route path='/game' render={() =>
-              <MainBoard player={player}/>} />
+              <MainBoard state={this.state}/>} />
           </div>
           <ScoreBoard mainState={this.state}/>
         </div>
