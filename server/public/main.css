@@ -21,10 +21,6 @@ body {
 .cell {
   width: 100px;
   height: 100px;
-  float: left;
-}
-.fl {
-  float: left;
 }
 
 .mainBoard {
@@ -39,42 +35,50 @@ body {
   margin: 50px;
 }
 
-.topRow {
+.c0 {
   float: left;
 }
 
-.tM {
+.c1 {
   border-left: 2px solid black;
   border-right: 2px solid black;
-}
-
-.midRow {
   float: left;
 }
 
-.mL {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-}
-
-.mM {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-}
-
-.mR {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-}
-
-.botRow {
+.c2 {
   float: left;
 }
 
-.bM {
+.c3 {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  float: left;
+}
+
+.c4 {
+  border-top: 2px solid black;
   border-left: 2px solid black;
   border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  float: left;
+}
+
+.c5 {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  float: left;
+}
+
+.c6 {
+  float: left;
+}
+
+.c7 {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  float: left;
+}
+
+.c8 {
   float: left;
 }
