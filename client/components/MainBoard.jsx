@@ -11,6 +11,7 @@ class MainBoard extends Component {
     this.backgroundStyle = this.backgroundStyle.bind(this)
     this.gameArrEdit = this.gameArrEdit.bind(this)
     this.clearLastTaken = this.clearLastTaken.bind(this)
+    this.checkForWin = this.checkForWin.bind(this)
     this.makesOutOfBounds = this.makesOutOfBounds.bind(this)
   }
 
@@ -44,19 +45,8 @@ class MainBoard extends Component {
       }
       this.props.handleClick()
       this.backgroundStyle(e)
+      this.checkForWin(mini, player, e)
       this.makesOutOfBounds(cell)
-    }
-  }
-
-  makesOutOfBounds (cell) {
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        if (i !== Number(cell)) {
-          gameArr[i][j].isPlayable = false
-        } else {
-          gameArr[i][j].isPlayable = true
-        }
-      }
     }
   }
 
@@ -69,6 +59,34 @@ class MainBoard extends Component {
       return (
         e.target.style.backgroundColor = 'blue'
       )
+    }
+  }
+
+  checkForWin (mini, player, e) {
+    const win = ['012', '048', '036', '345', '147', '258', '246', '678']
+    let temp = ''
+    for (let i = 0; i < win.length; i++) {
+      for (let j = 0; j < 9; j++) {
+        if ((gameArr[mini][j].takenBy === player) &&
+          (j === win[i][0] || win[i][1] || win[i][2])) {
+          temp += `${j}`
+        }
+      }
+      if (Number(temp) === Number(win[i])) {
+        document.getElementsByClassName(`c${mini}`)[0].style.backgroundColor = 'black'
+      } else { temp = '' }
+    }
+  }
+
+  makesOutOfBounds (cell) {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (i !== Number(cell)) {
+          gameArr[i][j].isPlayable = false
+        } else {
+          gameArr[i][j].isPlayable = true
+        }
+      }
     }
   }
 
