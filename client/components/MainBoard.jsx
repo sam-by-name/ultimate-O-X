@@ -19,9 +19,9 @@ class MainBoard extends Component {
     let state = this.props.state
     this.clearLastTaken()
     if (this.props.state.player) {
-      this.gameArrEdit(e, state.player1.name, state)
+      this.gameArrEdit(e, state.player1)
     } else {
-      this.gameArrEdit(e, state.player2.name, state)
+      this.gameArrEdit(e, state.player2)
     }
   }
 
@@ -33,19 +33,19 @@ class MainBoard extends Component {
     }
   }
 
-  gameArrEdit (e, player, state) {
+  gameArrEdit (e, player) {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
     if (gameArr[mini][cell].isAlive && gameArr[mini][cell].isPlayable) {
       gameArr[mini][cell] = {
         isAlive: false,
         isPlayable: true,
-        takenBy: player,
+        takenBy: player.name,
         lastTaken: true
       }
       this.props.handleClick()
       this.backgroundStyle(e)
-      this.checkForWin(mini, player, state)
+      this.checkForWin(mini, player)
       this.makesOutOfBounds(cell)
     }
   }
@@ -62,20 +62,18 @@ class MainBoard extends Component {
     }
   }
 
-  checkForWin (mini, player, state) {
+  checkForWin (mini, player) {
     const win = ['012', '048', '036', '345', '147', '258', '246', '678']
     let temp = ''
     for (let i = 0; i < win.length; i++) {
       for (let j = 0; j < 9; j++) {
-        if ((gameArr[mini][j].takenBy === player) &&
+        if ((gameArr[mini][j].takenBy === player.name) &&
           (j === win[i][0] || win[i][1] || win[i][2])) {
           temp += `${j}`
         }
       }
-      if (Number(temp) === Number(win[i]) && state.player1.name === player) {
-        document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor = state.player1.color
-      } else if (Number(temp) === Number(win[i]) && state.player2.name === player) {
-        document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor = state.player2.color
+      if (Number(temp) === Number(win[i])) {
+        document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor = `light${player.color}`
       } else { temp = '' }
     }
   }
