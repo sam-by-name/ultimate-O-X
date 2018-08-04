@@ -10,9 +10,9 @@ class TheGame extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      player: false,
-      player1: '',
-      player2: '',
+      player: true,
+      player1: {name: '', color: 'red'},
+      player2: {name: '', color: 'blue'},
       style1: {},
       style2: {}
     }
@@ -55,8 +55,8 @@ class TheGame extends Component {
   nameCallback (playerNames) {
     let {player1, player2} = playerNames
     this.setState({
-      player1: player1,
-      player2: player2
+      player1: {name: player1, color: 'red'},
+      player2: {name: player2, color: 'blue'}
     })
   }
 
