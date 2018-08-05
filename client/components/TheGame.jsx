@@ -10,42 +10,30 @@ class TheGame extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      player: true,
-      player1: {name: '', color: 'red'},
-      player2: {name: '', color: 'blue'},
+      player: false,
+      player1: {name: '', score: 0, color: 'red'},
+      player2: {name: '', score: 0, color: 'blue'},
       style1: {},
       style2: {}
     }
     this.handleClick = this.handleClick.bind(this)
     this.nameCallback = this.nameCallback.bind(this)
-    this.changeStyle = this.changeStyle.bind(this)
   }
 
   componentDidMount () {
-    this.changeStyle()
+    this.handleClick()
   }
 
   handleClick () {
     if (!this.state.player) {
       this.setState({
-        player: true
-      })
-    } else {
-      this.setState({
-        player: false
-      })
-    }
-    this.changeStyle()
-  }
-
-  changeStyle () {
-    if (this.state.player) {
-      this.setState({
+        player: true,
         style1: {backgroundColor: 'red'},
         style2: {backgroundColor: 'white'}
       })
     } else {
       this.setState({
+        player: false,
         style1: {backgroundColor: 'white'},
         style2: {backgroundColor: 'blue'}
       })
@@ -55,8 +43,8 @@ class TheGame extends Component {
   nameCallback (playerNames) {
     let {player1, player2} = playerNames
     this.setState({
-      player1: {name: player1, color: 'red'},
-      player2: {name: player2, color: 'blue'}
+      player1: {name: player1, score: 0, color: 'red'},
+      player2: {name: player2, score: 0, color: 'blue'}
     })
   }
 

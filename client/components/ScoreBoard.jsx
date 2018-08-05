@@ -5,11 +5,13 @@ const ScoreBoard = (props) => {
   return (
     <div>
       <h2 style={state.style1}>
-        {state.player1.name}
+        Player 1: {state.player1.name}
       </h2>
+      <p>Score: {state.player1.score}</p>
       <h2 style={state.style2}>
-        {state.player2.name}
+        Player 2: {state.player2.name}
       </h2>
+      <p>Score: {state.player2.score}</p>
     </div>
   )
 }

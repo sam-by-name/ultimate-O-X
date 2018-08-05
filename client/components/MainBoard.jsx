@@ -12,7 +12,9 @@ class MainBoard extends Component {
     this.gameArrEdit = this.gameArrEdit.bind(this)
     this.clearLastTaken = this.clearLastTaken.bind(this)
     this.checkForWin = this.checkForWin.bind(this)
+    this.checkForVictory = this.checkForVictory.bind(this)
     this.makesOutOfBounds = this.makesOutOfBounds.bind(this)
+    this.miniGameWonBy = this.miniGameWonBy.bind(this)
   }
 
   handleClick (e) {
@@ -36,11 +38,13 @@ class MainBoard extends Component {
   gameArrEdit (e, player) {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
-    if (gameArr[mini][cell].isAlive && gameArr[mini][cell].isPlayable) {
+    let arr = gameArr[mini][cell]
+    if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       gameArr[mini][cell] = {
         isAlive: false,
         isPlayable: true,
         takenBy: player.name,
+        wonBy: '',
         lastTaken: true
       }
       this.props.handleClick()
@@ -72,19 +76,52 @@ class MainBoard extends Component {
           temp += `${j}`
         }
       }
-      if (Number(temp) === Number(win[i])) {
-        document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor = `light${player.color}`
+      if (temp === win[i]) {
+        this.miniGameWonBy(mini, player.name)
+        this.checkForVictory(player)
+        return (document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor =
+          `dark${player.color}`)
       } else { temp = '' }
     }
   }
 
-  makesOutOfBounds (cell) {
+  checkForVictory (player) {
+    const win = ['012', '048', '036', '345', '147', '258', '246', '678']
+    let temp = ''
+    for (let i = 0; i < win.length; i++) {
+      for (let j = 0; j < 9; j++) {
+        if ((gameArr[j][0].wonBy === player.name) &&
+          (j === win[i][0] || win[i][1] || win[i][2])) {
+          temp += `${j}`
+        }
+      }
+      if (temp === win[i]) {
+        return (document.getElementsByClassName('mainBoard')[0].style.backgroundColor =
+          `dark${player.color}`)
+      } else { temp = '' }
+    }
+  }
+
+  miniGameWonBy (mini, player) {
+    this.props.handleClick() // continue here
+    for (let i = 0; i < 9; i++) {
+      gameArr[mini][i].wonBy = player
+    }
+  }
+
+  makesOutOfBounds (cell) { // works but could use a refactor
+    let boo1 = false
+    let boo2 = true
+    if (gameArr[cell][0].wonBy !== '') {
+      boo1 = true
+      boo2 = false
+    }
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         if (i !== Number(cell)) {
-          gameArr[i][j].isPlayable = false
+          gameArr[i][j].isPlayable = boo1
         } else {
-          gameArr[i][j].isPlayable = true
+          gameArr[i][j].isPlayable = boo2
         }
       }
     }
