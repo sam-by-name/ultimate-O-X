@@ -10,9 +10,9 @@ class TheGame extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      player: false,
-      player1: '',
-      player2: '',
+      player: true,
+      player1: {name: '', color: 'red'},
+      player2: {name: '', color: 'blue'},
       style1: {},
       style2: {}
     }
@@ -40,34 +40,35 @@ class TheGame extends Component {
 
   changeStyle () {
     if (this.state.player) {
-      this.setState({style1: {backgroundColor: 'red'}})
-      this.setState({style2: {backgroundColor: 'white'}})
+      this.setState({
+        style1: {backgroundColor: 'red'},
+        style2: {backgroundColor: 'white'}
+      })
     } else {
-      this.setState({style1: {backgroundColor: 'white'}})
-      this.setState({style2: {backgroundColor: 'blue'}})
+      this.setState({
+        style1: {backgroundColor: 'white'},
+        style2: {backgroundColor: 'blue'}
+      })
     }
   }
 
   nameCallback (playerNames) {
     let {player1, player2} = playerNames
     this.setState({
-      player1: player1,
-      player2: player2
+      player1: {name: player1, color: 'red'},
+      player2: {name: player2, color: 'blue'}
     })
   }
 
   render () {
-    let player = this.state.player
     return (
       <Router>
         <div>
           <Link to='/'><h1 className='title' >Ultimate noughts and crosses</h1></Link>
           <Route exact path='/' render={() =>
             <PlayerSelect callback={this.nameCallback}/>} />
-          <div onClick={this.handleClick}>
-            <Route path='/game' render={() =>
-              <MainBoard player={player}/>} />
-          </div>
+          <Route path='/game' render={() =>
+            <MainBoard state={this.state} handleClick={this.handleClick}/>} />
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>
