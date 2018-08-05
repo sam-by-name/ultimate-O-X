@@ -12,6 +12,7 @@ class MainBoard extends Component {
     this.gameArrEdit = this.gameArrEdit.bind(this)
     this.clearLastTaken = this.clearLastTaken.bind(this)
     this.checkForWin = this.checkForWin.bind(this)
+    this.checkForVictory = this.checkForVictory.bind(this)
     this.makesOutOfBounds = this.makesOutOfBounds.bind(this)
     this.miniGameWonBy = this.miniGameWonBy.bind(this)
   }
@@ -75,9 +76,27 @@ class MainBoard extends Component {
           temp += `${j}`
         }
       }
-      if (Number(temp) === Number(win[i])) {
+      if (temp === win[i]) {
         this.miniGameWonBy(mini, player.name)
+        this.checkForVictory(player)
         return (document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor =
+          `dark${player.color}`)
+      } else { temp = '' }
+    }
+  }
+
+  checkForVictory (player) {
+    const win = ['012', '048', '036', '345', '147', '258', '246', '678']
+    let temp = ''
+    for (let i = 0; i < win.length; i++) {
+      for (let j = 0; j < 9; j++) {
+        if ((gameArr[j][0].wonBy === player.name) &&
+          (j === win[i][0] || win[i][1] || win[i][2])) {
+          temp += `${j}`
+        }
+      }
+      if (temp === win[i]) {
+        return (document.getElementsByClassName('mainBoard')[0].style.backgroundColor =
           `dark${player.color}`)
       } else { temp = '' }
     }
