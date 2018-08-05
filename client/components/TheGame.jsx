@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {HashRouter as Router, Route} from 'react-router-dom'
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
@@ -11,66 +11,52 @@ class TheGame extends Component {
     super(props)
     this.state = {
       player: false,
-      player1: '',
-      player2: '',
+      player1: {name: '', score: 0, color: 'red'},
+      player2: {name: '', score: 0, color: 'blue'},
       style1: {},
       style2: {}
     }
     this.handleClick = this.handleClick.bind(this)
     this.nameCallback = this.nameCallback.bind(this)
-    this.changeStyle = this.changeStyle.bind(this)
   }
 
   componentDidMount () {
-    this.changeStyle()
+    this.handleClick()
   }
 
   handleClick () {
     if (!this.state.player) {
       this.setState({
-        player: true
+        player: true,
+        style1: {backgroundColor: 'red'},
+        style2: {backgroundColor: 'white'}
       })
     } else {
       this.setState({
-        player: false
+        player: false,
+        style1: {backgroundColor: 'white'},
+        style2: {backgroundColor: 'blue'}
       })
-    }
-    this.changeStyle()
-  }
-
-  changeStyle () {
-    if (this.state.player) {
-      this.setState({style1: {backgroundColor: 'red'}})
-    } else {
-      this.setState({style1: {backgroundColor: 'white'}})
-    }
-    if (!this.state.player) {
-      this.setState({style2: {backgroundColor: 'blue'}})
-    } else {
-      this.setState({style2: {backgroundColor: 'white'}})
     }
   }
 
   nameCallback (playerNames) {
     let {player1, player2} = playerNames
     this.setState({
-      player1: player1,
-      player2: player2
+      player1: {name: player1, score: 0, color: 'red'},
+      player2: {name: player2, score: 0, color: 'blue'}
     })
   }
 
   render () {
-    let player = this.state.player
     return (
       <Router>
         <div>
-          <h1 className='title' >Ultimate noughts and crosses</h1>
+          <Link to='/'><h1 className='title' >Ultimate noughts and crosses</h1></Link>
           <Route exact path='/' render={() =>
             <PlayerSelect callback={this.nameCallback}/>} />
-          <div onClick={this.handleClick}>
-            <Route path='/game' render={() =>
-              <MainBoard player={player}/>} />
-          </div>
+          <Route path='/game' render={() =>
+            <MainBoard state={this.state} handleClick={this.handleClick}/>} />
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>
