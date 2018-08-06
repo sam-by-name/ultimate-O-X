@@ -42,7 +42,7 @@ class TheGame extends Component {
   }
   handleScore (player) {
     this.setState({
-      player: {
+      [player]: {
         name: player.name,
         score: player.score += 1,
         color: player.color}

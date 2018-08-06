@@ -4,7 +4,9 @@ import {gameArr} from '../../lib/gameArr'
 class MainBoard extends Component {
   constructor (props) {
     super(props)
-
+    this.state = {
+      gameArr: gameArr
+    }
     this.handleClick = this.handleClick.bind(this)
     this.backgroundStyle = this.backgroundStyle.bind(this)
     this.gameArrEdit = this.gameArrEdit.bind(this)
