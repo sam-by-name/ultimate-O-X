@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {gameArr} from '../../lib/gameArr'
 
 class MainBoard extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
     this.state = {
       gameArr: gameArr
@@ -20,7 +20,7 @@ class MainBoard extends Component {
   handleClick (e) {
     let state = this.props.state
     this.clearLastTaken()
-    if (this.props.state.player) {
+    if (state.player) {
       this.gameArrEdit(e, state.player1)
     } else {
       this.gameArrEdit(e, state.player2)
@@ -50,22 +50,20 @@ class MainBoard extends Component {
         lastTaken: true
       }
       this.props.handleClick()
-      this.backgroundStyle(e)
+      this.backgroundStyle(e, player)
       this.checkForWin(mini, player)
       this.makesOutOfBounds(cell)
     }
   }
 
-  backgroundStyle (e) {
+  backgroundStyle (e, player) {
+    let symbol = 'O'
     if (this.props.state.player) {
-      return (
-        e.target.style.backgroundColor = 'red'
-      )
-    } else {
-      return (
-        e.target.style.backgroundColor = 'blue'
-      )
+      symbol = 'X'
     }
+    e.target.innerHTML = symbol
+    e.target.style.color = `dark${player.color}`
+    e.target.style.backgroundColor = player.color
   }
 
   checkForWin (mini, player) {
@@ -79,17 +77,22 @@ class MainBoard extends Component {
         }
       }
       if (temp === win[i]) {
-        this.miniGameWonBy(mini, player.name)
-        this.checkForVictory(player)
+        this.miniGameWonBy(mini, player)
+        this.checkForVictory(player, win, temp)
         return (document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor =
           `dark${player.color}`)
       } else { temp = '' }
     }
   }
 
-  checkForVictory (player) {
-    const win = ['012', '048', '036', '345', '147', '258', '246', '678']
-    let temp = ''
+  miniGameWonBy (mini, player) {
+    this.props.handleScore(player)
+    for (let i = 0; i < 9; i++) {
+      gameArr[mini][i].wonBy = player.name
+    }
+  }
+
+  checkForVictory (player, win, temp) {
     for (let i = 0; i < win.length; i++) {
       for (let j = 0; j < 9; j++) {
         if ((gameArr[j][0].wonBy === player.name) &&
@@ -104,14 +107,7 @@ class MainBoard extends Component {
     }
   }
 
-  miniGameWonBy (mini, player) {
-    this.props.handleClick() // continue here
-    for (let i = 0; i < 9; i++) {
-      gameArr[mini][i].wonBy = player
-    }
-  }
-
-  makesOutOfBounds (cell) { // works but could use a refactor
+  makesOutOfBounds (cell) {
     let boo1 = false
     let boo2 = true
     if (gameArr[cell][0].wonBy !== '') {
@@ -131,34 +127,34 @@ class MainBoard extends Component {
 
   render () {
     return (
-      <div>
-      {this.state.gameArr.map((miniBoard) => {
-        return [
-          <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
-            <div className="miniBoard">
-              {miniBoard.map((cell) => {
-                return [
-                    <div 
-                    key= {cell.littleGrid} 
-                    onClick={this.handleClick} 
-                    name={cell.bigGrid} 
-                    value={cell.littleGrid} 
-                    className={`cell c${cell.littleGrid}`}
+      <div className='mainBoard'>
+        {this.state.gameArr.map((miniBoard) => {
+          return [
+            <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
+              <div className="miniBoard">
+                {miniBoard.map((cell) => {
+                  return [
+                    <div
+                      key= {cell.littleGrid}
+                      onClick={this.handleClick}
+                      name={cell.bigGrid}
+                      value={cell.littleGrid}
+                      className={`cell c${cell.littleGrid}`}
                     />,
-                    cell.littleGrid ===2 && <div className='clear'/>,
-                    cell.littleGrid ===5 && <div className='clear'/>,
-                    cell.littleGrid ===8 && <div className='clear'/>
+                    cell.littleGrid === 2 && <div className='clear'/>,
+                    cell.littleGrid === 5 && <div className='clear'/>,
+                    cell.littleGrid === 8 && <div className='clear'/>
                   ]
                 })}
-            </div>
-          </div>,
-          miniBoard[0].bigGrid ===2 && <div className='clear'/>,
-          miniBoard[0].bigGrid ===5 && <div className='clear'/>,
-          miniBoard[0].bigGrid ===8 && <div className='clear'/>
-        ]
-      })
-    }
-    </div>
+              </div>
+            </div>,
+            miniBoard[0].bigGrid === 2 && <div className='clear'/>,
+            miniBoard[0].bigGrid === 5 && <div className='clear'/>,
+            miniBoard[0].bigGrid === 8 && <div className='clear'/>
+          ]
+        })
+        }
+      </div>
     )
   }
 }
