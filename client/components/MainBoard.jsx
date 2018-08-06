@@ -4,9 +4,7 @@ import {gameArr} from '../../lib/gameArr'
 class MainBoard extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      gameArr: gameArr
-    }
+
     this.handleClick = this.handleClick.bind(this)
     this.backgroundStyle = this.backgroundStyle.bind(this)
     this.gameArrEdit = this.gameArrEdit.bind(this)
@@ -20,7 +18,7 @@ class MainBoard extends Component {
   handleClick (e) {
     let state = this.props.state
     this.clearLastTaken()
-    if (this.props.state.player) {
+    if (state.player) {
       this.gameArrEdit(e, state.player1)
     } else {
       this.gameArrEdit(e, state.player2)
@@ -77,7 +75,7 @@ class MainBoard extends Component {
         }
       }
       if (temp === win[i]) {
-        this.miniGameWonBy(mini, player.name)
+        this.miniGameWonBy(mini, player)
         this.checkForVictory(player, win, temp)
         return (document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor =
           `dark${player.color}`)
@@ -86,9 +84,9 @@ class MainBoard extends Component {
   }
 
   miniGameWonBy (mini, player) {
-    this.props.handleClick() // continue here
+    this.props.handleScore(player)
     for (let i = 0; i < 9; i++) {
-      gameArr[mini][i].wonBy = player
+      gameArr[mini][i].wonBy = player.name
     }
   }
 

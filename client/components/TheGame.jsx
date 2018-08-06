@@ -18,6 +18,7 @@ class TheGame extends Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.nameCallback = this.nameCallback.bind(this)
+    this.handleScore = this.handleScore.bind(this)
   }
 
   componentDidMount () {
@@ -39,6 +40,14 @@ class TheGame extends Component {
       })
     }
   }
+  handleScore (player) {
+    this.setState({
+      player: {
+        name: player.name,
+        score: player.score += 1,
+        color: player.color}
+    })
+  }
 
   nameCallback (playerNames) {
     let {player1, player2} = playerNames
@@ -56,7 +65,11 @@ class TheGame extends Component {
           <Route exact path='/' render={() =>
             <PlayerSelect callback={this.nameCallback}/>} />
           <Route path='/game' render={() =>
-            <MainBoard state={this.state} handleClick={this.handleClick}/>} />
+            <MainBoard
+              state={this.state}
+              handleScore={this.handleScore}
+              handleClick={this.handleClick}/>}
+          />
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>
