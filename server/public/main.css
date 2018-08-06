@@ -28,6 +28,7 @@ body {
   height: 1284px;
   width: 1246px;
   margin: 300px auto;
+  z-index: -1;
 }
 
 .miniBoard {
