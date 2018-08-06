@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {gameArr} from '../../lib/gameArr'
 
 class MainBoard extends Component {
-  constructor (props) {
+  constructor(props){
     super(props)
     this.state = {
       gameArr: gameArr
@@ -41,6 +41,8 @@ class MainBoard extends Component {
     let arr = gameArr[mini][cell]
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       gameArr[mini][cell] = {
+        bigGrid: Number(mini),
+        littleGrid: Number(cell),
         isAlive: false,
         isPlayable: true,
         takenBy: player.name,
@@ -129,155 +131,34 @@ class MainBoard extends Component {
 
   render () {
     return (
-      <div className='mainBoard'>
-        <div className='c0 w0'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={0} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={0} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={0} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={0} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={0} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={0} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={0} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={0} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={0} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='c1 w1'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={1} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={1} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={1} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={1} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={1} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={1} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={1} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={1} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={1} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='c2 w2'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={2} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={2} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={2} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={2} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={2} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={2} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={2} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={2} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={2} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='clear'></div>
-        <div className='c3 w3'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={3} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={3} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={3} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={3} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={3} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={3} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={3} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={3} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={3} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='c4 w4'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={4} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={4} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={4} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={4} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={4} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={4} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={4} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={4} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={4} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='c5 w5'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={5} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={5} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={5} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={5} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={5} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={5} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={5} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={5} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={5} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='clear'></div>
-        <div className='c6 w6'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={6} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={6} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={6} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={6} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={6} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={6} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={6} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={6} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={6} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='c7 w7'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={7} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={7} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={7} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={7} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={7} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={7} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={7} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={7} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={7} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='c8 w8'>
-          <div className='miniBoard'>
-            <div onClick={this.handleClick} name={8} value={0} className='cell c0'></div>
-            <div onClick={this.handleClick} name={8} value={1} className='cell c1'></div>
-            <div onClick={this.handleClick} name={8} value={2} className='cell c2'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={8} value={3} className='cell c3'></div>
-            <div onClick={this.handleClick} name={8} value={4} className='cell c4'></div>
-            <div onClick={this.handleClick} name={8} value={5} className='cell c5'></div>
-            <div className='clear'></div>
-            <div onClick={this.handleClick} name={8} value={6} className='cell c6'></div>
-            <div onClick={this.handleClick} name={8} value={7} className='cell c7'></div>
-            <div onClick={this.handleClick} name={8} value={8} className='cell c8'></div>
-            <div className='clear'></div>
-          </div>
-        </div>
-        <div className='clear'></div>
-      </div>
+      <div>
+      {this.state.gameArr.map((miniBoard) => {
+        return [
+          <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
+            <div className="miniBoard">
+              {miniBoard.map((cell) => {
+                return [
+                    <div 
+                    key= {cell.littleGrid} 
+                    onClick={this.handleClick} 
+                    name={cell.bigGrid} 
+                    value={cell.littleGrid} 
+                    className={`cell c${cell.littleGrid}`}
+                    />,
+                    cell.littleGrid ===2 && <div className='clear'/>,
+                    cell.littleGrid ===5 && <div className='clear'/>,
+                    cell.littleGrid ===8 && <div className='clear'/>
+                  ]
+                })}
+            </div>
+          </div>,
+          miniBoard[0].bigGrid ===2 && <div className='clear'/>,
+          miniBoard[0].bigGrid ===5 && <div className='clear'/>,
+          miniBoard[0].bigGrid ===8 && <div className='clear'/>
+        ]
+      })
+    }
+    </div>
     )
   }
 }
