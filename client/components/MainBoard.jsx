@@ -134,7 +134,7 @@ class MainBoard extends Component {
       <div>
       {this.state.gameArr.map((miniBoard) => {
         return [
-          <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid}`}>
+          <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
             <div className="miniBoard">
               {miniBoard.map((cell) => {
                 return [
