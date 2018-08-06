@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {gameArr} from '../../lib/gameArr'
 
 class MainBoard extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
     this.state = {
       gameArr: gameArr
@@ -50,22 +50,20 @@ class MainBoard extends Component {
         lastTaken: true
       }
       this.props.handleClick()
-      this.backgroundStyle(e)
+      this.backgroundStyle(e, player)
       this.checkForWin(mini, player)
       this.makesOutOfBounds(cell)
     }
   }
 
-  backgroundStyle (e) {
+  backgroundStyle (e, player) {
+    let symbol = 'O'
     if (this.props.state.player) {
-      return (
-        e.target.style.backgroundColor = 'red'
-      )
-    } else {
-      return (
-        e.target.style.backgroundColor = 'blue'
-      )
+      symbol = 'X'
     }
+    e.target.innerHTML = symbol
+    e.target.style.color = `dark${player.color}`
+    e.target.style.backgroundColor = player.color
   }
 
   checkForWin (mini, player) {
@@ -129,34 +127,34 @@ class MainBoard extends Component {
 
   render () {
     return (
-      <div>
-      {this.state.gameArr.map((miniBoard) => {
-        return [
-          <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
-            <div className="miniBoard">
-              {miniBoard.map((cell) => {
-                return [
-                    <div 
-                    key= {cell.littleGrid} 
-                    onClick={this.handleClick} 
-                    name={cell.bigGrid} 
-                    value={cell.littleGrid} 
-                    className={`cell c${cell.littleGrid}`}
+      <div className='mainBoard'>
+        {this.state.gameArr.map((miniBoard) => {
+          return [
+            <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
+              <div className="miniBoard">
+                {miniBoard.map((cell) => {
+                  return [
+                    <div
+                      key= {cell.littleGrid}
+                      onClick={this.handleClick}
+                      name={cell.bigGrid}
+                      value={cell.littleGrid}
+                      className={`cell c${cell.littleGrid}`}
                     />,
-                    cell.littleGrid ===2 && <div className='clear'/>,
-                    cell.littleGrid ===5 && <div className='clear'/>,
-                    cell.littleGrid ===8 && <div className='clear'/>
+                    cell.littleGrid === 2 && <div className='clear'/>,
+                    cell.littleGrid === 5 && <div className='clear'/>,
+                    cell.littleGrid === 8 && <div className='clear'/>
                   ]
                 })}
-            </div>
-          </div>,
-          miniBoard[0].bigGrid ===2 && <div className='clear'/>,
-          miniBoard[0].bigGrid ===5 && <div className='clear'/>,
-          miniBoard[0].bigGrid ===8 && <div className='clear'/>
-        ]
-      })
-    }
-    </div>
+              </div>
+            </div>,
+            miniBoard[0].bigGrid === 2 && <div className='clear'/>,
+            miniBoard[0].bigGrid === 5 && <div className='clear'/>,
+            miniBoard[0].bigGrid === 8 && <div className='clear'/>
+          ]
+        })
+        }
+      </div>
     )
   }
 }

@@ -11,13 +11,13 @@ class TheGame extends Component {
     super(props)
     this.state = {
       player: false,
-      player1: {name: '', score: 0, color: 'red'},
-      player2: {name: '', score: 0, color: 'blue'},
+      player1: {name: '', color: 'red', score: 0},
+      player2: {name: '', color: 'blue', score: 0},
       style1: {},
       style2: {}
     }
     this.handleClick = this.handleClick.bind(this)
-    this.nameCallback = this.nameCallback.bind(this)
+    this.playerSelect = this.playerSelect.bind(this)
     this.handleScore = this.handleScore.bind(this)
   }
 
@@ -29,14 +29,14 @@ class TheGame extends Component {
     if (!this.state.player) {
       this.setState({
         player: true,
-        style1: {backgroundColor: 'red'},
+        style1: {backgroundColor: this.state.player1.color},
         style2: {backgroundColor: 'white'}
       })
     } else {
       this.setState({
         player: false,
         style1: {backgroundColor: 'white'},
-        style2: {backgroundColor: 'blue'}
+        style2: {backgroundColor: this.state.player2.color}
       })
     }
   }
@@ -44,16 +44,17 @@ class TheGame extends Component {
     this.setState({
       [player]: {
         name: player.name,
-        score: player.score += 1,
-        color: player.color}
+        color: player.color,
+        score: player.score += 1
+      }
     })
   }
 
-  nameCallback (playerNames) {
-    let {player1, player2} = playerNames
+  playerSelect (playerPicks) {
+    const {player1, p1Color, player2, p2Color} = playerPicks
     this.setState({
-      player1: {name: player1, score: 0, color: 'red'},
-      player2: {name: player2, score: 0, color: 'blue'}
+      player1: {name: player1, color: p1Color, score: 0},
+      player2: {name: player2, color: p2Color, score: 0}
     })
   }
 
@@ -63,7 +64,7 @@ class TheGame extends Component {
         <div>
           <Link to='/'><h1 className='title' >Ultimate noughts and crosses</h1></Link>
           <Route exact path='/' render={() =>
-            <PlayerSelect callback={this.nameCallback}/>} />
+            <PlayerSelect playerSelect={this.playerSelect}/>} />
           <Route path='/game' render={() =>
             <MainBoard
               state={this.state}
