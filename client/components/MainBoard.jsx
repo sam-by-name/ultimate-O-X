@@ -41,6 +41,8 @@ class MainBoard extends Component {
     let arr = gameArr[mini][cell]
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       gameArr[mini][cell] = {
+        bigGrid: Number(mini),
+        littleGrid: Number(cell),
         isAlive: false,
         isPlayable: true,
         takenBy: player.name,
