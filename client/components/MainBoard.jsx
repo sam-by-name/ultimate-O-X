@@ -78,16 +78,21 @@ class MainBoard extends Component {
       }
       if (temp === win[i]) {
         this.miniGameWonBy(mini, player.name)
-        this.checkForVictory(player)
+        this.checkForVictory(player, win, temp)
         return (document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor =
           `dark${player.color}`)
       } else { temp = '' }
     }
   }
 
-  checkForVictory (player) {
-    const win = ['012', '048', '036', '345', '147', '258', '246', '678']
-    let temp = ''
+  miniGameWonBy (mini, player) {
+    this.props.handleClick() // continue here
+    for (let i = 0; i < 9; i++) {
+      gameArr[mini][i].wonBy = player
+    }
+  }
+
+  checkForVictory (player, win, temp) {
     for (let i = 0; i < win.length; i++) {
       for (let j = 0; j < 9; j++) {
         if ((gameArr[j][0].wonBy === player.name) &&
@@ -102,14 +107,7 @@ class MainBoard extends Component {
     }
   }
 
-  miniGameWonBy (mini, player) {
-    this.props.handleClick() // continue here
-    for (let i = 0; i < 9; i++) {
-      gameArr[mini][i].wonBy = player
-    }
-  }
-
-  makesOutOfBounds (cell) { // works but could use a refactor
+  makesOutOfBounds (cell) {
     let boo1 = false
     let boo2 = true
     if (gameArr[cell][0].wonBy !== '') {
