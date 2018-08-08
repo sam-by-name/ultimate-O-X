@@ -17,19 +17,34 @@ class TheGame extends Component {
       style1: {},
       style2: {},
       victor: '',
-      victory: false
+      victory: false,
+      redirect: false,
+      clearBoard: '' // becomes a function
     }
-    this.handleClick = this.handleClick.bind(this)
-    this.playerSelect = this.playerSelect.bind(this)
-    this.handleScore = this.handleScore.bind(this)
-    this.handleVictory = this.handleVictory.bind(this)
   }
 
-  componentDidMount () {
+  refreshState = () => {
+    this.setState({
+      player: false,
+      player1: {name: this.state.player1.name,
+        color: this.state.player1.color,
+        score: 0},
+      player2: {name: this.state.player2.name,
+        color: this.state.player2.color,
+        score: 0},
+      style1: this.state.style1,
+      style2: this.state.style2,
+      victor: '',
+      victory: false
+    })
+    this.state.clearBoard()
+  }
+
+  componentDidMount = () => {
     this.handleClick()
   }
 
-  handleClick () {
+  handleClick = () => {
     if (!this.state.player) {
       this.setState({
         player: true,
@@ -45,7 +60,7 @@ class TheGame extends Component {
     }
   }
 
-  handleScore (player) {
+  handleScore = (player) => {
     this.setState({
       [player]: {
         name: player.name,
@@ -55,18 +70,20 @@ class TheGame extends Component {
     })
   }
 
-  handleVictory (player) {
+  handleVictory = (player, clearBoard) => {
     this.setState({
       victor: player.name.toUpperCase(),
-      victory: true
+      victory: true,
+      clearBoard: clearBoard
     })
   }
 
-  playerSelect (playerPicks) {
+  playerSelect = (playerPicks) => {
     const {player1, p1Color, player2, p2Color} = playerPicks
     this.setState({
       player1: {name: player1, color: p1Color, score: 0},
-      player2: {name: player2, color: p2Color, score: 0}
+      player2: {name: player2, color: p2Color, score: 0},
+      redirect: true
     })
   }
 
@@ -74,9 +91,9 @@ class TheGame extends Component {
     return (
       <Router>
         <div>
-          <Link to='/'><h1 className='title' >Ultimate noughts and crosses</h1></Link>
+          <Link to='/'><h1 className='title' >Ultimate naughts and crosses</h1></Link>
           <Route exact path='/' render={() =>
-            <PlayerSelect playerSelect={this.playerSelect}/>} />
+            <PlayerSelect state={this.state} playerSelect={this.playerSelect}/>} />
           <Route path='/game' render={() =>
             <MainBoard
               state={this.state}
@@ -84,7 +101,10 @@ class TheGame extends Component {
               handleClick={this.handleClick}
               handleVictory={this.handleVictory}/>}
           />
-          {this.state.victory && <Victory state={this.state}/>}
+          {/* {this.state.victory && <Victory
+            refreshState={this.refreshState} state={this.state}/>} */}
+            <Victory
+            refreshState={this.refreshState} state={this.state}/>}
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>

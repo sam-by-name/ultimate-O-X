@@ -7,17 +7,9 @@ class MainBoard extends Component {
     this.state = {
       gameArr: gameArr
     }
-    this.handleClick = this.handleClick.bind(this)
-    this.backgroundStyle = this.backgroundStyle.bind(this)
-    this.gameArrEdit = this.gameArrEdit.bind(this)
-    this.clearLastTaken = this.clearLastTaken.bind(this)
-    this.checkForWin = this.checkForWin.bind(this)
-    this.checkForVictory = this.checkForVictory.bind(this)
-    this.makesOutOfBounds = this.makesOutOfBounds.bind(this)
-    this.miniGameWonBy = this.miniGameWonBy.bind(this)
   }
 
-  handleClick (e) {
+  handleClick = (e) => {
     let state = this.props.state
     this.clearLastTaken()
     if (state.player) {
@@ -27,7 +19,7 @@ class MainBoard extends Component {
     }
   }
 
-  clearLastTaken () {
+  clearLastTaken = () => {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         gameArr[i][j].lastTaken = false
@@ -35,7 +27,7 @@ class MainBoard extends Component {
     }
   }
 
-  gameArrEdit (e, player) {
+  gameArrEdit = (e, player) => {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
     let arr = gameArr[mini][cell]
@@ -56,7 +48,7 @@ class MainBoard extends Component {
     }
   }
 
-  backgroundStyle (e, player) {
+  backgroundStyle = (e, player) => {
     let symbol = 'O'
     if (this.props.state.player) {
       symbol = 'X'
@@ -66,7 +58,7 @@ class MainBoard extends Component {
     e.target.style.backgroundColor = player.color
   }
 
-  checkForWin (mini, player) {
+  checkForWin = (mini, player) => {
     const win = ['012', '048', '036', '345', '147', '258', '246', '678']
     let temp = ''
     for (let i = 0; i < win.length; i++) {
@@ -85,14 +77,14 @@ class MainBoard extends Component {
     }
   }
 
-  miniGameWonBy (mini, player) {
+  miniGameWonBy = (mini, player) => {
     this.props.handleScore(player)
     for (let i = 0; i < 9; i++) {
       gameArr[mini][i].wonBy = player.name
     }
   }
 
-  checkForVictory (player, win, temp) {
+  checkForVictory = (player, win, temp) => {
     for (let i = 0; i < win.length; i++) {
       for (let j = 0; j < 9; j++) {
         if ((gameArr[j][0].wonBy === player.name) &&
@@ -103,12 +95,20 @@ class MainBoard extends Component {
       if (temp === win[i]) {
         document.getElementsByClassName('mainBoard')[0].style.backgroundColor =
           `dark${player.color}`
-        this.props.handleVictory(player)
+        this.props.handleVictory(player, this.clearBoard)
       } else { temp = '' }
     }
   }
 
-  makesOutOfBounds (cell) {
+  clearBoard = () => {
+    this.setState({gameArr: gameArr})
+    for (let i = 0; i < 9; i++) {
+      document.getElementsByClassName(`w${i}`)[0].style.backgroundColor =
+      'white'
+    }
+  }
+
+  makesOutOfBounds = (cell) => {
     let boo1 = false
     let boo2 = true
     if (gameArr[cell][0].wonBy !== '') {

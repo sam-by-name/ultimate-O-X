@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {colorArr} from '../../lib/gameArr'
 
 class PlayerSelect extends Component {
@@ -30,6 +30,11 @@ class PlayerSelect extends Component {
   }
 
   render () {
+    if (this.props.state.redirect) {
+      return (
+        <Redirect to='/game' />
+      )
+    }
     return (
       <div>
         <form>
@@ -64,8 +69,7 @@ class PlayerSelect extends Component {
                 )
               })}
             </select>
-            <button onClick={this.handleSubmit} />
-            <Link to='/game' type='button'>Play</Link>
+            <button onClick={this.handleSubmit}>Play</button>
           </fieldset>
         </form>
       </div>
