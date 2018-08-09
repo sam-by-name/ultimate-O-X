@@ -23,7 +23,7 @@ body {
 }
 
 .cell {
-  font-size: 190%;
+  font-size: 120%;
   text-align: center;
   width: 50px;
   height: 50px;
@@ -87,4 +87,15 @@ body {
 
 .c8 {
   float: left;
+}
+
+.player1 {
+  float: left;
+  margin-left: 30%;
+}
+
+.player2 {
+  margin-right: 30%;
+  float: right;
+  text-align: right;
 }
