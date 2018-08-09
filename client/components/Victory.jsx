@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import {generateBoard} from '../../lib/gameArr'
+// import {cloneArr, mainArr} from '../../lib/mainArr'
 
 class Victory extends Component {
   constructor (props) {
@@ -23,12 +23,13 @@ class Victory extends Component {
   }
 
   rematch () {
-    //this.redirect('rematch')
-    this.props.refreshState()
+    // this.redirect('rematch')
+    this.props.state.clearBoard()
+    this.props.rematch()
   }
 
   newGame () {
-   generateBoard()
+    this.props.state.clearBoard()
     this.redirect('newGame')
   }
 
@@ -38,11 +39,11 @@ class Victory extends Component {
   render () {
     if (this.state.redirect && this.state.rematch) {
       return (
-        <Redirect push to='/game' />
+        <Redirect to='/game' />
       )
     } else if (this.state.redirect && this.state.newGame) {
       return (
-        <Redirect push to='/' />
+        <Redirect to='/' />
       )
     }
     return (

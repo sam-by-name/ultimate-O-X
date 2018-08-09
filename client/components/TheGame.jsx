@@ -23,7 +23,7 @@ class TheGame extends Component {
     }
   }
 
-  refreshState = () => {
+  rematch = () => {
     this.setState({
       player: false,
       player1: {name: this.state.player1.name,
@@ -104,7 +104,7 @@ class TheGame extends Component {
           {/* {this.state.victory && <Victory
             refreshState={this.refreshState} state={this.state}/>} */}
             <Victory
-            refreshState={this.refreshState} state={this.state}/>}
+            rematch={this.rematch} state={this.state}/>}
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>

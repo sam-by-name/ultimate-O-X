@@ -1,38 +1,38 @@
 import React, {Component} from 'react'
-import {gameArr} from '../../lib/gameArr'
+import {mainArr, cloneArr} from '../../lib/mainArr'
 
 class MainBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      gameArr: gameArr
+      cloneArr: cloneArr
     }
   }
-
+  
   handleClick = (e) => {
     let state = this.props.state
     this.clearLastTaken()
     if (state.player) {
-      this.gameArrEdit(e, state.player1)
+      this.cloneArrEdit(e, state.player1)
     } else {
-      this.gameArrEdit(e, state.player2)
+      this.cloneArrEdit(e, state.player2)
     }
   }
 
   clearLastTaken = () => {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        gameArr[i][j].lastTaken = false
+        this.state.cloneArr[i][j].lastTaken = false
       }
     }
   }
 
-  gameArrEdit = (e, player) => {
+  cloneArrEdit = (e, player) => {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
-    let arr = gameArr[mini][cell]
+    let arr = this.state.cloneArr[mini][cell]
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
-      gameArr[mini][cell] = {
+      this.state.cloneArr[mini][cell] = {
         bigGrid: Number(mini),
         littleGrid: Number(cell),
         isAlive: false,
@@ -63,7 +63,7 @@ class MainBoard extends Component {
     let temp = ''
     for (let i = 0; i < win.length; i++) {
       for (let j = 0; j < 9; j++) {
-        if ((gameArr[mini][j].takenBy === player.name) &&
+        if ((this.state.cloneArr[mini][j].takenBy === player.name) &&
           (j === win[i][0] || win[i][1] || win[i][2])) {
           temp += `${j}`
         }
@@ -80,14 +80,14 @@ class MainBoard extends Component {
   miniGameWonBy = (mini, player) => {
     this.props.handleScore(player)
     for (let i = 0; i < 9; i++) {
-      gameArr[mini][i].wonBy = player.name
+      this.state.cloneArr[mini][i].wonBy = player.name
     }
   }
 
   checkForVictory = (player, win, temp) => {
     for (let i = 0; i < win.length; i++) {
       for (let j = 0; j < 9; j++) {
-        if ((gameArr[j][0].wonBy === player.name) &&
+        if ((this.state.cloneArr[j][0].wonBy === player.name) &&
           (j === win[i][0] || win[i][1] || win[i][2])) {
           temp += `${j}`
         }
@@ -101,26 +101,29 @@ class MainBoard extends Component {
   }
 
   clearBoard = () => {
-    this.setState({gameArr: gameArr})
-    for (let i = 0; i < 9; i++) {
-      document.getElementsByClassName(`w${i}`)[0].style.backgroundColor =
-      'white'
-    }
+    let newClone = JSON.parse(JSON.stringify(mainArr))
+    this.setState({
+      cloneArr: newClone
+    })
+    // for (let i = 0; i < 9; i++) {
+    //   document.getElementsByClassName(`w${i}`)[0].style.backgroundColor =
+    //   'white'
+    // }
   }
 
   makesOutOfBounds = (cell) => {
     let boo1 = false
     let boo2 = true
-    if (gameArr[cell][0].wonBy !== '') {
+    if (this.state.cloneArr[cell][0].wonBy !== '') {
       boo1 = true
       boo2 = false
     }
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         if (i !== Number(cell)) {
-          gameArr[i][j].isPlayable = boo1
+          this.state.cloneArr[i][j].isPlayable = boo1
         } else {
-          gameArr[i][j].isPlayable = boo2
+          this.state.cloneArr[i][j].isPlayable = boo2
         }
       }
     }
@@ -129,7 +132,7 @@ class MainBoard extends Component {
   render () {
     return (
       <div className='mainBoard'>
-        {this.state.gameArr.map((miniBoard) => {
+        {this.state.cloneArr.map((miniBoard) => {
           return [
             <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
               <div className='miniBoard'>
