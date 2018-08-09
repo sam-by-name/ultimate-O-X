@@ -40,24 +40,14 @@ class MainBoard extends Component {
         takenBy: player.name,
         playerSymbol: player.symbol,
         wonBy: '',
+        winColor: {backgroundColor: 'white'},
         lastTaken: true,
         style: {backgroundColor: player.color, color: `dark${player.color}`}
       }
       this.props.handleClick()
-      // this.backgroundStyle(e, player)
       this.checkForWin(mini, player)
       this.makesOutOfBounds(cell)
     }
-  }
-
-  backgroundStyle = (e, player) => {
-    let symbol = 'O'
-    if (this.props.state.player) {
-      symbol = 'X'
-    }
-    e.target.innerHTML = symbol
-    e.target.style.color = `dark${player.color}`
-    e.target.style.backgroundColor = player.color
   }
 
   checkForWin = (mini, player) => {
@@ -73,8 +63,6 @@ class MainBoard extends Component {
       if (temp === win[i]) {
         this.miniGameWonBy(mini, player)
         this.checkForVictory(player, win, temp)
-        return (document.getElementsByClassName(`w${mini}`)[0].style.backgroundColor =
-          `dark${player.color}`)
       } else { temp = '' }
     }
   }
@@ -83,6 +71,7 @@ class MainBoard extends Component {
     this.props.handleScore(player)
     for (let i = 0; i < 9; i++) {
       this.state.cloneArr[mini][i].wonBy = player.name
+      this.state.cloneArr[mini][i].winColor = {backgroundColor: `dark${player.color}`}
     }
   }
 
@@ -107,10 +96,8 @@ class MainBoard extends Component {
     this.setState({
       cloneArr: newClone
     })
-    for (let i = 0; i < 9; i++) {
-      document.getElementsByClassName(`w${i}`)[0].style.backgroundColor =
+      document.getElementsByClassName('mainBoard')[0].style.backgroundColor =
       'white'
-    }
   }
 
   makesOutOfBounds = (cell) => {
@@ -136,7 +123,8 @@ class MainBoard extends Component {
       <div className='mainBoard'>
         {this.state.cloneArr.map((miniBoard) => {
           return [
-            <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
+            <div key ={miniBoard[0].bigGrid} style={miniBoard[0].winColor}
+            className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
               <div key= {miniBoard[0].bigGrid} className='miniBoard'>
                 {miniBoard.map((cell) => {
                   return [

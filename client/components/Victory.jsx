@@ -1,47 +1,34 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-// import {cloneArr, mainArr} from '../../lib/mainArr'
 
 class Victory extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      redirect: false,
-      rematch: false,
-      newGame: false
+      redirect: false
     }
-    this.rematch = this.rematch.bind(this)
-    this.newGame = this.newGame.bind(this)
-    this.noMore = this.noMore.bind(this)
-    this.redirect = this.redirect.bind(this)
-  }
-  redirect (to) {
-    this.setState({
-      redirect: true,
-      [to]: true
-    })
   }
 
-  rematch () {
-    // this.redirect('rematch')
+  // redirect = () => {
+  //   this.setState({redirect: false})
+  // }
+
+  rematch = () => {
     this.props.state.clearBoard()
     this.props.rematch()
   }
 
-  newGame () {
+  newGame = () => {
     this.props.state.clearBoard()
-    this.redirect('newGame')
+    this.props.newGame()
+    this.setState({redirect: true})
   }
 
-  noMore () {
+  noMore = () => {
     return alert("What's wrong ... you chicken?")
   }
   render () {
-    if (this.state.redirect && this.state.rematch) {
-      return (
-        <Redirect to='/game' />
-      )
-    } else if (this.state.redirect && this.state.newGame) {
+    if (this.state.redirect) {
       return (
         <Redirect to='/' />
       )

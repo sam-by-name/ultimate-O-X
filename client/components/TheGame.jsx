@@ -19,8 +19,22 @@ class TheGame extends Component {
       victor: '',
       victory: false,
       redirect: false,
-      clearBoard: '' // becomes a function
+      clearBoard: '' 
     }
+  }
+  
+  newGame = () => {
+    this.setState({
+      player: false,
+      player1: {name: '', color: 'red', symbol: 'X', score: 0},
+      player2: {name: '', color: 'blue', symbol: 'O', score: 0},
+      style1: {},
+      style2: {},
+      victor: '',
+      victory: false,
+      redirect: false,
+      clearBoard: '' 
+    })
   }
 
   rematch = () => {
@@ -35,12 +49,13 @@ class TheGame extends Component {
       style1: this.state.style1,
       style2: this.state.style2,
       victor: '',
-      victory: false
+      victory: false,
+      redirect: false,
+      clearBoard: '' 
     })
-    this.state.clearBoard()
   }
 
-  componentDidMount = () => {
+  componentDidMount = () => { // fix this unnecessary nonsense
     this.handleClick()
   }
 
@@ -94,17 +109,17 @@ class TheGame extends Component {
           <Title />
           <Route exact path='/' render={() =>
             <PlayerSelect state={this.state} playerSelect={this.playerSelect}/>} />
-          <Route path='/game' render={() =>
+          <Route exact path='/game' render={() =>
             <MainBoard
               state={this.state}
               handleScore={this.handleScore}
               handleClick={this.handleClick}
               handleVictory={this.handleVictory}/>}
           />
-          {/* {this.state.victory && <Victory
-            refreshState={this.refreshState} state={this.state}/>} */}
-            <Victory
-            rematch={this.rematch} state={this.state}/>}
+          {this.state.victory && <Victory
+            rematch={this.rematch} newGame={this.newGame} state={this.state}/>}
+            {/* <Victory
+            rematch={this.rematch} newGame={this.newGame} state={this.state}/>} */}
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>
