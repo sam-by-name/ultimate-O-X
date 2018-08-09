@@ -38,9 +38,10 @@ class MainBoard extends Component {
         isAlive: false,
         isPlayable: true,
         takenBy: player.name,
+        playerSymbol: player.symbol,
         wonBy: '',
         lastTaken: true,
-        style: {backgroundColor: player.color}
+        style: {backgroundColor: player.color, color: `dark${player.color}`}
       }
       this.props.handleClick()
       // this.backgroundStyle(e, player)
@@ -106,10 +107,10 @@ class MainBoard extends Component {
     this.setState({
       cloneArr: newClone
     })
-    // for (let i = 0; i < 9; i++) {
-    //   document.getElementsByClassName(`w${i}`)[0].style.backgroundColor =
-    //   'white'
-    // }
+    for (let i = 0; i < 9; i++) {
+      document.getElementsByClassName(`w${i}`)[0].style.backgroundColor =
+      'white'
+    }
   }
 
   makesOutOfBounds = (cell) => {
@@ -146,7 +147,7 @@ class MainBoard extends Component {
                       name={cell.bigGrid}
                       value={cell.littleGrid}
                       className={`cell c${cell.littleGrid}`}
-                    />,
+                    >{cell.playerSymbol}</div>,
                     cell.littleGrid === 2 && <div className='clear'/>,
                     cell.littleGrid === 5 && <div className='clear'/>,
                     cell.littleGrid === 8 && <div className='clear'/>

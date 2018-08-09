@@ -12,8 +12,8 @@ class TheGame extends Component {
     super(props)
     this.state = {
       player: false,
-      player1: {name: '', color: 'red', score: 0},
-      player2: {name: '', color: 'blue', score: 0},
+      player1: {name: '', color: 'red', symbol: 'X', score: 0},
+      player2: {name: '', color: 'blue', symbol: 'O', score: 0},
       style1: {},
       style2: {},
       victor: '',
@@ -81,8 +81,8 @@ class TheGame extends Component {
   playerSelect = (playerPicks) => {
     const {player1, p1Color, player2, p2Color} = playerPicks
     this.setState({
-      player1: {name: player1, color: p1Color, score: 0},
-      player2: {name: player2, color: p2Color, score: 0},
+      player1: {name: player1, color: p1Color, symbol: 'X', score: 0},
+      player2: {name: player2, color: p2Color, symbol: 'O', score: 0},
       redirect: true
     })
   }
