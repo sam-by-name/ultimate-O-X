@@ -23,11 +23,12 @@ class TheGame extends Component {
     }
   }
   
-  newGame = () => {
+  playAgain = (player1, player2) => {
+    this.state.clearBoard()
     this.setState({
       player: false,
-      player1: {name: '', color: 'red', symbol: 'X', score: 0},
-      player2: {name: '', color: 'blue', symbol: 'O', score: 0},
+      player1: player1 || {name: '', color: 'red', symbol: 'X', score: 0},
+      player2: player2 || {name: '', color: 'blue', symbol: 'O', score: 0},
       style1: {},
       style2: {},
       victor: '',
@@ -35,29 +36,6 @@ class TheGame extends Component {
       redirect: false,
       clearBoard: '' 
     })
-  }
-
-  rematch = () => {
-    this.setState({
-      player: false,
-      player1: {name: this.state.player1.name,
-        color: this.state.player1.color,
-        symbol: 'X',
-        score: 0},
-      player2: {name: this.state.player2.name,
-        color: this.state.player2.color,
-        symbol: 'O',
-        score: 0},
-      style1: this.state.style1,
-      style2: this.state.style2,
-      victor: '',
-      victory: false,
-      redirect: false,
-      clearBoard: '' 
-    })
-  }
-
-  componentDidMount = () => { // fix this unnecessary nonsense
     this.handleClick()
   }
 
@@ -80,8 +58,6 @@ class TheGame extends Component {
   handleScore = (player) => {
     this.setState({
       [player]: {
-        name: player.name,
-        color: player.color,
         score: player.score += 1
       }
     })
@@ -91,6 +67,7 @@ class TheGame extends Component {
     this.setState({
       victor: player.name.toUpperCase(),
       victory: true,
+      redirect: false, 
       clearBoard: clearBoard
     })
   }
@@ -102,6 +79,7 @@ class TheGame extends Component {
       player2: {name: player2, color: p2Color, symbol: 'O', score: 0},
       redirect: true
     })
+    this.handleClick()
   }
 
   render () {
@@ -119,9 +97,7 @@ class TheGame extends Component {
               handleVictory={this.handleVictory}/>}
           />
           {this.state.victory && <Victory
-            rematch={this.rematch} newGame={this.newGame} state={this.state}/>}
-            {/* <Victory
-            rematch={this.rematch} newGame={this.newGame} state={this.state}/>} */}
+            playAgain={this.playAgain} state={this.state}/>}
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>

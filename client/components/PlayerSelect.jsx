@@ -41,7 +41,6 @@ class PlayerSelect extends Component {
             <input
               type='text'
               name='player1'
-              id=''
               placeholder='Player one'
               onChange={this.handleChange}
               value={this.state.player1.name} />
@@ -56,7 +55,6 @@ class PlayerSelect extends Component {
             <input
               type='text'
               name='player2'
-              id=''
               placeholder='Player two'
               onChange={this.handleChange}
               value={this.state.player2.name} />

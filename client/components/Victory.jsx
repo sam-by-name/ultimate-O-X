@@ -9,19 +9,32 @@ class Victory extends Component {
     }
   }
 
-  // redirect = () => {
-  //   this.setState({redirect: false})
-  // }
+  redirect = () => {
+    if (this.state.redirect) {
+      this.setState({redirect: false})
+    } else {
+      this.setState({redirect: true})
+    }
+  }
 
   rematch = () => {
-    this.props.state.clearBoard()
-    this.props.rematch()
+    let state = this.props.state
+    let player1 = {
+      name: state.player1.name,
+      color: state.player1.color,
+      symbol: 'X',
+      score: 0}
+    let player2 = {
+      name: state.player2.name,
+      color: state.player2.color,
+      symbol: 'O',
+      score: 0}
+    this.props.playAgain(player1, player2)
   }
 
   newGame = () => {
-    this.props.state.clearBoard()
-    this.props.newGame()
-    this.setState({redirect: true})
+    this.props.playAgain(this.redirect())
+    this.redirect()
   }
 
   noMore = () => {
