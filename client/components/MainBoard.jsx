@@ -134,27 +134,27 @@ class MainBoard extends Component {
       <div className='mainBoard'>
         {this.state.cloneArr.map((miniBoard) => {
           return [
-            <div key ={miniBoard[0].bigGrid} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
-              <div className='miniBoard'>
+            <div key ={Math.random()} className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
+              <div key= {Math.random()} className='miniBoard'>
                 {miniBoard.map((cell) => {
                   return [
                     <div
-                      key= {cell.littleGrid}
+                      key= {Math.random()}
                       onClick={this.handleClick}
                       name={cell.bigGrid}
                       value={cell.littleGrid}
                       className={`cell c${cell.littleGrid}`}
                     />,
-                    cell.littleGrid === 2 && <div className='clear'/>,
-                    cell.littleGrid === 5 && <div className='clear'/>,
-                    cell.littleGrid === 8 && <div className='clear'/>
+                    cell.littleGrid === 2 && <div key= {Math.random()} className='clear'/>,
+                    cell.littleGrid === 5 && <div key= {Math.random()} className='clear'/>,
+                    cell.littleGrid === 8 && <div key= {Math.random()} className='clear'/>
                   ]
                 })}
               </div>
             </div>,
-            miniBoard[0].bigGrid === 2 && <div className='clear'/>,
-            miniBoard[0].bigGrid === 5 && <div className='clear'/>,
-            miniBoard[0].bigGrid === 8 && <div className='clear'/>
+            miniBoard[0].bigGrid === 2 && <div key= {Math.random()} className='clear'/>,
+            miniBoard[0].bigGrid === 5 && <div key= {Math.random()} className='clear'/>,
+            miniBoard[0].bigGrid === 8 && <div key= {Math.random()} className='clear'/>
           ]
         })
         }
