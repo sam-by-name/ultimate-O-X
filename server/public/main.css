@@ -6,12 +6,16 @@ body {
   margin: 0;
 }
 
+.titleCont {
+  width: 960px;
+  margin: 0 auto;
+}
+
 .title {
-  color: dark;
-  width: 670px;
+  width: 560px;
   font-weight: bold;
   font-size: 2.5em;
-  margin: 100px auto;
+  margin: 50px auto;
 }
 
 .clear {
@@ -21,20 +25,20 @@ body {
 .cell {
   font-size: 190%;
   text-align: center;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
 }
 
 .mainBoard {
   font-size: 3em;
-  height: 1284px;
-  width: 1246px;
-  margin: 300px auto;
+  height: 724px;
+  width: 686px;
+  margin: 0 auto;
 }
 
 .miniBoard {
   float: left;
-  margin: 50px;
+  margin: 35px;
 }
 
 .c0 {

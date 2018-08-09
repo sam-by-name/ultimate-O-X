@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import {HashRouter as Router, Route, Link} from 'react-router-dom'
+import {HashRouter as Router, Route} from 'react-router-dom'
 
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
-// import Title from './Title'
+import Title from './Title'
 import ScoreBoard from './ScoreBoard'
 
 class TheGame extends Component {
@@ -62,7 +62,7 @@ class TheGame extends Component {
     return (
       <Router>
         <div>
-          <Link to='/'><h1 className='title' >Ultimate noughts and crosses</h1></Link>
+          <Title />
           <Route exact path='/' render={() =>
             <PlayerSelect playerSelect={this.playerSelect}/>} />
           <Route path='/game' render={() =>
