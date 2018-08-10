@@ -1,20 +1,8 @@
 import React, {Component} from 'react'
-import {Redirect} from 'react-router-dom'
 
 class Victory extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      redirect: false
-    }
-  }
-
-  redirect = () => {
-    if (this.state.redirect) {
-      this.setState({redirect: false})
-    } else {
-      this.setState({redirect: true})
-    }
   }
 
   rematch = () => {
@@ -29,23 +17,17 @@ class Victory extends Component {
       color: state.player2.color,
       symbol: 'O',
       score: 0}
-    this.props.playAgain(player1, player2)
+    this.props.playAgain(false, player1, player2)
   }
 
   newGame = () => {
-    this.props.playAgain(this.redirect())
-    this.redirect()
+    this.props.playAgain(true)
   }
 
   noMore = () => {
     return alert("What's wrong ... you chicken?")
   }
   render () {
-    if (this.state.redirect) {
-      return (
-        <Redirect to='/' />
-      )
-    }
     return (
       <div>
         <span>{`${this.props.state.victor} WINS!`}</span>

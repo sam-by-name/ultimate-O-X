@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {HashRouter as Router, Route} from 'react-router-dom'
+import {HashRouter as Router, Route, Redirect} from 'react-router-dom'
 
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
@@ -19,11 +19,12 @@ class TheGame extends Component {
       victor: '',
       victory: false,
       redirect: false,
+      victoryRedirect: false,
       clearBoard: '' 
     }
   }
   
-  playAgain = (player1, player2) => {
+  playAgain = (boolean, player1, player2) => {
     this.state.clearBoard()
     this.setState({
       player: false,
@@ -34,6 +35,7 @@ class TheGame extends Component {
       victor: '',
       victory: false,
       redirect: false,
+      victoryRedirect: boolean,
       clearBoard: '' 
     })
     this.handleClick()
@@ -68,6 +70,7 @@ class TheGame extends Component {
       victor: player.name.toUpperCase(),
       victory: true,
       redirect: false, 
+      victoryRedirect: false,
       clearBoard: clearBoard
     })
   }
@@ -86,6 +89,7 @@ class TheGame extends Component {
     return (
       <Router>
         <div>
+          {this.state.victoryRedirect && <Redirect to='/' />}
           <Title />
           <Route exact path='/' render={() =>
             <PlayerSelect state={this.state} playerSelect={this.playerSelect}/>} />

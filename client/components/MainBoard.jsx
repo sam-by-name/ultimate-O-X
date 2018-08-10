@@ -1,12 +1,16 @@
 import React, {Component} from 'react'
-import {mainArr, cloneArr} from '../../lib/mainArr'
+import {mainArr} from '../../lib/mainArr'
 
 class MainBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      cloneArr: cloneArr
+      cloneArr: this.createArr()
     }
+  }
+
+  createArr() {
+    return JSON.parse(JSON.stringify(mainArr))
   }
   
   handleClick = (e) => {
@@ -92,9 +96,8 @@ class MainBoard extends Component {
   }
 
   clearBoard = () => {
-    let newClone = JSON.parse(JSON.stringify(mainArr))
     this.setState({
-      cloneArr: newClone
+      cloneArr: this.createArr()
     })
       document.getElementsByClassName('mainBoard')[0].style.backgroundColor =
       'white'
