@@ -5,7 +5,9 @@ class MainBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      cloneArr: this.createArr()
+      cloneArr: this.createArr(),
+      lastLatLong: {bigGrid: 0, littleGrid: 0},
+      lastTaken: 0
     }
   }
 
@@ -24,11 +26,12 @@ class MainBoard extends Component {
   }
 
   clearLastTaken = () => {
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        this.state.cloneArr[i][j].lastTaken = false
-      }
-    }
+    let i = this.state.lastLatLong.bigGrid
+    let j = this.state.lastLatLong.littleGrid
+      this.state.cloneArr[i][j].lastTaken = false
+      this.state.cloneArr[i][j].style = {
+        backgroundColor: this.state.lastTaken,
+        color: `dark${this.state.lastTaken}`}
   }
 
   cloneArrEdit = (e, player) => {
@@ -46,12 +49,22 @@ class MainBoard extends Component {
         wonBy: '',
         winColor: {backgroundColor: 'white'},
         lastTaken: true,
-        style: {backgroundColor: player.color, color: `dark${player.color}`}
+        style: {backgroundColor: player.color,
+          color: `lime`}
       }
       this.props.handleClick()
       this.checkForWin(mini, player)
       this.makesOutOfBounds(cell)
+      this.lastTaken(mini, cell)
     }
+  }
+
+  lastTaken(mini, cell) {
+    let lastColor = this.state.cloneArr[mini][cell].style
+    this.setState({
+      lastLatLong: {bigGrid: mini, littleGrid: cell},
+      lastTaken: lastColor.backgroundColor
+    })
   }
 
   checkForWin = (mini, player) => {
@@ -137,8 +150,9 @@ class MainBoard extends Component {
                       onClick={this.handleClick}
                       name={cell.bigGrid}
                       value={cell.littleGrid}
-                      className={`cell c${cell.littleGrid}`}
-                    >{cell.playerSymbol}</div>,
+                      className={`cell c${cell.littleGrid}`}>
+                    {cell.playerSymbol}
+                    </div>,
                     cell.littleGrid === 2 && <div className='clear'/>,
                     cell.littleGrid === 5 && <div className='clear'/>,
                     cell.littleGrid === 8 && <div className='clear'/>
