@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {HashRouter as Router, Route} from 'react-router-dom'
+import {HashRouter as Router, Route, Redirect} from 'react-router-dom'
 
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
+import Victory from './Victory'
 import Title from './Title'
 import ScoreBoard from './ScoreBoard'
 
@@ -11,21 +12,36 @@ class TheGame extends Component {
     super(props)
     this.state = {
       player: false,
-      player1: {name: '', color: 'red', score: 0},
-      player2: {name: '', color: 'blue', score: 0},
+      player1: {name: '', color: 'red', symbol: 'X', score: 0},
+      player2: {name: '', color: 'blue', symbol: 'O', score: 0},
       style1: {},
-      style2: {}
+      style2: {},
+      victor: '',
+      victory: false,
+      redirect: false,
+      victoryRedirect: false,
+      clearBoard: '' 
     }
-    this.handleClick = this.handleClick.bind(this)
-    this.playerSelect = this.playerSelect.bind(this)
-    this.handleScore = this.handleScore.bind(this)
   }
-
-  componentDidMount () {
+  
+  playAgain = (boolean, player1, player2) => {
+    this.state.clearBoard()
+    this.setState({
+      player: false,
+      player1: player1 || {name: '', color: 'red', symbol: 'X', score: 0},
+      player2: player2 || {name: '', color: 'blue', symbol: 'O', score: 0},
+      style1: {},
+      style2: {},
+      victor: '',
+      victory: false,
+      redirect: false,
+      victoryRedirect: boolean,
+      clearBoard: '' 
+    })
     this.handleClick()
   }
 
-  handleClick () {
+  handleClick = () => {
     if (!this.state.player) {
       this.setState({
         player: true,
@@ -40,37 +56,52 @@ class TheGame extends Component {
       })
     }
   }
-  handleScore (player) {
+
+  handleScore = (player) => {
     this.setState({
       [player]: {
-        name: player.name,
-        color: player.color,
         score: player.score += 1
       }
     })
   }
 
-  playerSelect (playerPicks) {
+  handleVictory = (player, clearBoard) => {
+    this.setState({
+      victor: player.name.toUpperCase(),
+      victory: true,
+      redirect: false, 
+      victoryRedirect: false,
+      clearBoard: clearBoard
+    })
+  }
+
+  playerSelect = (playerPicks) => {
     const {player1, p1Color, player2, p2Color} = playerPicks
     this.setState({
-      player1: {name: player1, color: p1Color, score: 0},
-      player2: {name: player2, color: p2Color, score: 0}
+      player1: {name: player1, color: p1Color, symbol: 'X', score: 0},
+      player2: {name: player2, color: p2Color, symbol: 'O', score: 0},
+      redirect: true
     })
+    this.handleClick()
   }
 
   render () {
     return (
       <Router>
         <div>
+          {this.state.victoryRedirect && <Redirect to='/' />}
           <Title />
           <Route exact path='/' render={() =>
-            <PlayerSelect playerSelect={this.playerSelect}/>} />
-          <Route path='/game' render={() =>
+            <PlayerSelect state={this.state} playerSelect={this.playerSelect}/>} />
+          <Route exact path='/game' render={() =>
             <MainBoard
               state={this.state}
               handleScore={this.handleScore}
-              handleClick={this.handleClick}/>}
+              handleClick={this.handleClick}
+              handleVictory={this.handleVictory}/>}
           />
+          {this.state.victory && <Victory
+            playAgain={this.playAgain} state={this.state}/>}
           <ScoreBoard mainState={this.state}/>
         </div>
       </Router>

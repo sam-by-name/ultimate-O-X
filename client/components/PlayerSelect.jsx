@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
-import {colorArr} from '../../lib/gameArr'
+import {Redirect} from 'react-router-dom'
+import {colorArr} from '../../lib/mainArr'
 
 class PlayerSelect extends Component {
   constructor (props) {
@@ -8,23 +8,19 @@ class PlayerSelect extends Component {
     this.state = {
       player1: '',
       p1Color: 'red',
-      // p1Icon: '',
       player2: '',
       p2Color: 'blue'
-      // p2Icon: ''
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange (e) {
+  handleChange = (e) => {
     const {name, value} = e.target
     this.setState({
       [name]: value
     })
   }
 
-  handleSubmit (e) {
+  handleSubmit = (e) => {
     this.props.playerSelect(
       this.state
     )
@@ -32,6 +28,11 @@ class PlayerSelect extends Component {
   }
 
   render () {
+    if (this.props.state.redirect) {
+      return (
+        <Redirect to='/game' />
+      )
+    }
     return (
       <div>
         <form>
@@ -40,7 +41,6 @@ class PlayerSelect extends Component {
             <input
               type='text'
               name='player1'
-              id=''
               placeholder='Player one'
               onChange={this.handleChange}
               value={this.state.player1.name} />
@@ -55,7 +55,6 @@ class PlayerSelect extends Component {
             <input
               type='text'
               name='player2'
-              id=''
               placeholder='Player two'
               onChange={this.handleChange}
               value={this.state.player2.name} />
@@ -66,8 +65,7 @@ class PlayerSelect extends Component {
                 )
               })}
             </select>
-            <button onClick={this.handleSubmit} />
-            <Link to='/game' type='button'>Play</Link>
+            <button onClick={this.handleSubmit}>Play</button>
           </fieldset>
         </form>
       </div>
