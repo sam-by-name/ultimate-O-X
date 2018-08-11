@@ -119,16 +119,22 @@ class MainBoard extends Component {
   makesOutOfBounds = (cell) => {
     let boo1 = false
     let boo2 = true
+    let style1 = {border: '10px solid lime'}
+    let style2 = {border: '10px solid white'}
     if (this.state.cloneArr[cell][0].wonBy !== '') {
       boo1 = true
       boo2 = false
+      style1 = {border: '10px solid white'}
+      style2 = {border: '10px solid lime'}
     }
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (i !== Number(cell)) {
-          this.state.cloneArr[i][j].isPlayable = boo1
-        } else {
+        if (i === Number(cell) && this.state.cloneArr[i][j].wonBy === '') {
           this.state.cloneArr[i][j].isPlayable = boo2
+          this.state.cloneArr[i][j].boundaryStyle = style1
+        } else {
+          this.state.cloneArr[i][j].isPlayable = boo1
+          this.state.cloneArr[i][j].boundaryStyle = style2
         }
       }
     }
@@ -141,7 +147,7 @@ class MainBoard extends Component {
           return [
             <div key ={miniBoard[0].bigGrid} style={miniBoard[0].winColor}
             className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
-              <div key= {miniBoard[0].bigGrid} className='miniBoard'>
+              <div key= {miniBoard[0].bigGrid} style={miniBoard[0].boundaryStyle} className='miniBoard'>
                 {miniBoard.map((cell) => {
                   return [
                     <div

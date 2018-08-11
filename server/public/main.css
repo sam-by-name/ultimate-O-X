@@ -38,7 +38,7 @@ body {
 
 .miniBoard {
   float: left;
-  margin: 35px;
+  margin: 25px;
 }
 
 .c0 {
@@ -98,4 +98,8 @@ body {
   margin-right: 30%;
   float: right;
   text-align: right;
+}
+.oB0 {
+  margin: 10px;
+  background-color: lime;
 }
