@@ -28,7 +28,6 @@ class MainBoard extends Component {
   clearLastTaken = () => {
     let i = this.state.lastLatLong.bigGrid
     let j = this.state.lastLatLong.littleGrid
-      this.state.cloneArr[i][j].lastTaken = false
       this.state.cloneArr[i][j].style = {
         backgroundColor: this.state.lastTaken,
         color: `dark${this.state.lastTaken}`}
@@ -48,7 +47,6 @@ class MainBoard extends Component {
         playerSymbol: player.symbol,
         wonBy: '',
         winColor: {backgroundColor: 'white'},
-        lastTaken: true,
         style: {backgroundColor: player.color,
           color: `lime`}
       }
@@ -148,13 +146,13 @@ class MainBoard extends Component {
       <div className='mainBoard'>
         {this.state.cloneArr.map((miniBoard) => {
           return [
-            <div key ={miniBoard[0].bigGrid} style={miniBoard[0].winColor}
+            <div key={miniBoard[0].bigGrid} style={miniBoard[0].winColor}
             className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid}`}>
-              <div key= {miniBoard[0].bigGrid} style={miniBoard[0].boundaryStyle} className='miniBoard'>
+              <div key={miniBoard[0].bigGrid} style={miniBoard[0].boundaryStyle} className='miniBoard'>
                 {miniBoard.map((cell) => {
                   return [
                     <div
-                      key= {cell.littleGrid}
+                      key={cell.littleGrid}
                       style={cell.style}
                       onClick={this.handleClick}
                       name={cell.bigGrid}
