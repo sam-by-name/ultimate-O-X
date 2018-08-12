@@ -116,7 +116,7 @@ class MainBoard extends Component {
       'white'
   }
 
-  makesOutOfBounds = (cell) => {
+  makesOutOfBounds = (cell) => { // makes me cry on the inside, begs for refactor
     let boo1 = false
     let boo2 = true
     let style1 = {border: '10px solid lime'}
@@ -129,9 +129,12 @@ class MainBoard extends Component {
     }
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (i === Number(cell) && this.state.cloneArr[i][j].wonBy === '') {
+        if (i == cell) {
           this.state.cloneArr[i][j].isPlayable = boo2
           this.state.cloneArr[i][j].boundaryStyle = style1
+        } else if (this.state.cloneArr[i][j].wonBy !== '') {
+          this.state.cloneArr[i][j].isPlayable = boo1
+          this.state.cloneArr[i][j].boundaryStyle = {border: '10px solid white'}
         } else {
           this.state.cloneArr[i][j].isPlayable = boo1
           this.state.cloneArr[i][j].boundaryStyle = style2
