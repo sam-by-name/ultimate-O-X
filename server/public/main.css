@@ -1,4 +1,4 @@
-/* {
+/* *{
   border: 1px solid red;
 } */
 
@@ -7,26 +7,30 @@ body {
 }
 
 .titleCont {
-  width: 960px;
   margin: 0 auto;
 }
 
 .title {
-  width: 560px;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 2vh;
+  text-align: center;
   margin: 50px auto;
+  color: green;
 }
 
+a:link {
+  text-decoration: none;
+}
+
+/* playerSelect.jsx  */
+.playerSelect {
+  height: 200px;
+}
+
+
+/* MainBoard.jsx */
 .clear {
   clear: both;
-}
-
-.cell {
-  font-size: 5vh;
-  text-align: center;
-  width: 50px;
-  height: 50px;
 }
 
 .mainBoard {
@@ -39,6 +43,12 @@ body {
 .miniBoard {
   float: left;
   margin: 25px;
+}
+
+.cell {
+  text-align: center;
+  width: 50px;
+  height: 50px;
 }
 
 .c0 {
