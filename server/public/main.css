@@ -33,10 +33,15 @@ a:link {
   clear: both;
 }
 
+.mainBoardCont {
+  width: 840px;
+  height: 840px;
+  margin: 0 auto;
+}
+
 .mainBoard {
   font-size: 3em;
-  height: 724px;
-  width: 686px;
+  width: 676px;
   margin: 0 auto;
 }
 
