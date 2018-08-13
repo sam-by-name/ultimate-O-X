@@ -123,3 +123,9 @@ a:link {
   float: right;
   text-align: right;
 }
+
+
+.victory {
+  width: 360px;
+  margin: 0 auto;
+}

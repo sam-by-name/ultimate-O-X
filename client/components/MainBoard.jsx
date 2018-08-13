@@ -112,7 +112,9 @@ class MainBoard extends Component {
 
   clearBoard = () => {
     this.setState({
-      cloneArr: this.createArr()
+      cloneArr: this.createArr(),
+      lastLatLong: {bigGrid: 0, littleGrid: 0},
+      lastTaken: 0
     })
     document.getElementsByClassName('mainBoard')[0].style.border =
     `10px solid white`
