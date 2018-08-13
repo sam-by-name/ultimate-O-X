@@ -66,19 +66,18 @@ class MainBoard extends Component {
   }
 
   checkForWin = (mini, player) => {
-    const win = ['012', '048', '036', '345', '147', '258', '246', '678']
+    const win = ['012', '048', '036', '147', '258', '246', '345', '678']
     let temp = ''
-    for (let i = 0; i < win.length; i++) {
-      for (let j = 0; j < 9; j++) {
-        if ((this.state.cloneArr[mini][j].takenBy === player.name) &&
-          (j === win[i][0] || win[i][1] || win[i][2])) {
-          temp += `${j}`
-        }
+    for (let i = 0; i < 9; i++) {
+      if (this.state.cloneArr[mini][i].takenBy === player.name) {
+        temp += `${i}`
       }
-      if (temp === win[i]) {
+    }
+    for (let j = 0; j < win.length; j++) {
+      if (temp.includes(win[j][0]) && temp.includes(win[j][1]) && temp.includes(win[j][2])) {
         this.miniGameWonBy(mini, player)
         this.checkForVictory(player, win, temp)
-      } else { temp = '' }
+      }
     }
   }
 
@@ -94,7 +93,7 @@ class MainBoard extends Component {
     for (let i = 0; i < win.length; i++) {
       for (let j = 0; j < 9; j++) {
         if ((this.state.cloneArr[j][0].wonBy === player.name) &&
-          (j === win[i][0] || win[i][1] || win[i][2])) {
+          (j === (win[i][0] || win[i][1] || win[i][2]))) {
           temp += `${j}`
         }
       }
