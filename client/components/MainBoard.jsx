@@ -70,7 +70,7 @@ class MainBoard extends Component {
         style: {backgroundColor: player.color,
           color: `lime`}
       }
-      this.props.handleClick()
+      this.props.handleClick(this.backTrack)
       this.checkForWin(mini, player)
       this.makeOutOfBounds(cell)
       this.lastTaken(mini, cell)
@@ -199,7 +199,6 @@ class MainBoard extends Component {
           })
           }
         </div>
-        <button onClick={this.backTrack}>BackOne</button>
       </div>
     )
   }

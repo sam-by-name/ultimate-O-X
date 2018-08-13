@@ -104,17 +104,25 @@ a:link {
   float: left;
 }
 
+
+/* ScoreBoard */
+.scoreBoard {
+  width: 676px;
+  margin: 0 auto;
+}
+
 .player1 {
   float: left;
-  margin-left: 30%;
 }
 
 .player2 {
-  margin-right: 30%;
   float: right;
   text-align: right;
 }
-.oB0 {
-  margin: 10px;
-  background-color: lime;
+.backOneCont {
+  width: 90px;
+  margin: 0 auto;
+}
+.backOne {
+  margin: 0 auto;
 }
