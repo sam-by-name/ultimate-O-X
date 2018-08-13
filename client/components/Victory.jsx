@@ -29,7 +29,7 @@ class Victory extends Component {
   }
   render () {
     return (
-      <div>
+      <div className='victory'>
         <span>{`${this.props.state.victor} WINS!`}</span>
         <button onClick={this.rematch}>Rematch</button>
         <button onClick={this.newGame}>New Game</button>

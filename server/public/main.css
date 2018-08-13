@@ -35,7 +35,7 @@ a:link {
 
 .mainBoardCont {
   width: 840px;
-  height: 840px;
+  height: 740px;
   margin: 0 auto;
 }
 
@@ -43,17 +43,24 @@ a:link {
   font-size: 3em;
   width: 676px;
   margin: 0 auto;
+  border-radius: 5%;
 }
 
 .miniBoard {
   float: left;
   margin: 25px;
+  border-radius: 25%;
+}
+
+.border {
+  border-radius: 25%;
 }
 
 .cell {
   text-align: center;
   width: 50px;
   height: 50px;
+  /* border-radius: 45%; */
 }
 
 .c0 {
@@ -104,17 +111,33 @@ a:link {
   float: left;
 }
 
+
+/* ScoreBoard */
+.scoreBoard {
+  width: 676px;
+  margin: 0 auto;
+}
+
 .player1 {
   float: left;
-  margin-left: 30%;
 }
 
 .player2 {
-  margin-right: 30%;
   float: right;
   text-align: right;
 }
-.oB0 {
-  margin: 10px;
-  background-color: lime;
+
+.victory {
+  width: 360px;
+  margin: 0 auto;
+}
+
+.backOneCont {
+  width: 90px;
+  margin: 0 auto;
+}
+
+.backOne {
+  margin: 0 auto;
+
 }
