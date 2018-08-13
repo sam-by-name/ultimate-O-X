@@ -4,6 +4,11 @@ const ScoreBoard = (props) => {
   let state = props.mainState
   return (
     <div className='scoreBoard'>
+      <div className='backOneCont'>
+        <button className='backOne' onClick={props.mainState.backTrack}>
+        BackOne
+        </button>
+      </div>
       <div className='player1'>
         <h2 style={state.style1}>
           {state.player1.name}

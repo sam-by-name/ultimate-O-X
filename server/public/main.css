@@ -35,7 +35,7 @@ a:link {
 
 .mainBoardCont {
   width: 840px;
-  height: 840px;
+  height: 740px;
   margin: 0 auto;
 }
 
@@ -112,20 +112,31 @@ a:link {
 }
 
 
-/* scoreBoard */
+/* ScoreBoard */
+.scoreBoard {
+  width: 676px;
+  margin: 0 auto;
+}
+
 .player1 {
   float: left;
-  margin-left: 30%;
 }
 
 .player2 {
-  margin-right: 30%;
   float: right;
   text-align: right;
 }
 
-
 .victory {
   width: 360px;
+  margin: 0 auto;
+}
+
+.backOneCont {
+  width: 90px;
+  margin: 0 auto;
+}
+
+.backOne {
   margin: 0 auto;
 }

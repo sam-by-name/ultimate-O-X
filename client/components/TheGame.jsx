@@ -20,6 +20,7 @@ class TheGame extends Component {
       victory: false,
       redirect: false,
       victoryRedirect: false,
+      backTrack: '',
       clearBoard: '' 
     }
   }
@@ -41,18 +42,20 @@ class TheGame extends Component {
     this.handleClick()
   }
 
-  handleClick = () => {
+  handleClick = (backTrack) => {
     if (!this.state.player) {
       this.setState({
         player: true,
         style1: {backgroundColor: this.state.player1.color},
-        style2: {backgroundColor: 'white'}
+        style2: {backgroundColor: 'white'},
+        backTrack: backTrack
       })
     } else {
       this.setState({
         player: false,
         style1: {backgroundColor: 'white'},
-        style2: {backgroundColor: this.state.player2.color}
+        style2: {backgroundColor: this.state.player2.color},
+        backTrack: backTrack
       })
     }
   }

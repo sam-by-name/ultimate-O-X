@@ -6,17 +6,29 @@ class MainBoard extends Component {
     super(props)
     this.state = {
       cloneArr: this.createArr(),
-      lastLatLong: {bigGrid: 0, littleGrid: 0},
-      lastTaken: 0
+      previousArr: [],
+      lastLatLong: {big: 0, small: 0},
+      lastTaken: 'white'
     }
   }
 
-  createArr() {
+  backTrack = () => {
+    let previous =  JSON.parse(JSON.stringify(this.state.previousArr))
+    let lastState = previous[0]
+    previous.shift()
+    this.setState({
+      cloneArr: lastState,
+      previousArr: previous
+    })
+  }
+
+  createArr = () => {
     return JSON.parse(JSON.stringify(mainArr))
   }
   
   handleClick = (e) => {
     let state = this.props.state
+    this.previousArr()
     this.clearLastTaken()
     if (state.player) {
       this.cloneArrEdit(e, state.player1)
@@ -24,10 +36,18 @@ class MainBoard extends Component {
       this.cloneArrEdit(e, state.player2)
     }
   }
+  previousArr = () => {
+    let currentArr = JSON.parse(JSON.stringify(this.state.cloneArr))
+    let backUpArr = this.state.previousArr
+    backUpArr.unshift(currentArr)
+    this.setState({
+      previousArr: backUpArr
+    })
+  }
 
   clearLastTaken = () => {
-    let i = this.state.lastLatLong.bigGrid
-    let j = this.state.lastLatLong.littleGrid
+    let i = this.state.lastLatLong.big
+    let j = this.state.lastLatLong.small
       this.state.cloneArr[i][j].style = {
         backgroundColor: this.state.lastTaken,
         color: `dark${this.state.lastTaken}`}
@@ -50,7 +70,7 @@ class MainBoard extends Component {
         style: {backgroundColor: player.color,
           color: `lime`}
       }
-      this.props.handleClick()
+      this.props.handleClick(this.backTrack)
       this.checkForWin(mini, player)
       this.makeOutOfBounds(cell)
       this.lastTaken(mini, cell)
@@ -60,7 +80,7 @@ class MainBoard extends Component {
   lastTaken(mini, cell) {
     let lastColor = this.state.cloneArr[mini][cell].style
     this.setState({
-      lastLatLong: {bigGrid: mini, littleGrid: cell},
+      lastLatLong: {big: mini, small: cell},
       lastTaken: lastColor.backgroundColor
     })
   }
@@ -149,7 +169,7 @@ class MainBoard extends Component {
 
   render () {
     return (
-      <div claseName='mainBoardCont'>
+      <div className='mainBoardCont'>
         <div className='mainBoard'>
           {this.state.cloneArr.map((miniBoard) => {
             return [
