@@ -43,17 +43,24 @@ a:link {
   font-size: 3em;
   width: 676px;
   margin: 0 auto;
+  border-radius: 5%;
 }
 
 .miniBoard {
   float: left;
   margin: 25px;
+  border-radius: 25%;
+}
+
+.border {
+  border-radius: 25%;
 }
 
 .cell {
   text-align: center;
   width: 50px;
   height: 50px;
+  /* border-radius: 45%; */
 }
 
 .c0 {
@@ -104,6 +111,8 @@ a:link {
   float: left;
 }
 
+
+/* scoreBoard */
 .player1 {
   float: left;
   margin-left: 30%;
@@ -113,8 +122,4 @@ a:link {
   margin-right: 30%;
   float: right;
   text-align: right;
-}
-.oB0 {
-  margin: 10px;
-  background-color: lime;
 }

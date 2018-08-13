@@ -114,8 +114,8 @@ class MainBoard extends Component {
     this.setState({
       cloneArr: this.createArr()
     })
-      document.getElementsByClassName('mainBoard')[0].style.backgroundColor =
-      'white'
+    document.getElementsByClassName('mainBoard')[0].style.border =
+    `10px solid white`
   }
 
   makeOutOfBounds = (cell) => { // makes me cry on the inside, begs for refactor
