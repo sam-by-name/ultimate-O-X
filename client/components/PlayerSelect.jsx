@@ -36,7 +36,7 @@ class PlayerSelect extends Component {
     return (
       <div>
         <form>
-          <fieldset>
+          <fieldset className='playerSelect'>
             <label>Player1 is ... ?</label>
             <input
               type='text'
