@@ -6,20 +6,21 @@ class MainBoard extends Component {
     super(props)
     this.state = {
       cloneArr: this.createArr(),
-      previousArr: [],
-      lastLatLong: {big: 0, small: 0},
-      lastTaken: 'white'
+      previousArr: []
     }
   }
 
   backTrack = () => {
-    let previous =  JSON.parse(JSON.stringify(this.state.previousArr))
-    let lastState = previous[0]
-    previous.shift()
-    this.setState({
-      cloneArr: lastState,
-      previousArr: previous
-    })
+    if (this.state.previousArr.length) { 
+      let previous =  JSON.parse(JSON.stringify(this.state.previousArr))
+      let lastState = previous[0]
+      previous.shift()
+      this.props.handleClick(this.backTrack)
+      this.setState({
+        cloneArr: lastState,
+        previousArr: previous
+      })
+    }
   }
 
   createArr = () => {
@@ -46,11 +47,12 @@ class MainBoard extends Component {
   }
 
   clearLastTaken = () => {
-    let i = this.state.lastLatLong.big
-    let j = this.state.lastLatLong.small
-      this.state.cloneArr[i][j].style = {
-        backgroundColor: this.state.lastTaken,
-        color: `dark${this.state.lastTaken}`}
+    for(let i = 0; i < 9; i++) {
+      for(let j = 0; j < 9; j++) {
+        if (this.state.cloneArr[i][j].lastTaken)
+          return this.state.cloneArr[i][j].lastTaken = false
+      }
+    }
   }
 
   cloneArrEdit = (e, player) => {
@@ -59,30 +61,22 @@ class MainBoard extends Component {
     let arr = this.state.cloneArr[mini][cell]
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       this.state.cloneArr[mini][cell] = {
-        bigGrid: Number(mini),
-        littleGrid: Number(cell),
+        big: Number(mini),
+        small: Number(cell),
         isAlive: false,
         isPlayable: true,
+        lastTaken: true,
+        lastTakenStyle: {backgroundColor: player.color, color: 'lime'},
         takenBy: player.name,
         playerSymbol: player.symbol,
         wonBy: '',
-        winColor: {backgroundColor: 'white'},
         style: {backgroundColor: player.color,
-          color: `lime`}
+          color: `dark${player.color}`}
       }
       this.props.handleClick(this.backTrack)
       this.checkForWin(mini, player)
       this.makeOutOfBounds(cell)
-      this.lastTaken(mini, cell)
     }
-  }
-
-  lastTaken(mini, cell) {
-    let lastColor = this.state.cloneArr[mini][cell].style
-    this.setState({
-      lastLatLong: {big: mini, small: cell},
-      lastTaken: lastColor.backgroundColor
-    })
   }
 
   checkForWin = (mini, player) => {
@@ -133,7 +127,7 @@ class MainBoard extends Component {
   clearBoard = () => {
     this.setState({
       cloneArr: this.createArr(),
-      lastLatLong: {bigGrid: 0, littleGrid: 0},
+      lastLatLong: {big: 0, small: 0},
       lastTaken: 0
     })
     document.getElementsByClassName('mainBoard')[0].style.border =
@@ -171,32 +165,32 @@ class MainBoard extends Component {
     return (
       <div className='mainBoardCont'>
         <div className='mainBoard'>
-          {this.state.cloneArr.map((miniBoard) => {
+          {this.state.cloneArr.map((mini) => {
             return [
-              <div key={miniBoard[0].bigGrid} style={miniBoard[0].winColor}
-              className={`c${miniBoard[0].bigGrid} w${miniBoard[0].bigGrid} border`}>
-                <div key={miniBoard[0].bigGrid} style={miniBoard[0].boundaryStyle} className='miniBoard'>
-                  {miniBoard.map((cell) => {
+              <div key={mini[0].big} style={mini[0].winColor}
+              className={`c${mini[0].big} w${mini[0].big} border`}>
+                <div key={mini[0].big} style={mini[0].boundaryStyle} className='miniBoard'>
+                  {mini.map((cell) => {
                     return [
                       <div
-                        key={cell.littleGrid}
-                        style={cell.style}
+                        key={cell.small}
+                        style={cell.lastTaken ? cell.lastTakenStyle : cell.style}
                         onClick={this.handleClick}
-                        name={cell.bigGrid}
-                        value={cell.littleGrid}
-                        className={`cell c${cell.littleGrid}`}>
+                        name={cell.big}
+                        value={cell.small}
+                        className={`cell c${cell.small}`}>
                       {cell.playerSymbol}
                       </div>,
-                      cell.littleGrid === 2 && <div className='clear'/>,
-                      cell.littleGrid === 5 && <div className='clear'/>,
-                      cell.littleGrid === 8 && <div className='clear'/>
+                      cell.small === 2 && <div className='clear'/>,
+                      cell.small === 5 && <div className='clear'/>,
+                      cell.small === 8 && <div className='clear'/>
                     ]
                   })}
                 </div>
               </div>,
-              miniBoard[0].bigGrid === 2 && <div className='clear'/>,
-              miniBoard[0].bigGrid === 5 && <div className='clear'/>,
-              miniBoard[0].bigGrid === 8 && <div className='clear'/>
+              mini[0].big === 2 && <div className='clear'/>,
+              mini[0].big === 5 && <div className='clear'/>,
+              mini[0].big === 8 && <div className='clear'/>
             ]
           })
           }
