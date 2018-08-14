@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import {colorArr} from '../../lib/mainArr'
+import {colorArr} from '../../lib/gameArrays'
 
 class PlayerSelect extends Component {
   constructor (props) {
@@ -11,16 +11,18 @@ class PlayerSelect extends Component {
       player2: '',
       p2Color: 'blue'
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange = (e) => {
+  handleChange (e) {
     const {name, value} = e.target
     this.setState({
       [name]: value
     })
   }
 
-  handleSubmit = (e) => {
+  handleSubmit (e) {
     this.props.playerSelect(
       this.state
     )

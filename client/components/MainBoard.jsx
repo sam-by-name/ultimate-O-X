@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {createArr, win} from '../../lib/mainArr'
+import {createArr, win} from '../../lib/gameArrays'
+import {createObj} from '../../lib/gameFunctions'
 
 class MainBoard extends Component {
   constructor (props) {
@@ -8,11 +9,22 @@ class MainBoard extends Component {
       clonedArr: createArr(),
       previousArr: []
     }
+    this.backTrack = this.backTrack.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.previousArr = this.previousArr.bind(this)
+    this.clearLastTaken = this.clearLastTaken.bind(this)
+    this.clonedArrEdit = this.clonedArrEdit.bind(this)
+    this.checkForWin = this.checkForWin.bind(this)
+    this.checkForVictory = this.checkForVictory.bind(this)
+    this.miniGameWonBy = this.miniGameWonBy.bind(this)
+    this.clearBoard = this.clearBoard.bind(this)
+    this.decideBoundaries = this.decideBoundaries.bind(this)
+    this.setBoundaries = this.setBoundaries.bind(this)
   }
 
-  backTrack = () => {
-    if (this.state.previousArr.length) { 
-      let previous =  JSON.parse(JSON.stringify(this.state.previousArr))
+  backTrack () {
+    if (this.state.previousArr.length) {
+      let previous = JSON.parse(JSON.stringify(this.state.previousArr))
       let lastState = previous[0]
       previous.shift()
       this.props.handleClick(this.backTrack)
@@ -22,19 +34,36 @@ class MainBoard extends Component {
       })
     }
   }
-  
-  handleClick = (e) => {
+
+  handleClick (e) {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
     let state = this.props.state
     let player = {}
-    state.player 
+    state.player
       ? player = state.player1
       : player = state.player2
     this.clonedArrEdit(mini, cell, player)
   }
-  
-  previousArr = () => {
+
+  clonedArrEdit (mini, cell, player) {
+    let arr = this.state.clonedArr[mini][cell]
+    if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
+      this.props.handleClick(this.backTrack)
+      this.previousArr()
+      let last = this.clearLastTaken()
+      let obj = createObj(mini, cell, player)
+      let newArr = this.state.clonedArr
+      newArr[mini][cell] = obj
+      newArr[last[0]][last[1]].lastTaken = false
+      this.setState({
+        clonedArr: newArr
+      })
+      this.checkForWin(mini, player)
+      this.decideBoundaries(cell)
+    }
+  }
+  previousArr () {
     let currentArr = JSON.parse(JSON.stringify(this.state.clonedArr))
     let backUpArr = this.state.previousArr
     backUpArr.unshift(currentArr)
@@ -43,40 +72,17 @@ class MainBoard extends Component {
     })
   }
 
-  clearLastTaken = () => {
-    for(let i = 0; i < 9; i++) {
-      for(let j = 0; j < 9; j++) {
-        if (this.state.clonedArr[i][j].lastTaken)
-          return this.state.clonedArr[i][j].lastTaken = false
+  clearLastTaken () {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (this.state.clonedArr[i][j].lastTaken) {
+          return [i, j] || 0
+        }
       }
     }
   }
 
-  clonedArrEdit = (mini, cell, player) => {
-    let arr = this.state.clonedArr[mini][cell]
-    if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
-      this.previousArr()
-      this.clearLastTaken()
-      this.state.clonedArr[mini][cell] = {
-        big: Number(mini),
-        small: Number(cell),
-        isAlive: false,
-        isPlayable: true,
-        lastTaken: true,
-        lastTakenStyle: {backgroundColor: player.color, color: 'lime'},
-        takenBy: player.name,
-        playerSymbol: player.symbol,
-        wonBy: '',
-        style: {backgroundColor: player.color,
-          color: `dark${player.color}`}
-      }
-      this.props.handleClick(this.backTrack)
-      this.checkForWin(mini, player)
-      this.decideBoundaries(cell)
-    }
-  }
-
-  checkForWin = (mini, player) => {
+  checkForWin (mini, player) {
     let temp = ''
     for (let i = 0; i < 9; i++) {
       if (this.state.clonedArr[mini][i].takenBy === player.name) {
@@ -84,16 +90,16 @@ class MainBoard extends Component {
       }
     }
     for (let j = 0; j < win.length; j++) {
-      if (temp.includes(win[j][0]) 
-        && temp.includes(win[j][1])
-        && temp.includes(win[j][2])) {
+      if (temp.includes(win[j][0]) &&
+        temp.includes(win[j][1]) &&
+        temp.includes(win[j][2])) {
         this.miniGameWonBy(mini, player)
         this.checkForVictory(player)
       }
     }
   }
 
-  miniGameWonBy = (mini, player) => {
+  miniGameWonBy (mini, player) {
     this.props.handleScore(player)
     let arr = this.state.clonedArr[mini]
     for (let i = 0; i < 9; i++) {
@@ -103,7 +109,7 @@ class MainBoard extends Component {
     }
   }
 
-  checkForVictory = (player) => {
+  checkForVictory (player) {
     let temp = ''
     for (let i = 0; i < 9; i++) {
       if (this.state.clonedArr[i][0].wonBy === player.name) {
@@ -111,17 +117,17 @@ class MainBoard extends Component {
       }
     }
     for (let j = 0; j < win.length; j++) {
-      if (temp.includes(win[j][0]) 
-        && temp.includes(win[j][1])
-        && temp.includes(win[j][2])) {
+      if (temp.includes(win[j][0]) &&
+        temp.includes(win[j][1]) &&
+        temp.includes(win[j][2])) {
         document.getElementsByClassName('mainBoard')[0].style.border =
         `10px solid ${player.color}`
-      this.props.handleVictory(player, this.clearBoard)
+        this.props.handleVictory(player, this.clearBoard)
       }
     }
   }
 
-  clearBoard = () => {
+  clearBoard () {
     this.setState({
       clonedArr: createArr()
     })
@@ -129,7 +135,7 @@ class MainBoard extends Component {
     `10px solid white`
   }
 
-  decideBoundaries = (cell) => {
+  decideBoundaries (cell) {
     let boo1 = false
     let boo2 = true
     let style1 = {border: '10px solid lime'}
@@ -143,18 +149,19 @@ class MainBoard extends Component {
     this.setBoundaries(cell, boo1, boo2, style1, style2)
   }
 
-  setBoundaries = (cell, boo1, boo2, style1, style2) => {
+  setBoundaries (cell, boo1, boo2, style1, style2) {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (i == cell) {
-          this.state.clonedArr[i][j].isPlayable = boo2
-          this.state.clonedArr[i][j].boundaryStyle = style1
+        let arr = this.state.clonedArr[i][j]
+        if (i === Number(cell)) {
+          arr.isPlayable = boo2
+          arr.boundaryStyle = style1
         } else if (this.state.clonedArr[i][j].wonBy !== '') {
-          this.state.clonedArr[i][j].isPlayable = boo1
-          this.state.clonedArr[i][j].boundaryStyle = {border: '10px solid white'}
+          arr.isPlayable = boo1
+          arr.boundaryStyle = {border: '10px solid white'}
         } else {
-          this.state.clonedArr[i][j].isPlayable = boo1
-          this.state.clonedArr[i][j].boundaryStyle = style2
+          arr.isPlayable = boo1
+          arr.boundaryStyle = style2
         }
       }
     }
@@ -167,7 +174,7 @@ class MainBoard extends Component {
           {this.state.clonedArr.map((mini) => {
             return [
               <div key={mini[0].big} style={mini[0].winColor}
-              className={`c${mini[0].big} w${mini[0].big} border`}>
+                className={`c${mini[0].big} w${mini[0].big} border`}>
                 <div key={mini[0].big} style={mini[0].boundaryStyle} className='miniBoard'>
                   {mini.map((cell) => {
                     return [
@@ -178,7 +185,7 @@ class MainBoard extends Component {
                         name={cell.big}
                         value={cell.small}
                         className={`cell c${cell.small}`}>
-                      {cell.playerSymbol}
+                        {cell.playerSymbol}
                       </div>,
                       cell.small === 2 && <div className='clear'/>,
                       cell.small === 5 && <div className='clear'/>,

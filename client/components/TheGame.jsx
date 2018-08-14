@@ -21,11 +21,16 @@ class TheGame extends Component {
       redirect: false,
       victoryRedirect: false,
       backTrack: '',
-      clearBoard: '' 
+      clearBoard: ''
     }
+    this.playAgain = this.playAgain.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleScore = this.handleScore.bind(this)
+    this.handleVictory = this.handleVictory.bind(this)
+    this.playerSelect = this.playerSelect.bind(this)
   }
-  
-  playAgain = (boolean, player1, player2) => {
+
+  playAgain (boolean, player1, player2) {
     this.state.clearBoard()
     this.setState({
       player: false,
@@ -37,12 +42,12 @@ class TheGame extends Component {
       victory: false,
       redirect: false,
       victoryRedirect: boolean,
-      clearBoard: '' 
+      clearBoard: ''
     })
     this.handleClick()
   }
 
-  handleClick = (backTrack) => {
+  handleClick (backTrack) {
     if (!this.state.player) {
       this.setState({
         player: true,
@@ -60,7 +65,7 @@ class TheGame extends Component {
     }
   }
 
-  handleScore = (player) => {
+  handleScore (player) {
     this.setState({
       [player]: {
         score: player.score += 1
@@ -68,17 +73,17 @@ class TheGame extends Component {
     })
   }
 
-  handleVictory = (player, clearBoard) => {
+  handleVictory (player, clearBoard) {
     this.setState({
       victor: player.name.toUpperCase(),
       victory: true,
-      redirect: false, 
+      redirect: false,
       victoryRedirect: false,
       clearBoard: clearBoard
     })
   }
 
-  playerSelect = (playerPicks) => {
+  playerSelect (playerPicks) {
     const {player1, p1Color, player2, p2Color} = playerPicks
     this.setState({
       player1: {name: player1, color: p1Color, symbol: 'X', score: 0},
