@@ -10,6 +10,7 @@ class MainBoard extends Component {
       previousArr: []
     }
     this.backTrack = this.backTrack.bind(this)
+    this.theGame = this.theGame.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.previousArr = this.previousArr.bind(this)
     this.clearLastTaken = this.clearLastTaken.bind(this)
@@ -18,7 +19,6 @@ class MainBoard extends Component {
     this.checkForVictory = this.checkForVictory.bind(this)
     this.miniGameWonBy = this.miniGameWonBy.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
-    // this.decideBoundaries = this.decideBoundaries.bind(this)
     this.setBoundaries = this.setBoundaries.bind(this)
   }
 
@@ -43,26 +43,31 @@ class MainBoard extends Component {
     state.player
       ? player = state.player1
       : player = state.player2
-    this.clonedArrEdit(mini, cell, player)
+    this.theGame(mini, cell, player)
   }
 
-  clonedArrEdit (mini, cell, player) {
+  theGame (mini, cell, player) {
     let arr = this.state.clonedArr[mini][cell]
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       this.props.handleClick(this.backTrack)
       this.previousArr()
-      let last = this.clearLastTaken()
-      let obj = createObj(mini, cell, player)
-      let newArr = this.state.clonedArr
-      newArr[mini][cell] = obj
-      newArr[last[0]][last[1]].lastTaken = false
-      this.setState({
-        clonedArr: newArr
-      })
+      this.clonedArrEdit(mini, cell, player)
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
     }
   }
+
+  clonedArrEdit (mini, cell, player) {
+    let last = this.clearLastTaken()
+    let obj = createObj(mini, cell, player)
+    let newArr = this.state.clonedArr
+    newArr[mini][cell] = obj
+    if (last.length) { newArr[last[0]][last[1]].lastTaken = false }
+    this.setState({
+      clonedArr: newArr
+    })
+  }
+
   previousArr () {
     let currentArr = JSON.parse(JSON.stringify(this.state.clonedArr))
     let backUpArr = this.state.previousArr
@@ -76,10 +81,11 @@ class MainBoard extends Component {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         if (this.state.clonedArr[i][j].lastTaken) {
-          return [i, j] || 0
+          return [i, j]
         }
       }
     }
+    return [0, 0]
   }
 
   checkForWin (mini, player) {
@@ -135,54 +141,18 @@ class MainBoard extends Component {
     `10px solid white`
   }
 
-  // decideBoundaries (cell) {
-  //   let boo1 = false
-  //   let boo2 = true
-  //   let style1 = {border: '10px solid lime'}
-  //   let style2 = {border: '10px solid white'}
-  //   // if (this.state.clonedArr[cell][0].wonBy !== '') {
-  //   //   boo1 = true
-  //   //   boo2 = false
-  //   //   style1 = {border: '10px solid white'}
-  //   //   style2 = {border: '10px solid lime'}
-  //   // }
-  //   this.setBoundaries(cell, boo1, boo2, style1, style2)
-  // }
-
-  // decideBoundaries (cell) {
-  //   this.setBoundaries(cell)
-  // }
-
-  // setBoundaries (cell, boo1, boo2, style1, style2) { // rework this
-  //   for (let i = 0; i < 9; i++) {
-  //     for (let j = 0; j < 9; j++) {
-  //       let arr = this.state.clonedArr[i][j]
-  //       if (i === Number(cell)) {
-  //         arr.isPlayable = boo2
-  //         arr.boundaryStyle = style1
-  //       } else if (arr.wonBy !== '') {
-  //         arr.isPlayable = boo1
-  //         arr.boundaryStyle = {border: '10px solid white'}
-  //       } else {
-  //         arr.isPlayable = boo1
-  //         arr.boundaryStyle = style2
-  //       }
-  //     }
-  //   }
-  // }
-
-  setBoundaries (cell) { // rework this
+  setBoundaries (cell) {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         let arr = this.state.clonedArr[i][j]
         let cellArr = this.state.clonedArr[cell][j]
-        if (cellArr.wonBy === '' && i === Number(cell)) { // normal case, destination not taken
+        if (cellArr.wonBy === '' && i === Number(cell)) {
           cellArr.isPlayable = true
           cellArr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy !== '' && arr.wonBy === '') { // destination taken
+        } else if (cellArr.wonBy !== '' && arr.wonBy === '') {
           arr.isPlayable = true
           arr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '') { // normal case
+        } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '') {
           arr.isPlayable = false
           arr.boundaryStyle = {border: '10px solid white'}
         }
