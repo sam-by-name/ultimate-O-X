@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {HashRouter as Router, Route, Redirect} from 'react-router-dom'
 
+import Menu from './Menu'
 import PlayerSelect from './PlayerSelect'
 import MainBoard from './MainBoard'
 import Victory from './Victory'
@@ -98,10 +99,11 @@ class TheGame extends Component {
       <Router>
         <div>
           {this.state.victoryRedirect && <Redirect to='/' />}
-          <Title />
-          <Route exact path='/' render={() =>
+          <Route path='/menu/player-select' component={Title} />
+          <Route exact path='/menu' component={Menu} />
+          <Route exact path='/menu/player-select' render={() =>
             <PlayerSelect state={this.state} playerSelect={this.playerSelect}/>} />
-          <Route exact path='/game' render={() =>
+          <Route exact path='/menu/player-select/game' render={() =>
             <MainBoard
               state={this.state}
               handleScore={this.handleScore}
@@ -110,7 +112,9 @@ class TheGame extends Component {
           />
           {this.state.victory && <Victory
             playAgain={this.playAgain} state={this.state}/>}
-          <ScoreBoard mainState={this.state}/>
+          <Route path='/menu/player-select/game' render={() =>
+            <ScoreBoard mainState={this.state}/>}
+          />
         </div>
       </Router>
     )

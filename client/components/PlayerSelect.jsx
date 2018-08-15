@@ -32,7 +32,7 @@ class PlayerSelect extends Component {
   render () {
     if (this.props.state.redirect) {
       return (
-        <Redirect to='/game' />
+        <Redirect to='/menu/player-select/game' />
       )
     }
     return (

@@ -10,12 +10,100 @@ body {
   margin: 0 auto;
 }
 
+/* Title */
 .title {
   font-weight: bold;
   font-size: 2vh;
   text-align: center;
   margin: 50px auto;
   color: green;
+}
+
+.mainTitle .title {
+  font-size: 3vw !important;
+  padding: 100px;
+}
+
+.menu {
+  width: 100%;
+  margin: 0 auto;
+  
+}
+
+.options {
+  padding: 100px;
+  width: 60%;
+  margin: 0 auto;
+  align-content: center;
+  background-color: aqua;
+}
+
+.menuBtn1 {
+  font-size: 1.5em;
+  width: 150px;
+  margin: 20px auto;
+  padding: 15px;
+  text-align: center;
+  border: 1px dashed rgb(69, 0, 230);
+  border-radius: 0 35%;
+}
+
+.menuBtn2 {
+  font-size: 1.5em;
+  width: 150px;
+  margin: 20px auto;
+  padding: 15px;
+  text-align: center;
+  border: 1px dashed rgb(69, 0, 230);
+  border-radius: 35% 0;
+}
+
+.menuBtn1 .menuBtn2 :hover{
+  background-color: white;
+}
+
+
+.button {
+  margin: 20px auto;
+  position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: #f72359;
+  padding: 1em 2em;
+  border: none;
+  color: white !important;
+  font-size: 1.2em;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  width: 300px;
+  border-radius: 100px;
+}
+.button span {
+  position: relative;
+  pointer-events: none;
+}
+.button::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, #4405f7, transparent);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  transition: width .2s ease, height .2s ease;
+}
+.button:hover::before {
+  --size: 300px;
+}
+
+.btn {
+  width: 300px;
+  margin: 0 auto;
 }
 
 a:link {
