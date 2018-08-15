@@ -18,7 +18,7 @@ class MainBoard extends Component {
     this.checkForVictory = this.checkForVictory.bind(this)
     this.miniGameWonBy = this.miniGameWonBy.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
-    this.decideBoundaries = this.decideBoundaries.bind(this)
+    // this.decideBoundaries = this.decideBoundaries.bind(this)
     this.setBoundaries = this.setBoundaries.bind(this)
   }
 
@@ -60,7 +60,7 @@ class MainBoard extends Component {
         clonedArr: newArr
       })
       this.checkForWin(mini, player)
-      this.decideBoundaries(cell)
+      this.setBoundaries(cell)
     }
   }
   previousArr () {
@@ -135,33 +135,56 @@ class MainBoard extends Component {
     `10px solid white`
   }
 
-  decideBoundaries (cell) {
-    let boo1 = false
-    let boo2 = true
-    let style1 = {border: '10px solid lime'}
-    let style2 = {border: '10px solid white'}
-    if (this.state.clonedArr[cell][0].wonBy !== '') {
-      boo1 = true
-      boo2 = false
-      style1 = {border: '10px solid white'}
-      style2 = {border: '10px solid lime'}
-    }
-    this.setBoundaries(cell, boo1, boo2, style1, style2)
-  }
+  // decideBoundaries (cell) {
+  //   let boo1 = false
+  //   let boo2 = true
+  //   let style1 = {border: '10px solid lime'}
+  //   let style2 = {border: '10px solid white'}
+  //   // if (this.state.clonedArr[cell][0].wonBy !== '') {
+  //   //   boo1 = true
+  //   //   boo2 = false
+  //   //   style1 = {border: '10px solid white'}
+  //   //   style2 = {border: '10px solid lime'}
+  //   // }
+  //   this.setBoundaries(cell, boo1, boo2, style1, style2)
+  // }
 
-  setBoundaries (cell, boo1, boo2, style1, style2) {
+  // decideBoundaries (cell) {
+  //   this.setBoundaries(cell)
+  // }
+
+  // setBoundaries (cell, boo1, boo2, style1, style2) { // rework this
+  //   for (let i = 0; i < 9; i++) {
+  //     for (let j = 0; j < 9; j++) {
+  //       let arr = this.state.clonedArr[i][j]
+  //       if (i === Number(cell)) {
+  //         arr.isPlayable = boo2
+  //         arr.boundaryStyle = style1
+  //       } else if (arr.wonBy !== '') {
+  //         arr.isPlayable = boo1
+  //         arr.boundaryStyle = {border: '10px solid white'}
+  //       } else {
+  //         arr.isPlayable = boo1
+  //         arr.boundaryStyle = style2
+  //       }
+  //     }
+  //   }
+  // }
+
+  setBoundaries (cell) { // rework this
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         let arr = this.state.clonedArr[i][j]
-        if (i === Number(cell)) {
-          arr.isPlayable = boo2
-          arr.boundaryStyle = style1
-        } else if (this.state.clonedArr[i][j].wonBy !== '') {
-          arr.isPlayable = boo1
+        let cellArr = this.state.clonedArr[cell][j]
+        if (cellArr.wonBy === '' && i === Number(cell)) { // normal case, destination not taken
+          cellArr.isPlayable = true
+          cellArr.boundaryStyle = {border: '10px solid lime'}
+        } else if (cellArr.wonBy !== '' && arr.wonBy === '') { // destination taken
+          arr.isPlayable = true
+          arr.boundaryStyle = {border: '10px solid lime'}
+        } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '') { // normal case
+          arr.isPlayable = false
           arr.boundaryStyle = {border: '10px solid white'}
-        } else {
-          arr.isPlayable = boo1
-          arr.boundaryStyle = style2
         }
       }
     }
