@@ -3,13 +3,11 @@ import {Link} from 'react-router-dom'
 import Title from './Title'
 
 class Menu extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-
-    }
+  constructor () {
+    super()
     this.mouseOver = this.mouseOver.bind(this)
     this.mouseOver2 = this.mouseOver2.bind(this)
+    this.mouseOver3 = this.mouseOver3.bind(this)
   }
 
   mouseOver () {
@@ -23,7 +21,16 @@ class Menu extends Component {
   }
 
   mouseOver2 () {
-    document.querySelector('.button').onmousemove = (e) => {
+    document.querySelector('.button2').onmousemove = (e) => {
+      const x = e.pageX - e.target.offsetLeft
+      const y = e.pageY - e.target.offsetTop
+
+      e.target.style.setProperty('--x', `${x}px`)
+      e.target.style.setProperty('--y', `${y}px`)
+    }
+  }
+  mouseOver3 () {
+    document.querySelector('.button3').onmousemove = (e) => {
       const x = e.pageX - e.target.offsetLeft
       const y = e.pageY - e.target.offsetTop
 
@@ -37,7 +44,10 @@ class Menu extends Component {
         <div className='mainTitle'>
           <Title />
         </div>
-        <div className='options'>
+        <div>
+          <div className='square'></div>
+          <div className='diamond'></div>
+          <div className='circle'></div>
           <div className='btn'>
             <Link to='/menu/player-select'>
               <button className='button' onMouseMove={this.mouseOver}>
@@ -47,8 +57,15 @@ class Menu extends Component {
           </div>
           <div className='btn'>
             <Link to='/menu'>
-              <button className='button' onMouseMove={this.mouseOver2}>
+              <button className='button2' onMouseMove={this.mouseOver2}>
                 <span>P vs Ai</span>
+              </button>
+            </Link>
+          </div>
+          <div className='btn'>
+            <Link to='/menu'>
+              <button className='button3' onMouseMove={this.mouseOver3}>
+                <span>Tutorial</span>
               </button>
             </Link>
           </div>

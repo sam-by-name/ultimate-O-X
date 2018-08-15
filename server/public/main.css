@@ -16,63 +16,82 @@ body {
   font-size: 2vh;
   text-align: center;
   margin: 50px auto;
-  color: green;
+  color: #E7DFDD;
 }
 
 .mainTitle .title {
   font-size: 3vw !important;
   padding: 100px;
-}
-
-.menu {
-  width: 100%;
-  margin: 0 auto;
   
 }
 
-.options {
-  padding: 100px;
-  width: 60%;
+
+ /* Menu */
+.menu {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0 auto;  
+  background-color: #0E0B16;
+}
+
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to   {-webkit-transform: rotate(359deg);}
+}
+
+@-webkit-keyframes noitator {
+  from {-webkit-transform: rotate(359deg);}
+  to   {-webkit-transform: rotate(0deg);}
+}
+
+.square {
+  -webkit-animation: rotation 60s infinite linear;
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  left: 0;
+  right: 0;
   margin: 0 auto;
-  align-content: center;
-  background-color: aqua;
+  background-color: #4717F6;
 }
 
-.menuBtn1 {
-  font-size: 1.5em;
-  width: 150px;
-  margin: 20px auto;
-  padding: 15px;
-  text-align: center;
-  border: 1px dashed rgb(69, 0, 230);
-  border-radius: 0 35%;
+.diamond {
+  -webkit-animation: noitator 60s infinite linear;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #A239CA;
+  width: 620px;
+  height: 620px;
+  transform: rotate(45deg);
 }
 
-.menuBtn2 {
-  font-size: 1.5em;
-  width: 150px;
-  margin: 20px auto;
-  padding: 15px;
-  text-align: center;
-  border: 1px dashed rgb(69, 0, 230);
-  border-radius: 35% 0;
+.circle {
+  transform: rotate(-45deg);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  position: absolute;
+  width: 625px;
+  height: 625px;
+  /* background-color: #0E0B16; */
+  background-color: #0E0B16;
+  border-radius: 50%;
 }
-
-.menuBtn1 .menuBtn2 :hover{
-  background-color: white;
-}
-
 
 .button {
-  margin: 20px auto;
+  margin: 160px auto 10px auto;
   position: relative;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background: #f72359;
-  padding: 1em 2em;
+  background: #E7DFDD;
+  padding: 1.5em 2em;
   border: none;
-  color: white !important;
+  color: #0E0B16 !important;
   font-size: 1.2em;
   cursor: pointer;
   outline: none;
@@ -92,12 +111,88 @@ body {
   top: var(--y);
   width: var(--size);
   height: var(--size);
-  background: radial-gradient(circle closest-side, #4405f7, transparent);
+  background: radial-gradient(circle closest-side, #24296d, transparent);
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   transition: width .2s ease, height .2s ease;
 }
 .button:hover::before {
+  --size: 300px;
+}
+
+.button2 {
+  margin: 10px auto;
+  position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: #A239CA;
+  padding: 1.5em 2em;
+  border: none;
+  color: white !important;
+  font-size: 1.2em;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  width: 300px;
+  border-radius: 100px;
+}
+.button2 span {
+  position: relative;
+  pointer-events: none;
+}
+.button2::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, #4405f7, transparent);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  transition: width .2s ease, height .2s ease;
+}
+.button2:hover::before {
+  --size: 300px;
+}
+
+.button3 {
+  margin: 10px auto;
+  position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: #4717F6;
+  padding: 1.5em 2em;
+  border: none;
+  color: white !important;
+  font-size: 1.2em;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  width: 300px;
+  border-radius: 100px;
+}
+.button3 span {
+  position: relative;
+  pointer-events: none;
+}
+.button3::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, #fcf968, transparent);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  transition: width .2s ease, height .2s ease;
+}
+.button3:hover::before {
   --size: 300px;
 }
 
