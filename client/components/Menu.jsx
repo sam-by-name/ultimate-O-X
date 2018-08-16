@@ -44,7 +44,7 @@ class Menu extends Component {
         <div className='mainTitle'>
           <Title />
         </div>
-        <div>
+        <div className='options'>
           <div className='square'></div>
           <div className='diamond'></div>
           <section className='circle'></section>
