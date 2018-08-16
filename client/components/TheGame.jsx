@@ -53,13 +53,13 @@ class TheGame extends Component {
       this.setState({
         player: true,
         style1: {backgroundColor: this.state.player1.color},
-        style2: {backgroundColor: 'white'},
+        style2: {backgroundColor: '#0E0B16'},
         backTrack: backTrack
       })
     } else {
       this.setState({
         player: false,
-        style1: {backgroundColor: 'white'},
+        style1: {backgroundColor: '#0E0B16'},
         style2: {backgroundColor: this.state.player2.color},
         backTrack: backTrack
       })
@@ -98,7 +98,7 @@ class TheGame extends Component {
     return (
       <Router>
         <div>
-          {this.state.victoryRedirect && <Redirect to='/' />}
+          {this.state.victoryRedirect && <Redirect to='/menu/player-select' />}
           <Route path='/menu/player-select' component={Title} />
           <Route exact path='/menu' component={Menu} />
           <Route exact path='/menu/player-select' render={() =>

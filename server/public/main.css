@@ -4,24 +4,35 @@
 
 body {
   margin: 0;
+  background-color: #0E0B16;
+  color: #E7DFDD;
 }
 
 .titleCont {
-  margin: 0 auto;
+  margin: 50px auto 100px auto;
+  text-align: center;
+  z-index: 100;
+  position: relative;
+  font-size: 2em;
 }
 
 /* Title */
-.title {
-  font-weight: bold;
-  font-size: 2vh;
-  text-align: center;
-  margin: 50px auto;
+.title1 {
+  font-style: italic;
   color: #E7DFDD;
+}
+.title2 {
+  font-style: bold;
+  color: #4717F6;
+}
+.title3 {
+  font-style: italic;
+  color: #A239CA;
 }
 
 .mainTitle .title {
   font-size: 3vw !important;
-  padding: 100px;
+  padding: 0 0 100px 0;
   
 }
 
@@ -48,8 +59,8 @@ body {
 .square {
   -webkit-animation: rotation 60s infinite linear;
   position: absolute;
-  width: 620px;
-  height: 620px;
+  width: 580px;
+  height: 580px;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -63,9 +74,9 @@ body {
   left: 0;
   right: 0;
   margin: 0 auto;
-  background-color: #A239CA;
-  width: 620px;
-  height: 620px;
+  background-color: #4717F6;
+  width: 580px;
+  height: 580px;
   transform: rotate(45deg);
 }
 
@@ -75,11 +86,11 @@ body {
   right: 0;
   margin: 0 auto;
   position: absolute;
-  width: 625px;
-  height: 625px;
-  /* background-color: #0E0B16; */
+  width: 580px;
+  height: 580px;
   background-color: #0E0B16;
   border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #E7DFDD, #0E0B16);
 }
 
 .button {
@@ -250,8 +261,8 @@ a:link {
 }
 
 .c1 {
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-left: 2px solid #E7DFDD;
+  border-right: 2px solid #E7DFDD;
   float: left;
 }
 
@@ -260,22 +271,22 @@ a:link {
 }
 
 .c3 {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 2px solid #E7DFDD;
+  border-bottom: 2px solid #E7DFDD;
   float: left;
 }
 
 .c4 {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 2px solid #E7DFDD;
+  border-left: 2px solid #E7DFDD;
+  border-right: 2px solid #E7DFDD;
+  border-bottom: 2px solid #E7DFDD;
   float: left;
 }
 
 .c5 {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 2px solid #E7DFDD;
+  border-bottom: 2px solid #E7DFDD;
   float: left;
 }
 
@@ -284,8 +295,8 @@ a:link {
 }
 
 .c7 {
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-left: 2px solid #E7DFDD;
+  border-right: 2px solid #E7DFDD;
   float: left;
 }
 

@@ -138,7 +138,7 @@ class MainBoard extends Component {
       clonedArr: createArr()
     })
     document.getElementsByClassName('mainBoard')[0].style.border =
-    `10px solid white`
+    `10px solid #0E0B16`
   }
 
   setBoundaries (cell) {
@@ -154,7 +154,7 @@ class MainBoard extends Component {
           arr.boundaryStyle = {border: '10px solid lime'}
         } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '') {
           arr.isPlayable = false
-          arr.boundaryStyle = {border: '10px solid white'}
+          arr.boundaryStyle = {border: '10px solid #0E0B16'}
         }
       }
     }

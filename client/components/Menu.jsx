@@ -47,7 +47,7 @@ class Menu extends Component {
         <div>
           <div className='square'></div>
           <div className='diamond'></div>
-          <div className='circle'></div>
+          <section className='circle'></section>
           <div className='btn'>
             <Link to='/menu/player-select'>
               <button className='button' onMouseMove={this.mouseOver}>
