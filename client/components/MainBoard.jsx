@@ -20,6 +20,7 @@ class MainBoard extends Component {
     this.miniGameWonBy = this.miniGameWonBy.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
     this.setBoundaries = this.setBoundaries.bind(this)
+    this.gameOver = this.gameOver.bind(this)
   }
 
   backTrack () {
@@ -129,6 +130,19 @@ class MainBoard extends Component {
         document.getElementsByClassName('mainBoard')[0].style.border =
         `10px solid ${player.color}`
         this.props.handleVictory(player, this.clearBoard)
+        this.gameOver(player.name)
+      }
+    }
+  }
+
+  gameOver (player) {
+    let last = this.clearLastTaken()
+    let newArr = this.state.clonedArr
+    newArr[last[0]][last[1]].lastTaken = false
+    let arr = this.state.clonedArr
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        arr[i][j].wonBy = player
       }
     }
   }
