@@ -3,9 +3,12 @@ import React, {Component} from 'react'
 class Victory extends Component {
   constructor (props) {
     super(props)
+    this.rematch = this.rematch.bind(this)
+    this.newGame = this.newGame.bind(this)
+    this.noMore = this.noMore.bind(this)
   }
 
-  rematch = () => {
+  rematch () {
     let state = this.props.state
     let player1 = {
       name: state.player1.name,
@@ -20,20 +23,22 @@ class Victory extends Component {
     this.props.playAgain(false, player1, player2)
   }
 
-  newGame = () => {
+  newGame () {
     this.props.playAgain(true)
   }
 
-  noMore = () => {
+  noMore () {
     return alert("What's wrong ... you chicken?")
   }
   render () {
     return (
       <div className='victory'>
-        <span>{`${this.props.state.victor} WINS!`}</span>
-        <button onClick={this.rematch}>Rematch</button>
-        <button onClick={this.newGame}>New Game</button>
-        <button onClick={this.noMore}>No More</button>
+        <div>
+          <span>{`${this.props.state.victor} WINS!`}</span>
+        </div>
+        <button className=' btn rematch' onClick={this.rematch}>Rematch</button>
+        <button className=' btn newGame' onClick={this.newGame}>New Game</button>
+        <button className=' btn noMore' onClick={this.noMore}>No More</button>
       </div>
     )
   }
