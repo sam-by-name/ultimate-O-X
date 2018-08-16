@@ -48,21 +48,21 @@ class Menu extends Component {
           <div className='square'></div>
           <div className='diamond'></div>
           <section className='circle'></section>
-          <div className='btn'>
+          <div className='homeBtn'>
             <Link to='/menu/player-select'>
               <button className='button' onMouseMove={this.mouseOver}>
                 <span>P vs P</span>
               </button>
             </Link>
           </div>
-          <div className='btn'>
+          <div className='homeBtn'>
             <Link to='/menu'>
               <button className='button2' onMouseMove={this.mouseOver2}>
                 <span>P vs Ai</span>
               </button>
             </Link>
           </div>
-          <div className='btn'>
+          <div className='homeBtn'>
             <Link to='/menu'>
               <button className='button3' onMouseMove={this.mouseOver3}>
                 <span>Tutorial</span>

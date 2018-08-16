@@ -7,6 +7,7 @@ import MainBoard from './MainBoard'
 import Victory from './Victory'
 import Title from './Title'
 import ScoreBoard from './ScoreBoard'
+import Footer from './Footer'
 
 class TheGame extends Component {
   constructor (props) {
@@ -115,6 +116,7 @@ class TheGame extends Component {
           <Route path='/menu/player-select/game' render={() =>
             <ScoreBoard mainState={this.state}/>}
           />
+          <Footer />
         </div>
       </Router>
     )
