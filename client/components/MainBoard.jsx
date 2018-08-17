@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {createArr, win} from '../../lib/gameArrays'
+import {createArr, win, couldWin, willWin} from '../../lib/gameArrays'
 import {createObj} from '../../lib/gameFunctions'
 
 class MainBoard extends Component {
@@ -55,20 +55,39 @@ class MainBoard extends Component {
       }
     }
 
-    if (arr[avail[0]][4].isAlive) {
-      coOrds = [avail[0], 4]
-    } else if (arr[avail[0]][0].isAlive) {
+    // if (arr[avail[0]][4].isAlive) {
+    //   coOrds = [avail[0], 4]
+    // } else if (arr[avail[0]][0].isAlive) {
+    //   coOrds = [avail[0], 0]
+    // } else if (arr[avail[0]][2].isAlive) {
+    //   coOrds = [avail[0], 2]
+    // } else if (arr[avail[0]][6].isAlive) {
+    //   coOrds = [avail[0], 6]
+    // } else if (arr[avail[0]][8].isAlive) {
+    //   coOrds = [avail[0], 8]
+    // } else {
+
+    if (arr[avail[0]][0].isAlive) {
       coOrds = [avail[0], 0]
     } else if (arr[avail[0]][2].isAlive) {
       coOrds = [avail[0], 2]
-    } else if (arr[avail[0]][6].isAlive) {
-      coOrds = [avail[0], 6]
-    } else if (arr[avail[0]][8].isAlive) {
-      coOrds = [avail[0], 8]
-    } else {
-      for (let i = 0; i < 9; i++) {
-        if (arr[avail[0]][i].isAlive) {
-          coOrds = [avail[0], i]
+    }
+    let temp = ''
+    for (let i = 0; i < 9; i++) {
+      if (arr[avail[0]][i].takenBy === ai.name) {
+        temp += `${i}`
+      }
+    }
+    // for (let i = 0; i < 9; i++) {
+    //   if (arr[avail[0]][i].isAlive) {
+    //     coOrds = [avail[0], i]
+    //   }
+    // }
+    if (temp.length > 1) {
+      for (let j = 0; j < couldWin.length; j++) {
+        if (temp.includes(couldWin[j][0]) &&
+          temp.includes(couldWin[j][1]) && arr[avail[0]][Number(willWin[j][0])].isAlive) {
+          coOrds = [avail[0], willWin[j]]
         }
       }
     }
@@ -96,7 +115,7 @@ class MainBoard extends Component {
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
       // setTimeout(() => {
-        this.computersTurn(this.props.state.player2)
+      this.computersTurn(this.props.state.player2)
       // }, 1000)
     }
   }
