@@ -46,16 +46,34 @@ class MainBoard extends Component {
   }
 
   computersTurn (ai) {
-    let available = []
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        if (this.state.clonedArr[i][j].isPlayable) {
-          available.push({mini: i, cell: j})
+    let arr = this.state.clonedArr
+    let avail = []
+    let coOrds = []
+    for (let x = 0; x < 9; x++) {
+      if (arr[x][0].isPlayable) {
+        avail.push(x)
+      }
+    }
+
+    if (arr[avail[0]][4].isAlive) {
+      coOrds = [avail[0], 4]
+    } else if (arr[avail[0]][0].isAlive) {
+      coOrds = [avail[0], 0]
+    } else if (arr[avail[0]][2].isAlive) {
+      coOrds = [avail[0], 2]
+    } else if (arr[avail[0]][6].isAlive) {
+      coOrds = [avail[0], 6]
+    } else if (arr[avail[0]][8].isAlive) {
+      coOrds = [avail[0], 8]
+    } else {
+      for (let i = 0; i < 9; i++) {
+        if (arr[avail[0]][i].isAlive) {
+          coOrds = [avail[0], i]
         }
       }
     }
-    let index = Math.floor(Math.random() * available.length)
-    this.theAiGame(available[index].mini, available[index].cell, ai)
+    // let index = Math.floor(Math.random() * available.length)
+    this.theAiGame(coOrds[0], coOrds[1], ai)
   }
 
   theAiGame (mini, cell, player) {
@@ -77,9 +95,9 @@ class MainBoard extends Component {
       this.clonedArrEdit(mini, cell, player)
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
-      setTimeout(() => {
+      // setTimeout(() => {
         this.computersTurn(this.props.state.player2)
-      }, 500)
+      // }, 1000)
     }
   }
 
@@ -136,6 +154,7 @@ class MainBoard extends Component {
     let arr = this.state.clonedArr[mini]
     for (let i = 0; i < 9; i++) {
       arr[i].wonBy = player.name
+      arr[i].isPlayable = false
       arr[i].winColor = {backgroundColor: `dark${player.color}`}
       arr[i].boundaryStyle = {border: `10px solid ${player.color}`}
     }

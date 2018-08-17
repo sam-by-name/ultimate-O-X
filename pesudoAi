@@ -1,0 +1,8 @@
+For just one mini game
+
+Checks first of each array to see which miniGame is playable
+If middle of miniGame is free, takes middle
+If it is, 
+checks for free cell next to one already owned that can form a line,
+forms a pair,
+or just takes a free space
