@@ -21,8 +21,6 @@ class MainBoard extends Component {
     this.clearBoard = this.clearBoard.bind(this)
     this.setBoundaries = this.setBoundaries.bind(this)
     this.gameOver = this.gameOver.bind(this)
-    this.computersTurn = this.computersTurn.bind(this)
-    this.theAiGame = this.theAiGame.bind(this)
   }
 
   backTrack () {
@@ -42,31 +40,11 @@ class MainBoard extends Component {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
     let state = this.props.state
-    this.theGame(mini, cell, state.player1)
-  }
-
-  computersTurn (ai) {
-    let available = []
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        if (this.state.clonedArr[i][j].isPlayable) {
-          available.push({mini: i, cell: j})
-        }
-      }
-    }
-    let index = Math.floor(Math.random() * available.length)
-    this.theAiGame(available[index].mini, available[index].cell, ai)
-  }
-
-  theAiGame (mini, cell, player) {
-    let arr = this.state.clonedArr[mini][cell]
-    if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
-      this.props.handleClick(this.backTrack)
-      this.previousArr()
-      this.clonedArrEdit(mini, cell, player)
-      this.checkForWin(mini, player)
-      this.setBoundaries(cell)
-    }
+    let player = {}
+    state.player
+      ? player = state.player1
+      : player = state.player2
+    this.theGame(mini, cell, player)
   }
 
   theGame (mini, cell, player) {
@@ -77,9 +55,6 @@ class MainBoard extends Component {
       this.clonedArrEdit(mini, cell, player)
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
-      setTimeout(() => {
-        this.computersTurn(this.props.state.player2)
-      }, 500)
     }
   }
 
