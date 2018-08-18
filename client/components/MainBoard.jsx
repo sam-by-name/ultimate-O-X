@@ -47,17 +47,52 @@ class MainBoard extends Component {
 
   computersTurn (ai) {
     let arr = this.state.clonedArr
-    let avail = []
-    let coOrds = []
-    for (let x = 0; x < 9; x++) {
-      if (arr[x][0].isPlayable) {
-        avail.push(x)
+    let mini = []
+    let aiOwns = ''
+    let playable = ''
+    for (let i = 0; i < 9; i++) { // finds miniGame available
+      if (arr[i][0].isPlayable) {
+        mini.push(i)
       }
     }
+    for (let j = 0; j < 9; j++) { // finds cells available
+      if (arr[mini[0]][j].takenBy === ai.name) {
+        aiOwns += `${j}`
+      }
+      if (arr[mini[0]][j].isAlive) {
+        playable += `${j}`
+      }
+    }
+    let coOrds = [mini[0]]
+    let index = Math.floor(Math.random() * playable.length)
 
-    // if (arr[avail[0]][4].isAlive) {
-    //   coOrds = [avail[0], 4]
-    // } else if (arr[avail[0]][0].isAlive) {
+    for (let j = 0; j < couldWin.length; j++) { // search's for 2/3 and completes if it can
+      if (aiOwns.includes(couldWin[j][0]) &&
+      aiOwns.includes(couldWin[j][1]) &&
+        arr[mini[0]][Number(willWin[j][0])].isAlive) {
+        coOrds.push(Number(willWin[j]))
+      }
+    }
+    if (aiOwns.length >= 1 && coOrds.length < 2) {
+      for (let i = 0; i < win.length; i++) {
+        if ((playable.includes(win[i][0]) &&
+            playable.includes(win[i][1]) &&
+            playable.includes(win[i][2])) && win[i].includes(aiOwns)) {
+          for (let j = 0; j < playable.length; j++) {
+            if (win[i].includes(playable[j])) {
+              coOrds.push(Number(playable[j]))
+            }
+          }
+        }
+      }
+    }
+    if (playable.includes('4') && coOrds.length < 2) {
+      coOrds.push(4)
+    } else {
+      coOrds.push(Number(playable[index]))
+    }
+
+    // else if (arr[avail[0]][0].isAlive) {
     //   coOrds = [avail[0], 0]
     // } else if (arr[avail[0]][2].isAlive) {
     //   coOrds = [avail[0], 2]
@@ -67,31 +102,16 @@ class MainBoard extends Component {
     //   coOrds = [avail[0], 8]
     // } else {
 
-    if (arr[avail[0]][0].isAlive) {
-      coOrds = [avail[0], 0]
-    } else if (arr[avail[0]][2].isAlive) {
-      coOrds = [avail[0], 2]
-    }
-    let temp = ''
-    for (let i = 0; i < 9; i++) {
-      if (arr[avail[0]][i].takenBy === ai.name) {
-        temp += `${i}`
-      }
-    }
+    // if (arr[mini[0]][0].isAlive) {
+    //   coOrds.push(0)
+    // } else if (arr[mini[0]][2].isAlive) {
+    //   coOrds.push(2)
+    // }
     // for (let i = 0; i < 9; i++) {
     //   if (arr[avail[0]][i].isAlive) {
     //     coOrds = [avail[0], i]
     //   }
     // }
-    if (temp.length > 1) {
-      for (let j = 0; j < couldWin.length; j++) {
-        if (temp.includes(couldWin[j][0]) &&
-          temp.includes(couldWin[j][1]) && arr[avail[0]][Number(willWin[j][0])].isAlive) {
-          coOrds = [avail[0], willWin[j]]
-        }
-      }
-    }
-    // let index = Math.floor(Math.random() * available.length)
     this.theAiGame(coOrds[0], coOrds[1], ai)
   }
 
