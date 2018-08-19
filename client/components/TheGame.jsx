@@ -75,9 +75,9 @@ class TheGame extends Component {
     })
   }
 
-  handleVictory (player, clearBoard) {
+  handleVictory (endGameMsg, clearBoard) {
     this.setState({
-      victor: player.name.toUpperCase(),
+      victor: endGameMsg,
       victory: true,
       redirect: false,
       victoryRedirect: false,
