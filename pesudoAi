@@ -7,4 +7,6 @@ checks for free cell next to one already owned that can form a line,
 forms a pair,
 or just takes a free space
 
-if win[i] includes aiOwns and
+
+
+ai checks if player is about to win and prevents.
