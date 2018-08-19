@@ -15,7 +15,7 @@ class MainBoard extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.previousArr = this.previousArr.bind(this)
     this.clearLastTaken = this.clearLastTaken.bind(this)
-    this.clonedArrEdit = this.clonedArrEdit.bind(this)
+    this.arrEdit = this.arrEdit.bind(this)
     this.checkForWin = this.checkForWin.bind(this)
     this.checkForDraw = this.checkForDraw.bind(this)
     this.checkForTotalDraw = this.checkForTotalDraw.bind(this)
@@ -52,7 +52,7 @@ class MainBoard extends Component {
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       this.props.handleClick(this.backTrack)
       this.previousArr()
-      this.clonedArrEdit(mini, cell, player)
+      this.arrEdit(mini, cell, player)
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
     }
@@ -63,7 +63,7 @@ class MainBoard extends Component {
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       this.props.handleClick(this.backTrack)
       this.previousArr()
-      this.clonedArrEdit(mini, cell, player)
+      this.arrEdit(mini, cell, player)
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
       // setTimeout(() => {
@@ -73,7 +73,7 @@ class MainBoard extends Component {
     }
   }
 
-  clonedArrEdit (mini, cell, player) {
+  arrEdit (mini, cell, player) {
     let last = this.clearLastTaken()
     let obj = createObj(mini, cell, player)
     let newArr = this.state.clonedArr
