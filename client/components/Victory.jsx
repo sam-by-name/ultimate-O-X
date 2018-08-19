@@ -34,7 +34,7 @@ class Victory extends Component {
     return (
       <div className='victory'>
         <div>
-          <span>{`${this.props.state.victor} WINS!`}</span>
+          <span>{this.props.state.victor}</span>
         </div>
         <button className=' btn rematch' onClick={this.rematch}>Rematch</button>
         <button className=' btn newGame' onClick={this.newGame}>New Game</button>
