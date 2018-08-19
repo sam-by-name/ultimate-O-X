@@ -54,7 +54,6 @@ class MainBoard extends Component {
       this.previousArr()
       this.clonedArrEdit(mini, cell, player)
       this.checkForWin(mini, player)
-      this.checkForTotalDraw()
       this.setBoundaries(cell)
     }
   }
@@ -66,7 +65,6 @@ class MainBoard extends Component {
       this.previousArr()
       this.clonedArrEdit(mini, cell, player)
       this.checkForWin(mini, player)
-      this.checkForTotalDraw()
       this.setBoundaries(cell)
       // setTimeout(() => {
       let {aiMini, aiCell} = computersTurn(this.state.clonedArr, this.props.state.player2)
@@ -123,6 +121,7 @@ class MainBoard extends Component {
       }
     }
     this.checkForDraw(arr, player)
+    this.checkForTotalDraw()
   }
 
   checkForDraw (arr, player) {
@@ -181,19 +180,19 @@ class MainBoard extends Component {
         document.getElementsByClassName('mainBoard')[0].style.border =
         `10px solid ${player.color}`
         this.props.handleVictory(`${player.name.toUpperCase()} WINS`, this.clearBoard)
-        this.gameOver(player.name)
+        this.gameOver()
       }
     }
   }
 
-  gameOver (player) {
+  gameOver () {
     let last = this.clearLastTaken()
     let newArr = this.state.clonedArr
     newArr[last[0]][last[1]].lastTaken = false
     let arr = this.state.clonedArr
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        arr[i][j].wonBy = player
+        arr[i][j].playable = false
       }
     }
   }
