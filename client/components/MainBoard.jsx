@@ -16,6 +16,7 @@ class MainBoard extends Component {
     this.clearLastTaken = this.clearLastTaken.bind(this)
     this.clonedArrEdit = this.clonedArrEdit.bind(this)
     this.checkForWin = this.checkForWin.bind(this)
+    this.checkForDraw = this.checkForDraw.bind(this)
     this.checkForVictory = this.checkForVictory.bind(this)
     this.miniGameWonBy = this.miniGameWonBy.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
@@ -65,19 +66,51 @@ class MainBoard extends Component {
     }
     let coOrds = [mini[0]]
     let index = Math.floor(Math.random() * playable.length)
-
+   
     for (let j = 0; j < couldWin.length; j++) { // search's for 2/3 and completes if it can
       if (aiOwns.includes(couldWin[j][0]) &&
-      aiOwns.includes(couldWin[j][1]) &&
-        arr[mini[0]][Number(willWin[j][0])].isAlive) {
+       aiOwns.includes(couldWin[j][1]) &&
+       playable.includes(willWin[j])) {
         coOrds.push(Number(willWin[j]))
       }
     }
-    if (aiOwns.length >= 1 && coOrds.length < 2) {
+
+    // if player can be denied ...
+
+    if (aiOwns.length >= 1 && coOrds.length < 2) { // if one is taken check to continue line if available
+      let posCoOrds = ''
       for (let i = 0; i < win.length; i++) {
-        if ((playable.includes(win[i][0]) &&
+        let newWin = ''
+        for (let j = 0; j < 3; j++) { // adapt to fid if there is a space that makes to lines possible
+          if (aiOwns.includes(win[i][j])) {
+            for (let g = 0; g < 3; g++) {
+              if (win[i][g] !== win[i][j]) {
+                newWin += win[i][g]
+              }
+            }
+          }
+        }
+        if (newWin.length === 2) {
+          if (playable.includes(newWin[0]) &&
+              playable.includes(newWin[1])) {
+            for (let x = 0; x < playable.length; x++) {
+              if (newWin.includes(playable[x])) {
+                posCoOrds += playable[x]
+              }
+            }
+            coOrds.push(
+              posCoOrds[Math.floor(Math.random() * 2)]
+            )
+          }
+        }
+      }
+    }
+
+    if (coOrds.length < 2) {
+      for (let i = 0; i < win.length; i++) {
+        if (playable.includes(win[i][0]) &&
             playable.includes(win[i][1]) &&
-            playable.includes(win[i][2])) && win[i].includes(aiOwns)) {
+            playable.includes(win[i][2])) {
           for (let j = 0; j < playable.length; j++) {
             if (win[i].includes(playable[j])) {
               coOrds.push(Number(playable[j]))
@@ -91,27 +124,6 @@ class MainBoard extends Component {
     } else {
       coOrds.push(Number(playable[index]))
     }
-
-    // else if (arr[avail[0]][0].isAlive) {
-    //   coOrds = [avail[0], 0]
-    // } else if (arr[avail[0]][2].isAlive) {
-    //   coOrds = [avail[0], 2]
-    // } else if (arr[avail[0]][6].isAlive) {
-    //   coOrds = [avail[0], 6]
-    // } else if (arr[avail[0]][8].isAlive) {
-    //   coOrds = [avail[0], 8]
-    // } else {
-
-    // if (arr[mini[0]][0].isAlive) {
-    //   coOrds.push(0)
-    // } else if (arr[mini[0]][2].isAlive) {
-    //   coOrds.push(2)
-    // }
-    // for (let i = 0; i < 9; i++) {
-    //   if (arr[avail[0]][i].isAlive) {
-    //     coOrds = [avail[0], i]
-    //   }
-    // }
     this.theAiGame(coOrds[0], coOrds[1], ai)
   }
 
@@ -173,17 +185,36 @@ class MainBoard extends Component {
 
   checkForWin (mini, player) {
     let temp = ''
+    let arr = this.state.clonedArr[mini]
     for (let i = 0; i < 9; i++) {
-      if (this.state.clonedArr[mini][i].takenBy === player.name) {
+      if (arr[i].takenBy === player.name) {
         temp += `${i}`
       }
     }
     for (let j = 0; j < win.length; j++) {
       if (temp.includes(win[j][0]) &&
-        temp.includes(win[j][1]) &&
-        temp.includes(win[j][2])) {
+          temp.includes(win[j][1]) &&
+          temp.includes(win[j][2])) {
         this.miniGameWonBy(mini, player)
         this.checkForVictory(player)
+      } else {
+        this.checkForDraw(arr)
+      }
+    }
+  }
+
+  checkForDraw (arr) {
+    let drawPool = 0
+    for (let i = 0; i < 9; i++) {
+      if (arr[i].takenBy !== '') {
+        drawPool += 1
+      }
+    }
+    if (drawPool === 9) {
+      for (let j = 0; j < 9; j++) {
+        arr[j].wonBy = 'DRAW'
+        arr[j].isPlayable = false
+        arr[j].boundaryStyle = {border: '10px solid orange'}
       }
     }
   }
@@ -208,8 +239,8 @@ class MainBoard extends Component {
     }
     for (let j = 0; j < win.length; j++) {
       if (temp.includes(win[j][0]) &&
-        temp.includes(win[j][1]) &&
-        temp.includes(win[j][2])) {
+          temp.includes(win[j][1]) &&
+          temp.includes(win[j][2])) {
         document.getElementsByClassName('mainBoard')[0].style.border =
         `10px solid ${player.color}`
         this.props.handleVictory(player, this.clearBoard)
@@ -246,7 +277,7 @@ class MainBoard extends Component {
         if (cellArr.wonBy === '' && i === Number(cell)) {
           cellArr.isPlayable = true
           cellArr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy !== '' && arr.wonBy === '') {
+        } else if (cellArr.wonBy !== '' && arr.wonBy === '') { // whats going on here? cellArr.wonBy !== '' &&
           arr.isPlayable = true
           arr.boundaryStyle = {border: '10px solid lime'}
         } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '') {
