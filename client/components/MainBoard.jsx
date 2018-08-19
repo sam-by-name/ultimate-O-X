@@ -17,6 +17,7 @@ class MainBoard extends Component {
     this.clonedArrEdit = this.clonedArrEdit.bind(this)
     this.checkForWin = this.checkForWin.bind(this)
     this.checkForDraw = this.checkForDraw.bind(this)
+    this.checkForTotalDraw = this.checkForTotalDraw.bind(this)
     this.checkForVictory = this.checkForVictory.bind(this)
     this.miniGameWonBy = this.miniGameWonBy.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
@@ -66,7 +67,7 @@ class MainBoard extends Component {
     }
     let coOrds = [mini[0]]
     let index = Math.floor(Math.random() * playable.length)
-   
+
     for (let j = 0; j < couldWin.length; j++) { // search's for 2/3 and completes if it can
       if (aiOwns.includes(couldWin[j][0]) &&
        aiOwns.includes(couldWin[j][1]) &&
@@ -81,7 +82,7 @@ class MainBoard extends Component {
       let posCoOrds = ''
       for (let i = 0; i < win.length; i++) {
         let newWin = ''
-        for (let j = 0; j < 3; j++) { // adapt to fid if there is a space that makes to lines possible
+        for (let j = 0; j < 3; j++) { // adapt to find if there is a space that makes two lines possible
           if (aiOwns.includes(win[i][j])) {
             for (let g = 0; g < 3; g++) {
               if (win[i][g] !== win[i][j]) {
@@ -111,11 +112,14 @@ class MainBoard extends Component {
         if (playable.includes(win[i][0]) &&
             playable.includes(win[i][1]) &&
             playable.includes(win[i][2])) {
+          let willPlay = []
           for (let j = 0; j < playable.length; j++) {
             if (win[i].includes(playable[j])) {
-              coOrds.push(Number(playable[j]))
+              willPlay.push(playable[j])
             }
           }
+          let index = Math.floor(Math.random() * willPlay.length)
+          coOrds.push(willPlay[index])
         }
       }
     }
@@ -134,6 +138,7 @@ class MainBoard extends Component {
       this.previousArr()
       this.clonedArrEdit(mini, cell, player)
       this.checkForWin(mini, player)
+      this.checkForTotalDraw()
       this.setBoundaries(cell)
     }
   }
@@ -145,6 +150,7 @@ class MainBoard extends Component {
       this.previousArr()
       this.clonedArrEdit(mini, cell, player)
       this.checkForWin(mini, player)
+      this.checkForTotalDraw()
       this.setBoundaries(cell)
       // setTimeout(() => {
       this.computersTurn(this.props.state.player2)
@@ -197,13 +203,12 @@ class MainBoard extends Component {
           temp.includes(win[j][2])) {
         this.miniGameWonBy(mini, player)
         this.checkForVictory(player)
-      } else {
-        this.checkForDraw(arr)
       }
     }
+    this.checkForDraw(arr, player)
   }
 
-  checkForDraw (arr) {
+  checkForDraw (arr, player) {
     let drawPool = 0
     for (let i = 0; i < 9; i++) {
       if (arr[i].takenBy !== '') {
@@ -216,6 +221,21 @@ class MainBoard extends Component {
         arr[j].isPlayable = false
         arr[j].boundaryStyle = {border: '10px solid orange'}
       }
+    }
+  }
+
+  checkForTotalDraw () {
+    let drawPool = 0
+    for (let i = 0; i < 9; i++) {
+      if (this.state.clonedArr[i][0].wonBy !== '') {
+        drawPool += 1
+      }
+    }
+    if (drawPool === 9) {
+      document.getElementsByClassName('mainBoard')[0].style.border =
+        '10px solid orange'
+      this.props.handleVictory("It's a DRAW!", this.clearBoard)
+      this.gameOver('DRAW')
     }
   }
 
@@ -243,7 +263,7 @@ class MainBoard extends Component {
           temp.includes(win[j][2])) {
         document.getElementsByClassName('mainBoard')[0].style.border =
         `10px solid ${player.color}`
-        this.props.handleVictory(player, this.clearBoard)
+        this.props.handleVictory(`${player.name.toUpperCase()} WINS`, this.clearBoard)
         this.gameOver(player.name)
       }
     }
