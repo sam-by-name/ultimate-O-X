@@ -222,7 +222,7 @@ class MainBoard extends Component {
         } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '' && !arr.gameOver) {
           arr.isPlayable = false
           arr.boundaryStyle = {border: '10px solid #0E0B16'}
-        } else if (arr.wonBy === '' && arr.gameOver) { // end game condition
+        } else if (arr.wonBy === '' && arr.gameOver) {
           arr.boundaryStyle = {border: '10px solid #0E0B16'}
         }
       }
