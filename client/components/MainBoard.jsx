@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {createArr, winArr} from '../../lib/gameArrays'
+import {createArr, win} from '../../lib/gameArrays'
 import {computersTurn} from '../../lib/ai/easyAi'
 import {createObj} from '../../lib/gameFunctions'
 
@@ -106,7 +106,6 @@ class MainBoard extends Component {
 
   checkForWin (mini, player) {
     let temp = ''
-    let win = winArr()
     let arr = this.state.clonedArr[mini]
     for (let i = 0; i < 9; i++) {
       if (arr[i].takenBy === player.name) {
@@ -118,7 +117,7 @@ class MainBoard extends Component {
           temp.includes(win[j][1]) &&
           temp.includes(win[j][2])) {
         this.miniGameWonBy(mini, player)
-        this.checkForVictory(player, win)
+        this.checkForVictory(player)
       }
     }
     this.checkForDraw(arr, player)
@@ -168,7 +167,7 @@ class MainBoard extends Component {
     }
   }
 
-  checkForVictory (player, win) {
+  checkForVictory (player) {
     let temp = ''
     for (let i = 0; i < 9; i++) {
       if (this.state.clonedArr[i][0].wonBy === player.name) {

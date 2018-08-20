@@ -10,3 +10,17 @@ or just takes a free space
 
 
 ai checks if player is about to win and prevents.
+
+
+
+
+// export const winArr = () => { Randomizes an array
+//   let jumbledWin = []
+//   for (let i = 0; i < 8; i++) {
+//     let index = Math.floor(Math.random() * win.length)
+//     jumbledWin.push(win[index])
+//     win.splice(index, 1)
+//   }
+//   win = jumbledWin
+//   return jumbledWin
+// }
