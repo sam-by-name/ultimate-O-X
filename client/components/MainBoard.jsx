@@ -67,7 +67,8 @@ class MainBoard extends Component {
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
       // setTimeout(() => {
-      let {aiMini, aiCell} = computersTurn(this.state.clonedArr, this.props.state.player2)
+      let {aiMini, aiCell} = computersTurn(this.state.clonedArr,
+        this.props.state.player2, this.props.state.player1)
       this.theAiGame(aiMini, aiCell, this.props.state.player2)
       // }, 1000)
     }
