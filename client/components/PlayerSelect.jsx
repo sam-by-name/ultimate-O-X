@@ -23,8 +23,15 @@ class PlayerSelect extends Component {
   }
 
   handleSubmit (e) {
+    let a = this.state
+    let playerChoice = {
+      player1: a.player1 || 'Player1',
+      p1Color: a.p1Color,
+      player2: a.player2 || 'Player2',
+      p2Color: a.p2Color
+    }
     this.props.playerSelect(
-      this.state
+      playerChoice
     )
     e.preventDefault()
   }
