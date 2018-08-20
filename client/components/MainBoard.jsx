@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {createArr, win} from '../../lib/gameArrays'
+import {createArr, winArr} from '../../lib/gameArrays'
 import {computersTurn} from '../../lib/ai/easyAi'
 import {createObj} from '../../lib/gameFunctions'
 
@@ -106,28 +106,29 @@ class MainBoard extends Component {
 
   checkForWin (mini, player) {
     let temp = ''
+    let win = winArr()
     let arr = this.state.clonedArr[mini]
     for (let i = 0; i < 9; i++) {
       if (arr[i].takenBy === player.name) {
         temp += `${i}`
       }
     }
-    for (let j = 0; j < win.length; j++) {
+    for (let j = 0; j < 8; j++) {
       if (temp.includes(win[j][0]) &&
           temp.includes(win[j][1]) &&
           temp.includes(win[j][2])) {
         this.miniGameWonBy(mini, player)
-        this.checkForVictory(player)
+        this.checkForVictory(player, win)
       }
     }
     this.checkForDraw(arr, player)
-    this.checkForTotalDraw()
+    this.checkForTotalDraw(player)
   }
 
-  checkForDraw (arr, player) {
+  checkForDraw (arr) {
     let drawPool = 0
     for (let i = 0; i < 9; i++) {
-      if (arr[i].takenBy !== '') {
+      if (arr[i].takenBy !== '' && arr[i].wonBy === '') {
         drawPool += 1
       }
     }
@@ -140,10 +141,11 @@ class MainBoard extends Component {
     }
   }
 
-  checkForTotalDraw () {
+  checkForTotalDraw (player) {
     let drawPool = 0
     for (let i = 0; i < 9; i++) {
-      if (this.state.clonedArr[i][0].wonBy !== '') {
+      if (!this.state.clonedArr[i][0].gameOver &&
+        this.state.clonedArr[i][0].wonBy !== '') {
         drawPool += 1
       }
     }
@@ -166,7 +168,7 @@ class MainBoard extends Component {
     }
   }
 
-  checkForVictory (player) {
+  checkForVictory (player, win) {
     let temp = ''
     for (let i = 0; i < 9; i++) {
       if (this.state.clonedArr[i][0].wonBy === player.name) {
@@ -180,19 +182,20 @@ class MainBoard extends Component {
         document.getElementsByClassName('mainBoard')[0].style.border =
         `10px solid ${player.color}`
         this.props.handleVictory(`${player.name.toUpperCase()} WINS`, this.clearBoard)
-        this.gameOver()
+        this.gameOver(player)
       }
     }
   }
 
-  gameOver () {
+  gameOver (player) {
     let last = this.clearLastTaken()
-    let newArr = this.state.clonedArr
-    newArr[last[0]][last[1]].lastTaken = false
     let arr = this.state.clonedArr
+    arr[last[0]][last[1]].lastTaken = false
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        arr[i][j].playable = false
+        // arr[i][j].wonBy = player.name
+        arr[i][j].isPlayable = false
+        arr[i][j].gameOver = true
       }
     }
   }
@@ -210,14 +213,16 @@ class MainBoard extends Component {
       for (let j = 0; j < 9; j++) {
         let arr = this.state.clonedArr[i][j]
         let cellArr = this.state.clonedArr[cell][j]
-        if (cellArr.wonBy === '' && i === Number(cell)) {
+        if (cellArr.wonBy === '' && i === Number(cell) && !arr.gameOver) {
           cellArr.isPlayable = true
           cellArr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy !== '' && arr.wonBy === '') { // whats going on here? cellArr.wonBy !== '' &&
+        } else if (cellArr.wonBy !== '' && arr.wonBy === '' && !arr.gameOver) {
           arr.isPlayable = true
           arr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '') {
+        } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '' && !arr.gameOver) {
           arr.isPlayable = false
+          arr.boundaryStyle = {border: '10px solid #0E0B16'}
+        } else if (arr.wonBy === '' && arr.gameOver) { // end game condition
           arr.boundaryStyle = {border: '10px solid #0E0B16'}
         }
       }
