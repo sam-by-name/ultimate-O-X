@@ -3,11 +3,16 @@ import {Link} from 'react-router-dom'
 import Title from './Title'
 
 class Menu extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.mouseOver = this.mouseOver.bind(this)
     this.mouseOver2 = this.mouseOver2.bind(this)
     this.mouseOver3 = this.mouseOver3.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick (e) {
+    this.props.opponentChoice(e.target.name)
   }
 
   mouseOver () {
@@ -50,14 +55,14 @@ class Menu extends Component {
           <section className='circle'></section>
           <div className='homeBtn'>
             <Link to='/menu/player-select'>
-              <button className='button' onMouseMove={this.mouseOver}>
+              <button name='pVp' className='button' onMouseMove={this.mouseOver} onClick={this.handleClick}>
                 <span>P vs P</span>
               </button>
             </Link>
           </div>
           <div className='homeBtn'>
-            <Link to='/menu'>
-              <button className='button2' onMouseMove={this.mouseOver2}>
+            <Link to='/menu/player-select'>
+              <button name='pVai' className='button2' onMouseMove={this.mouseOver2} onClick={this.handleClick}>
                 <span>P vs Ai</span>
               </button>
             </Link>
