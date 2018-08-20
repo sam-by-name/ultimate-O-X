@@ -23,13 +23,16 @@ class TheGame extends Component {
       redirect: false,
       victoryRedirect: false,
       backTrack: '',
-      clearBoard: ''
+      clearBoard: '',
+      ai: false
     }
     this.playAgain = this.playAgain.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleScore = this.handleScore.bind(this)
     this.handleVictory = this.handleVictory.bind(this)
     this.playerSelect = this.playerSelect.bind(this)
+    this.undoRedirect = this.undoRedirect.bind(this)
+    this.opponentChoice = this.opponentChoice.bind(this)
   }
 
   playAgain (boolean, player1, player2) {
@@ -95,18 +98,35 @@ class TheGame extends Component {
     this.handleClick()
   }
 
+  undoRedirect () {
+    this.setState({
+      redirect: false
+    })
+  }
+
+  opponentChoice (opponent) {
+    if (opponent === 'pVai') {
+      this.setState({ai: true})
+    } else if (opponent === 'pVp') {
+      this.setState({ai: false})
+    }
+  }
+
   render () {
     return (
       <Router>
         <div>
           {this.state.victoryRedirect && <Redirect to='/menu/player-select' />}
           <Route path='/menu/player-select' component={Title} />
-          <Route exact path='/menu' component={Menu} />
+          <Route exact path='/menu' render={() =>
+            <Menu opponentChoice={this.opponentChoice}/>} />
           <Route exact path='/menu/player-select' render={() =>
-            <PlayerSelect state={this.state} playerSelect={this.playerSelect}/>} />
+            <PlayerSelect state={this.state}
+              playerSelect={this.playerSelect}/>} />
           <Route exact path='/menu/player-select/game' render={() =>
             <MainBoard
               state={this.state}
+              undoRedirect={this.undoRedirect}
               handleScore={this.handleScore}
               handleClick={this.handleClick}
               handleVictory={this.handleVictory}/>}

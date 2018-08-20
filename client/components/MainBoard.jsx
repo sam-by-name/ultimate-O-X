@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {createArr, win} from '../../lib/gameArrays'
-import {computersTurn} from '../../lib/ai/easyAi'
+import {computersChoice} from '../../lib/ai/easyAi'
 import {createObj} from '../../lib/gameFunctions'
 
 class MainBoard extends Component {
@@ -25,6 +25,10 @@ class MainBoard extends Component {
     this.setBoundaries = this.setBoundaries.bind(this)
     this.gameOver = this.gameOver.bind(this)
     this.theAiGame = this.theAiGame.bind(this)
+  }
+
+  componentDidMount () {
+    this.props.undoRedirect()
   }
 
   backTrack () {
@@ -67,9 +71,11 @@ class MainBoard extends Component {
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
       // setTimeout(() => {
-      let {aiMini, aiCell} = computersTurn(this.state.clonedArr,
-        this.props.state.player2, this.props.state.player1)
-      this.theAiGame(aiMini, aiCell, this.props.state.player2)
+      if (this.props.state.ai) {
+        let {aiMini, aiCell} = computersChoice(this.state.clonedArr,
+          this.props.state.player2, this.props.state.player1)
+        this.theAiGame(aiMini, aiCell, this.props.state.player2)
+      }
       // }, 1000)
     }
   }
