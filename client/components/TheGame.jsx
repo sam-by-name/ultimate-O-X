@@ -49,23 +49,21 @@ class TheGame extends Component {
       victoryRedirect: boolean,
       clearBoard: ''
     })
-    this.handleClick()
+    this.handleClick(true)
   }
 
-  handleClick (backTrack) {
-    if (!this.state.player) {
+  handleClick (boo) {
+    if (boo || !this.state.player) {
       this.setState({
         player: true,
         style1: {backgroundColor: this.state.player1.color},
-        style2: {backgroundColor: '#0E0B16'},
-        backTrack: backTrack
+        style2: {backgroundColor: '#0E0B16'}
       })
     } else {
       this.setState({
         player: false,
         style1: {backgroundColor: '#0E0B16'},
-        style2: {backgroundColor: this.state.player2.color},
-        backTrack: backTrack
+        style2: {backgroundColor: this.state.player2.color}
       })
     }
   }
@@ -95,12 +93,13 @@ class TheGame extends Component {
       player2: {name: player2, color: p2Color, symbol: 'O', score: 0},
       redirect: true
     })
-    this.handleClick()
+    this.handleClick(false)
   }
 
-  undoRedirect (redirectType) {
+  undoRedirect (redirectType, backTrack) {
     this.setState({
-      [redirectType]: false
+      [redirectType]: false,
+      backTrack: backTrack
     })
   }
 
