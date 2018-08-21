@@ -48,7 +48,13 @@ class MainBoard extends Component {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
     let state = this.props.state
-    this.theGame(mini, cell, state.player1)
+    let player = {}
+    !state.ai ?
+      state.player
+        ? player = state.player1
+        : player = state.player2
+      : player = state.player1
+    this.theGame(mini, cell, player)
   }
 
   theAiGame (mini, cell, player) {
@@ -71,7 +77,7 @@ class MainBoard extends Component {
       this.checkForWin(mini, player)
       this.setBoundaries(cell)
       // setTimeout(() => {
-      if (this.props.state.ai) {
+      if (this.props.state.ai && !this.props.state.victory) {
         let {aiMini, aiCell} = computersChoice(this.state.clonedArr,
           this.props.state.player2, this.props.state.player1)
         this.theAiGame(aiMini, aiCell, this.props.state.player2)
