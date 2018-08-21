@@ -15,6 +15,10 @@ class PlayerSelect extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount () {
+    this.props.undoRedirect('victoryRedirect')
+  }
+
   handleChange (e) {
     const {name, value} = e.target
     this.setState({
