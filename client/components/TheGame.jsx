@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {HashRouter as Router, Route, Redirect} from 'react-router-dom'
+import {HashRouter as Router, Route} from 'react-router-dom'
 
 import Menu from './Menu'
 import PlayerSelect from './PlayerSelect'
@@ -98,9 +98,9 @@ class TheGame extends Component {
     this.handleClick()
   }
 
-  undoRedirect () {
+  undoRedirect (redirectType) {
     this.setState({
-      redirect: false
+      [redirectType]: false
     })
   }
 
@@ -116,12 +116,12 @@ class TheGame extends Component {
     return (
       <Router>
         <div>
-          {this.state.victoryRedirect && <Redirect to='/menu/player-select' />}
           <Route path='/menu/player-select' component={Title} />
           <Route exact path='/menu' render={() =>
             <Menu opponentChoice={this.opponentChoice}/>} />
           <Route exact path='/menu/player-select' render={() =>
             <PlayerSelect state={this.state}
+              undoRedirect={this.undoRedirect}
               playerSelect={this.playerSelect}/>} />
           <Route exact path='/menu/player-select/game' render={() =>
             <MainBoard
@@ -133,7 +133,7 @@ class TheGame extends Component {
           />
           {this.state.victory && <Victory
             playAgain={this.playAgain} state={this.state}/>}
-          <Route path='/menu/player-select/game' render={() =>
+          <Route exact path='/menu/player-select/game' render={() =>
             <ScoreBoard mainState={this.state}/>}
           />
           <Footer />
