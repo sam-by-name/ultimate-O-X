@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import {createArr, win} from '../../lib/gameArrays'
 import {computersChoice} from '../../lib/ai/easyAi'
 import {createObj} from '../../lib/gameFunctions'
@@ -28,7 +29,7 @@ class MainBoard extends Component {
   }
 
   componentDidMount () {
-    this.props.undoRedirect()
+    this.props.undoRedirect('redirect')
   }
 
   backTrack () {
@@ -242,6 +243,9 @@ class MainBoard extends Component {
   }
 
   render () {
+    if (this.props.state.victoryRedirect){
+      return <Redirect to='/menu/player-select' /> 
+    }
     return (
       <div className='mainBoardCont'>
         <div className='mainBoard'>
