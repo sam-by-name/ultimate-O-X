@@ -202,7 +202,6 @@ class MainBoard extends Component {
     arr[last[0]][last[1]].lastTaken = false
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        // arr[i][j].wonBy = player.name
         arr[i][j].isPlayable = false
         arr[i][j].gameOver = true
       }
