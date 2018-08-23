@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import {createArr, win} from '../../lib/gameArrays'
 import {computersChoice} from '../../lib/ai/easyAi'
 import {createObj} from '../../lib/gameFunctions'
@@ -12,6 +13,7 @@ class MainBoard extends Component {
     }
     this.backTrack = this.backTrack.bind(this)
     this.theGame = this.theGame.bind(this)
+    this.orderOfProcess = this.orderOfProcess.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.previousArr = this.previousArr.bind(this)
     this.clearLastTaken = this.clearLastTaken.bind(this)
@@ -24,11 +26,11 @@ class MainBoard extends Component {
     this.clearBoard = this.clearBoard.bind(this)
     this.setBoundaries = this.setBoundaries.bind(this)
     this.gameOver = this.gameOver.bind(this)
-    this.theAiGame = this.theAiGame.bind(this)
+    this.computersTurn = this.computersTurn.bind(this)
   }
 
   componentDidMount () {
-    this.props.undoRedirect()
+    this.props.undoRedirect('redirect', this.backTrack)
   }
 
   backTrack () {
@@ -48,36 +50,41 @@ class MainBoard extends Component {
     let mini = e.target.getAttribute('name')
     let cell = e.target.getAttribute('value')
     let state = this.props.state
-    this.theGame(mini, cell, state.player1)
+    let player = {}
+    !state.ai
+      ? state.player
+        ? player = state.player1
+        : player = state.player2
+      : player = state.player1
+    this.theGame(mini, cell, player, state)
   }
 
-  theAiGame (mini, cell, player) {
+  theGame (mini, cell, player, state) {
     let arr = this.state.clonedArr[mini][cell]
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
-      this.props.handleClick(this.backTrack)
-      this.previousArr()
-      this.arrEdit(mini, cell, player)
-      this.checkForWin(mini, player)
-      this.setBoundaries(cell)
-    }
-  }
-
-  theGame (mini, cell, player) {
-    let arr = this.state.clonedArr[mini][cell]
-    if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
-      this.props.handleClick(this.backTrack)
-      this.previousArr()
-      this.arrEdit(mini, cell, player)
-      this.checkForWin(mini, player)
-      this.setBoundaries(cell)
-      // setTimeout(() => {
-      if (this.props.state.ai) {
-        let {aiMini, aiCell} = computersChoice(this.state.clonedArr,
-          this.props.state.player2, this.props.state.player1)
-        this.theAiGame(aiMini, aiCell, this.props.state.player2)
+      this.props.handleClick()
+      this.orderOfProcess(mini, cell, player)
+      if (state.ai && !this.state.clonedArr[0][0].gameOver) {
+        setTimeout(() => {
+          this.computersTurn(state)
+        }, 100)
       }
-      // }, 1000)
     }
+  }
+
+  orderOfProcess (mini, cell, player) {
+    // this.props.handleClick()
+    this.previousArr()
+    this.arrEdit(mini, cell, player)
+    this.checkForWin(mini, player)
+    this.setBoundaries(cell)
+  }
+
+  computersTurn (state) {
+    let {mini, cell} = computersChoice(this.state.clonedArr,
+      state.player2, state.player1)
+    this.props.handleClick()
+    this.orderOfProcess(mini, cell, state.player2)
   }
 
   arrEdit (mini, cell, player) {
@@ -159,7 +166,7 @@ class MainBoard extends Component {
       document.getElementsByClassName('mainBoard')[0].style.border =
         '10px solid orange'
       this.props.handleVictory("It's a DRAW!", this.clearBoard)
-      this.gameOver('DRAW')
+      this.gameOver()
     }
   }
 
@@ -188,18 +195,17 @@ class MainBoard extends Component {
         document.getElementsByClassName('mainBoard')[0].style.border =
         `10px solid ${player.color}`
         this.props.handleVictory(`${player.name.toUpperCase()} WINS`, this.clearBoard)
-        this.gameOver(player)
+        this.gameOver()
       }
     }
   }
 
-  gameOver (player) {
+  gameOver () {
     let last = this.clearLastTaken()
     let arr = this.state.clonedArr
     arr[last[0]][last[1]].lastTaken = false
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        // arr[i][j].wonBy = player.name
         arr[i][j].isPlayable = false
         arr[i][j].gameOver = true
       }
@@ -215,27 +221,34 @@ class MainBoard extends Component {
   }
 
   setBoundaries (cell) {
+    let arr = this.state.clonedArr
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        let arr = this.state.clonedArr[i][j]
-        let cellArr = this.state.clonedArr[cell][j]
-        if (cellArr.wonBy === '' && i === Number(cell) && !arr.gameOver) {
-          cellArr.isPlayable = true
-          cellArr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy !== '' && arr.wonBy === '' && !arr.gameOver) {
-          arr.isPlayable = true
-          arr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '' && !arr.gameOver) {
-          arr.isPlayable = false
-          arr.boundaryStyle = {border: '10px solid #0E0B16'}
-        } else if (arr.wonBy === '' && arr.gameOver) {
-          arr.boundaryStyle = {border: '10px solid #0E0B16'}
+        // let arr = this.state.clonedArr[i][j]
+        // let arr[cell][j] = this.state.clonedArr[cell][j]
+        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) {
+          arr[cell][j].isPlayable = true
+          arr[cell][j].boundaryStyle = {border: '10px solid lime'}
+        } else if (arr[cell][j].wonBy !== '' && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
+          arr[i][j].isPlayable = true
+          arr[i][j].boundaryStyle = {border: '10px solid lime'}
+        } else if (arr[cell][j].wonBy === '' && i !== Number(cell) && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
+          arr[i][j].isPlayable = false
+          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
+        } else if (arr[i][j].wonBy === '' && arr[i][j].gameOver) {
+          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
         }
       }
     }
+    this.setState({
+      clonedArr: arr
+    })
   }
 
   render () {
+    if (this.props.state.victoryRedirect) {
+      return <Redirect to='/menu/player-select' />
+    }
     return (
       <div className='mainBoardCont'>
         <div className='mainBoard'>
