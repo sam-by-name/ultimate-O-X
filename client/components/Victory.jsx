@@ -10,6 +10,21 @@ class Victory extends Component {
 
   rematch () {
     let state = this.props.state
+    let player = false
+    let swap = false
+    let p1Color = {}
+    let p2Color = {}
+    if (!state.firstTurnSwap && !state.ai) {
+      player = false
+      swap = true
+      p2Color = state.player2.color
+      p1Color = '#0E0B16'
+    } else {
+      player = true
+      swap = true
+      p1Color = state.player1.color
+      p2Color = '#0E0B16'
+    }
     let player1 = {
       name: state.player1.name,
       color: state.player1.color,
@@ -20,8 +35,8 @@ class Victory extends Component {
       color: state.player2.color,
       symbol: 'O',
       score: 0}
-    this.props.playAgain(false, player1, player2)
-  }
+    this.props.playAgain(false, player, swap, player1, player2, p1Color, p2Color)
+  } // player gets sent through as false, setState sets player to false, but then it is somehow true again
 
   newGame () {
     this.props.playAgain(true)
