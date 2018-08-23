@@ -65,9 +65,9 @@ class MainBoard extends Component {
       this.props.handleClick()
       this.orderOfProcess(mini, cell, player)
       if (state.ai && !this.state.clonedArr[0][0].gameOver) {
-        // setTimeout(() => {
-        this.computersTurn(state)
-        // }, 1000)
+        setTimeout(() => {
+          this.computersTurn(state)
+        }, 100)
       }
     }
   }
@@ -221,24 +221,28 @@ class MainBoard extends Component {
   }
 
   setBoundaries (cell) {
+    let arr = this.state.clonedArr
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        let arr = this.state.clonedArr[i][j]
-        let cellArr = this.state.clonedArr[cell][j]
-        if (cellArr.wonBy === '' && i === Number(cell) && !arr.gameOver) {
-          cellArr.isPlayable = true
-          cellArr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy !== '' && arr.wonBy === '' && !arr.gameOver) {
-          arr.isPlayable = true
-          arr.boundaryStyle = {border: '10px solid lime'}
-        } else if (cellArr.wonBy === '' && i !== Number(cell) && arr.wonBy === '' && !arr.gameOver) {
-          arr.isPlayable = false
-          arr.boundaryStyle = {border: '10px solid #0E0B16'}
-        } else if (arr.wonBy === '' && arr.gameOver) {
-          arr.boundaryStyle = {border: '10px solid #0E0B16'}
+        // let arr = this.state.clonedArr[i][j]
+        // let arr[cell][j] = this.state.clonedArr[cell][j]
+        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) {
+          arr[cell][j].isPlayable = true
+          arr[cell][j].boundaryStyle = {border: '10px solid lime'}
+        } else if (arr[cell][j].wonBy !== '' && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
+          arr[i][j].isPlayable = true
+          arr[i][j].boundaryStyle = {border: '10px solid lime'}
+        } else if (arr[cell][j].wonBy === '' && i !== Number(cell) && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
+          arr[i][j].isPlayable = false
+          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
+        } else if (arr[i][j].wonBy === '' && arr[i][j].gameOver) {
+          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
         }
       }
     }
+    this.setState({
+      clonedArr: arr
+    })
   }
 
   render () {
