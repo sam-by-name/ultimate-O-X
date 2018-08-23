@@ -62,15 +62,18 @@ class MainBoard extends Component {
   theGame (mini, cell, player, state) {
     let arr = this.state.clonedArr[mini][cell]
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
+      this.props.handleClick()
       this.orderOfProcess(mini, cell, player)
-      if (state.ai && !this.state.clonedArr[0][0].gameOver) { // setTimeout(() => {
-        this.computersTurn(state) // }, 1000)
+      if (state.ai && !this.state.clonedArr[0][0].gameOver) {
+        // setTimeout(() => {
+        this.computersTurn(state)
+        // }, 1000)
       }
     }
   }
 
   orderOfProcess (mini, cell, player) {
-    this.props.handleClick()
+    // this.props.handleClick()
     this.previousArr()
     this.arrEdit(mini, cell, player)
     this.checkForWin(mini, player)
@@ -80,6 +83,7 @@ class MainBoard extends Component {
   computersTurn (state) {
     let {mini, cell} = computersChoice(this.state.clonedArr,
       state.player2, state.player1)
+    this.props.handleClick()
     this.orderOfProcess(mini, cell, state.player2)
   }
 
