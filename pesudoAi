@@ -1,14 +1,10 @@
 For just one mini game
 
 Checks first of each array to see which miniGame is playable
-If middle of miniGame is free, takes middle
-If it is, 
+If middle of miniGame is free, takes middle 
 checks for free cell next to one already owned that can form a line,
 forms a pair,
 or just takes a free space
-
-
-
 ai checks if player is about to win and prevents.
 
 
@@ -24,3 +20,16 @@ ai checks if player is about to win and prevents.
 //   win = jumbledWin
 //   return jumbledWin
 // }
+
+coOrds          = co-ordinates for ai to go to
+mini            = playable miniGames
+aiOwns          = cells owned by ai
+playable        = cells not yet taken
+playerOwns      = cells owned by human
+win             = cells that would give ai a miniWin
+deny            = cells that would deny player a miniWin
+continue2       = cells that would 'continue' more than one line
+continueAndNew  = cells that would continue and state a new line
+continue1       = cells that would continue just one line
+posLines        = cells that would start a new and available lines
+safeDeadNotSafe = playableCells named according to where they would send the playar
