@@ -322,7 +322,7 @@ select {
 }
 
 .mainBoard {
-  border: 10px solid #0E0B16;
+  border: 5px solid #0E0B16;
   font-size: 3em;
   width: 676px;
   margin: 0 auto;
@@ -393,6 +393,27 @@ select {
   float: left;
 }
 
+@media (max-width: 900px) {
+  .mainBoardCont {
+    width: 360px;
+    height: 360px;
+  }
+
+  .mainBoard {
+    border: 2px solid #0E0B16;
+    width: 356px;
+    font-size: 1.6em;
+  }
+
+  .miniBoard {
+    margin: 4px;
+  }
+
+  .cell {
+    width: 31.7px;
+    height: 31.7px;
+  }
+}
 
 /* ScoreBoard */
 .scoreBoard {
