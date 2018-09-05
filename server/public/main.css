@@ -393,27 +393,6 @@ select {
   float: left;
 }
 
-@media (max-width: 900px) {
-  .mainBoardCont {
-    width: 360px;
-    height: 360px;
-  }
-
-  .mainBoard {
-    border: 2px solid #0E0B16;
-    width: 356px;
-    font-size: 1.6em;
-  }
-
-  .miniBoard {
-    margin: 4px;
-  }
-
-  .cell {
-    width: 31.7px;
-    height: 31.7px;
-  }
-}
 
 /* ScoreBoard */
 .scoreBoard {
@@ -434,21 +413,77 @@ select {
   display:inline-block;
 }
 
-.backOneCont {
-  display:inline-block;
-}
-
 .backOne {
   width: 100px;
   left: 0;
   right: 0;
-  margin: 0 auto;
+  margin: 45px auto 0 auto;
   position: absolute;
   background-color: #0E0B16;
   color: #E7DFDD;
   border: 2px solid #E7DFDD ;
   border-radius: 25% 0;
   padding: 5px;
+}
+
+@media (max-width: 900px) {
+  .titleCont {
+    font-size: 1.7em;
+  }
+
+  .mainBoardCont {
+    width: 360px;
+    height: 360px;
+  }
+
+  .mainBoard {
+    border: 2px solid #0E0B16;
+    width: 356px;
+    font-size: 1.6em;
+  }
+
+  .miniBoard {
+    margin: 4px;
+  }
+
+  .cell {
+    width: 31.7px;
+    height: 31.7px;
+  }
+
+    /* ScoreBoard */
+  .scoreBoard {
+    width: 360px;
+    font-size: 0.8em;
+  }
+  
+  .player1 {
+    left: 3%;
+    position: absolute;
+    display:inline-block;
+  }
+  
+  .player2 {
+    right: 3%;
+    position: absolute;
+    text-align: right;
+    display:inline-block;
+  }
+
+  /* Footer*/
+
+  .author {
+    left: 20%;
+  }
+
+  .version {
+    right: 20%;
+  }
+
+}
+
+.backOneCont {
+  display:inline-block;
 }
 
 .btn:hover {
