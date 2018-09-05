@@ -427,6 +427,48 @@ select {
 }
 
 @media (max-width: 900px) {
+  .options {
+    margin-top: 100px;
+  }
+
+  .square {
+    width: 250px;
+    height: 250px;
+  }
+
+  .diamond {
+    width: 250px;
+    height: 250px;
+  }
+
+  .circle {
+    width: 250px;
+    height: 250px;
+  }
+
+  .homeBtn {
+    width: 120px;
+  }
+
+  .button {
+    margin: 40px auto 10px auto;
+    padding: .5em .75em;
+    width: 125px;
+  }
+
+  .button2 {
+    margin: 10px auto;
+    padding: .5em .75em;
+    width: 125px;
+  }
+  .button3 {
+    margin: 10px auto;
+    padding: .5em .75em;
+    width: 125px;
+  }
+
+  
+  /* MainBoard */
   .titleCont {
     font-size: 1.7em;
   }
