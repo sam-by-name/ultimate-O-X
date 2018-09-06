@@ -234,7 +234,7 @@ a:link {
   text-decoration: none;
 }
 
-/* playerSelect.jsx  */
+/* playerSelect */
 .playerDiv {
   width: 100%;
   text-align: center;
@@ -279,8 +279,21 @@ a:link {
   text-align: right;
 }
 
+.pWidth {
+  width          : 140px;
+}
+
 .pName2 {
-  text-align: right;
+  text-align     : right;
+  float          : right;
+}
+.rSelect {
+  text-align     : right;
+  text-align-last: right;
+}
+
+.rSelectPos {
+  display: inline;
 }
 
 select {
@@ -427,6 +440,44 @@ select {
 }
 
 @media (max-width: 900px) {
+  /* playerSelect */
+  .playerSelect {
+    margin-top: 50px;
+  }
+
+  .p1 {
+    left: 3%;
+  }
+
+  .p2 {
+    right: 3%;
+  }
+
+  .pName1 {
+    display: block;
+  }
+
+  .rSelectPos {
+    display: block;
+  }
+
+  .downL {
+    left: 58px;
+    border-width: 0 3px 3px 0;
+    padding: 3px;
+    top: 87px;
+    display: block;
+  }
+  
+  .downR {
+    right: 58px;
+    border-width: 0 3px 3px 0;
+    padding: 3px;
+    top: 87px;
+    display: block;
+  }
+
+  /* Menu */
   .options {
     margin-top: 100px;
   }
