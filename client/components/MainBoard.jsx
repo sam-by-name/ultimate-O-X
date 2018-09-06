@@ -149,7 +149,7 @@ class MainBoard extends Component {
       for (let j = 0; j < 9; j++) {
         arr[j].wonBy = 'DRAW'
         arr[j].isPlayable = false
-        arr[j].boundaryStyle = {border: '10px solid orange'}
+        arr[j].boundaryStyle = {border: '5px solid orange'}
       }
     }
   }
@@ -177,7 +177,7 @@ class MainBoard extends Component {
       arr[i].wonBy = player.name
       arr[i].isPlayable = false
       arr[i].winColor = {backgroundColor: `dark${player.color}`}
-      arr[i].boundaryStyle = {border: `10px solid ${player.color}`}
+      arr[i].boundaryStyle = {border: `5px solid ${player.color}`}
     }
   }
 
@@ -193,7 +193,7 @@ class MainBoard extends Component {
           temp.includes(win[j][1]) &&
           temp.includes(win[j][2])) {
         document.getElementsByClassName('mainBoard')[0].style.border =
-        `10px solid ${player.color}`
+        `2px solid ${player.color}`
         this.props.handleVictory(`${player.name.toUpperCase()} WINS`, this.clearBoard)
         this.gameOver()
       }
@@ -228,15 +228,15 @@ class MainBoard extends Component {
         // let arr[cell][j] = this.state.clonedArr[cell][j]
         if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) {
           arr[cell][j].isPlayable = true
-          arr[cell][j].boundaryStyle = {border: '10px solid lime'}
+          arr[cell][j].boundaryStyle = {border: '5px solid lime'}
         } else if (arr[cell][j].wonBy !== '' && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
           arr[i][j].isPlayable = true
-          arr[i][j].boundaryStyle = {border: '10px solid lime'}
+          arr[i][j].boundaryStyle = {border: '5px solid lime'}
         } else if (arr[cell][j].wonBy === '' && i !== Number(cell) && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
           arr[i][j].isPlayable = false
-          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
+          arr[i][j].boundaryStyle = {border: '5px solid #0E0B16'}
         } else if (arr[i][j].wonBy === '' && arr[i][j].gameOver) {
-          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
+          arr[i][j].boundaryStyle = {border: '5px solid #0E0B16'}
         }
       }
     }
