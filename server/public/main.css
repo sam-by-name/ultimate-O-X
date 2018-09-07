@@ -522,6 +522,7 @@ select {
   /* MainBoard */
   .titleCont {
     font-size: 1.7em;
+    margin: 30px auto 25px auto;
   }
 
   .mainBoardCont {
