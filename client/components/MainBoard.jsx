@@ -164,7 +164,7 @@ class MainBoard extends Component {
     }
     if (drawPool === 9) {
       document.getElementsByClassName('mainBoard')[0].style.border =
-        '10px solid orange'
+        '5px solid orange'
       this.props.handleVictory("It's a DRAW!", this.clearBoard)
       this.gameOver()
     }
