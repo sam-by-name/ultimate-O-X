@@ -21,6 +21,8 @@ ai checks if player is about to win and prevents.
 //   return jumbledWin
 // }
 
+let arr = [...new Set(startsNew)] (removes duplicates)
+
 coOrds          = co-ordinates for ai to go to
 mini            = playable miniGames
 aiOwns          = cells owned by ai
@@ -33,3 +35,11 @@ continueAndNew  = cells that would continue and state a new line
 continue1       = cells that would continue just one line
 posLines        = cells that would start a new and available lines
 safeDeadNotSafe = playableCells named according to where they would send the playar
+
+
+arrays below always : from most occurred to least
+
+continue2           = array of moves that continue 2 lines
+continueAndNew      = array of moves that continue a line and start a new one 
+continueAndMultiNew = array of moves that continue a line and start multiple new ordinates
+continue1           = array of moves that continue only one line

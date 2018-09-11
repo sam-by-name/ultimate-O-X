@@ -234,7 +234,7 @@ a:link {
   text-decoration: none;
 }
 
-/* playerSelect.jsx  */
+/* playerSelect */
 .playerDiv {
   width: 100%;
   text-align: center;
@@ -279,8 +279,21 @@ a:link {
   text-align: right;
 }
 
+.pWidth {
+  width          : 140px;
+}
+
 .pName2 {
-  text-align: right;
+  text-align     : right;
+  float          : right;
+}
+.rSelect {
+  text-align     : right;
+  text-align-last: right;
+}
+
+.rSelectPos {
+  display: inline;
 }
 
 select {
@@ -322,7 +335,7 @@ select {
 }
 
 .mainBoard {
-  border: 10px solid #0E0B16;
+  border: 5px solid #0E0B16;
   font-size: 3em;
   width: 676px;
   margin: 0 auto;
@@ -413,21 +426,158 @@ select {
   display:inline-block;
 }
 
-.backOneCont {
-  display:inline-block;
-}
-
 .backOne {
   width: 100px;
   left: 0;
   right: 0;
-  margin: 0 auto;
+  margin: 45px auto 0 auto;
   position: absolute;
   background-color: #0E0B16;
   color: #E7DFDD;
   border: 2px solid #E7DFDD ;
   border-radius: 25% 0;
   padding: 5px;
+}
+
+@media (max-width: 900px) {
+  /* playerSelect */
+  .playerSelect {
+    margin-top: 50px;
+  }
+
+  .p1 {
+    left: 3%;
+  }
+
+  .p2 {
+    right: 3%;
+  }
+
+  .pName1 {
+    display: block;
+  }
+
+  .rSelectPos {
+    display: block;
+  }
+
+  .downL {
+    left: 58px;
+    border-width: 0 3px 3px 0;
+    padding: 3px;
+    top: 87px;
+    display: block;
+  }
+  
+  .downR {
+    right: 58px;
+    border-width: 0 3px 3px 0;
+    padding: 3px;
+    top: 87px;
+    display: block;
+  }
+
+  /* Menu */
+  .options {
+    margin-top: 100px;
+  }
+
+  .square {
+    width: 250px;
+    height: 250px;
+  }
+
+  .diamond {
+    width: 250px;
+    height: 250px;
+  }
+
+  .circle {
+    width: 250px;
+    height: 250px;
+  }
+
+  .homeBtn {
+    width: 120px;
+  }
+
+  .button {
+    margin: 40px auto 10px auto;
+    padding: .5em .75em;
+    width: 125px;
+  }
+
+  .button2 {
+    margin: 10px auto;
+    padding: .5em .75em;
+    width: 125px;
+  }
+  .button3 {
+    margin: 10px auto;
+    padding: .5em .75em;
+    width: 125px;
+  }
+
+  
+  /* MainBoard */
+  .titleCont {
+    font-size: 1.7em;
+    margin: 30px auto 25px auto;
+  }
+
+  .mainBoardCont {
+    width: 360px;
+    height: 360px;
+  }
+
+  .mainBoard {
+    border: 2px solid #0E0B16;
+    width: 356px;
+    font-size: 1.6em;
+  }
+
+  .miniBoard {
+    margin: 4px;
+  }
+
+  .cell {
+    width: 31.7px;
+    height: 31.7px;
+  }
+
+    /* ScoreBoard */
+  .scoreBoard {
+    width: 360px;
+    font-size: 0.8em;
+  }
+  
+  .player1 {
+    left: 3%;
+    position: absolute;
+    display:inline-block;
+  }
+  
+  .player2 {
+    right: 3%;
+    position: absolute;
+    text-align: right;
+    display:inline-block;
+  }
+
+  /* Footer*/
+
+  .author {
+    left: 20%;
+  }
+
+  .version {
+    right: 20%;
+  }
+
+}
+
+.backOneCont {
+  display:inline-block;
 }
 
 .btn:hover {
