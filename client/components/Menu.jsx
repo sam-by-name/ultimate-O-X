@@ -22,7 +22,7 @@ class Menu extends Component {
       })
     } else {
       this.props.opponentChoice(e.target.name)
-      this.handleBack()
+      this.menuToggle()
     }
   }
 
