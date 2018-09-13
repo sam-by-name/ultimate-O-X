@@ -78,7 +78,6 @@ class MainBoard extends Component {
   }
 
   orderOfProcess (mini, cell, player) {
-    // this.props.handleClick()
     this.previousArr()
     this.arrEdit(mini, cell, player)
     this.checkForWin(mini, player)
@@ -229,8 +228,6 @@ class MainBoard extends Component {
     let arr = this.state.clonedArr
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        // let arr = this.state.clonedArr[i][j]
-        // let arr[cell][j] = this.state.clonedArr[cell][j]
         if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) {
           arr[cell][j].isPlayable = true
           arr[cell][j].boundaryStyle = {border: '5px solid lime'}

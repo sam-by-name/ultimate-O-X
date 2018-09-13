@@ -17,11 +17,9 @@ const MenuBtns = (props) => {
         </button>
       </div>
       <div className='homeBtn'>
-        {/* <Link to='/menu'> */}
         <button className='button3' onMouseMove={props.mouseOver3}>
           <span>Tutorial</span>
         </button>
-        {/* </Link> */}
       </div>
     </div>
   )
