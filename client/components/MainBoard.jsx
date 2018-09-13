@@ -217,7 +217,7 @@ class MainBoard extends Component {
       clonedArr: createArr()
     })
     document.getElementsByClassName('mainBoard')[0].style.border =
-    `10px solid #0E0B16`
+    `5px solid #0E0B16`
   }
 
   setBoundaries (cell) {
