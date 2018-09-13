@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import {createArr, win} from '../../lib/gameArrays'
-import {computersChoice} from '../../lib/ai/easyAi'
+import {easyAi} from '../../lib/ai/easyAi'
+import {mediumAi} from '../../lib/ai/mediumAi'
 import {createObj} from '../../lib/gameFunctions'
 
 class MainBoard extends Component {
@@ -64,9 +65,13 @@ class MainBoard extends Component {
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       this.props.handleClick()
       this.orderOfProcess(mini, cell, player)
-      if (state.ai && !this.state.clonedArr[0][0].gameOver) {
+      if (state.ai && state.aiDifficulty === 'easy' && !this.state.clonedArr[0][0].gameOver) {
         setTimeout(() => {
-          this.computersTurn(state)
+          this.computersTurn(state, easyAi)
+        }, 100)
+      } else if (state.ai && state.aiDifficulty === 'medium' && !this.state.clonedArr[0][0].gameOver) {
+        setTimeout(() => {
+          this.computersTurn(state, mediumAi)
         }, 100)
       }
     }
@@ -80,8 +85,8 @@ class MainBoard extends Component {
     this.setBoundaries(cell)
   }
 
-  computersTurn (state) {
-    let {mini, cell} = computersChoice(this.state.clonedArr,
+  computersTurn (state, ai) {
+    let {mini, cell} = ai(this.state.clonedArr,
       state.player2, state.player1)
     this.props.handleClick()
     this.orderOfProcess(mini, cell, state.player2)
