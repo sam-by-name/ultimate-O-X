@@ -25,6 +25,7 @@ class TheGame extends Component {
       backTrack: '',
       clearBoard: '',
       ai: false,
+      aiDifficulty: '',
       firstTurnSwap: false
     }
     this.playAgain = this.playAgain.bind(this)
@@ -51,7 +52,6 @@ class TheGame extends Component {
       clearBoard: '',
       firstTurnSwap: swap
     })
-    // this.handleClick()
   }
 
   handleClick () {
@@ -97,7 +97,6 @@ class TheGame extends Component {
       style2: {backgroundColor: '#0E0B16'},
       redirect: true
     })
-    // this.handleClick()
   }
 
   undoRedirect (redirectType, backTrack) {
@@ -107,9 +106,19 @@ class TheGame extends Component {
     })
   }
 
-  opponentChoice (opponent) {
-    if (opponent === 'pVai') {
-      this.setState({ai: true})
+  opponentChoice (opponent) { // to be refactored soon
+    if (opponent === 'easy' || 'medium') {
+      if (opponent === 'easy') {
+        this.setState({
+          ai: true,
+          aiDifficulty: 'easy'
+        })
+      } else if (opponent === 'medium') {
+        this.setState({
+          ai: true,
+          aiDifficulty: 'medium'
+        })
+      }
     } else if (opponent === 'pVp') {
       this.setState({ai: false})
     }

@@ -1,18 +1,35 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import Title from './Title'
+import MenuBtns from './MenuBtns'
+import AiChoice from './AiChoice'
 
 class Menu extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      menuToggle: false
+    }
     this.mouseOver = this.mouseOver.bind(this)
     this.mouseOver2 = this.mouseOver2.bind(this)
     this.mouseOver3 = this.mouseOver3.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.menuToggle = this.menuToggle.bind(this)
+  }
+  handleClick (e) {
+    if (e.target.name === 'pVai') {
+      this.setState({
+        menuToggle: true
+      })
+    } else {
+      this.props.opponentChoice(e.target.name)
+      this.menuToggle()
+    }
   }
 
-  handleClick (e) {
-    this.props.opponentChoice(e.target.name)
+  menuToggle () {
+    this.setState({
+      menuToggle: false
+    })
   }
 
   mouseOver () {
@@ -43,6 +60,7 @@ class Menu extends Component {
       e.target.style.setProperty('--y', `${y}px`)
     }
   }
+
   render () {
     return (
       <div className='menu'>
@@ -53,27 +71,19 @@ class Menu extends Component {
           <div className='square'></div>
           <div className='diamond'></div>
           <section className='circle'></section>
-          <div className='homeBtn'>
-            <Link to='/menu/player-select'>
-              <button name='pVp' className='button' onMouseMove={this.mouseOver} onClick={this.handleClick}>
-                <span>P vs P</span>
-              </button>
-            </Link>
-          </div>
-          <div className='homeBtn'>
-            <Link to='/menu/player-select'>
-              <button name='pVai' className='button2' onMouseMove={this.mouseOver2} onClick={this.handleClick}>
-                <span>P vs Ai</span>
-              </button>
-            </Link>
-          </div>
-          <div className='homeBtn'>
-            <Link to='/menu'>
-              <button className='button3' onMouseMove={this.mouseOver3}>
-                <span>Tutorial</span>
-              </button>
-            </Link>
-          </div>
+          {!this.state.menuToggle && <MenuBtns
+            handleClick={this.handleClick}
+            mouseOver={this.mouseOver}
+            mouseOver2={this.mouseOver2}
+            mouseOver3={this.mouseOver3}
+          />}
+          {this.state.menuToggle && <AiChoice
+            handleClick={this.handleClick}
+            menuToggle={this.menuToggle}
+            mouseOver={this.mouseOver}
+            mouseOver2={this.mouseOver2}
+            mouseOver3={this.mouseOver3}
+          />}
         </div>
       </div>
     )
