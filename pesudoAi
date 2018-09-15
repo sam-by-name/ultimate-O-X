@@ -43,3 +43,6 @@ continue2           = array of moves that continue 2 lines
 continueAndNew      = array of moves that continue a line and start a new one 
 continueAndMultiNew = array of moves that continue a line and start multiple new ordinates
 continue1           = array of moves that continue only one line
+
+make chosen min smarter
+if move could win game but would send to an unsafe mini take winning move
