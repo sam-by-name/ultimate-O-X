@@ -1,15 +1,3 @@
-For just one mini game
-
-Checks first of each array to see which miniGame is playable
-If middle of miniGame is free, takes middle 
-checks for free cell next to one already owned that can form a line,
-forms a pair,
-or just takes a free space
-ai checks if player is about to win and prevents.
-
-
-
-
 // export const winArr = () => { Randomizes an array
 //   let jumbledWin = []
 //   for (let i = 0; i < 8; i++) {
@@ -43,3 +31,25 @@ continue2           = array of moves that continue 2 lines
 continueAndNew      = array of moves that continue a line and start a new one 
 continueAndMultiNew = array of moves that continue a line and start multiple new ordinates
 continue1           = array of moves that continue only one line
+
+make chosen miniGame smarter
+
+if move could win main game mark as safe and take winning move    x
+if deny would prevent victory, take it.                           x but needs to be smarter!
+if move would send to a mini that would cause victory, don't!
+if deny sends to the same minigame, mark as safe.
+if move would prevent victory/cause a draw, of miniGame that is crucial 
+to a 'greater board' line, take move.
+
+if move sends them to a mini with no safe moves, send them there
+
+
+if no smart move can be made and a good move is available, take best/ most effective move
+
+
+
+Coding == building a ladder
+Climbing higher == defying gravity
+So code your way to the heavens,
+Defy the unseen forces,
+Only you can confine you
