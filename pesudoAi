@@ -35,8 +35,9 @@ continue1           = array of moves that continue only one line
 make chosen miniGame smarter
 
 if move could win main game mark as safe and take winning move    x
-if deny sends to the same minigame, mark as safe.
 if deny would prevent victory, take it.
+if move would send to a mini that would cause victory, don't!
+if deny sends to the same minigame, mark as safe.
 if move would prevent victory/cause a draw, of miniGame that is crucial 
 to a 'greater board' line, take move.
 
