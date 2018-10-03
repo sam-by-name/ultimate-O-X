@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import {createArr, win} from '../../lib/gameArrays'
 import {easyAi} from '../../lib/ai/easyAi'
-import {mediumAi} from '../../lib/ai/mediumAi'
+import {mediumAiV2} from '../../lib/medAiV2/medAiV2'
 import {createObj} from '../../lib/gameFunctions'
 
 class MainBoard extends Component {
@@ -71,7 +71,7 @@ class MainBoard extends Component {
         }, 100)
       } else if (state.ai && state.aiDifficulty === 'medium' && !this.state.clonedArr[0][0].gameOver) {
         setTimeout(() => {
-          this.computersTurn(state, mediumAi)
+          this.computersTurn(state, mediumAiV2)
         }, 100)
       }
     }
