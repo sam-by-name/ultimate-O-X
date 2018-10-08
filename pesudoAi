@@ -11,18 +11,33 @@
 
 let arr = [...new Set(startsNew)] (removes duplicates)
 
-coOrds          = co-ordinates for ai to go to
-mini            = playable miniGames
-aiOwns          = cells owned by ai
-playable        = cells not yet taken
-playerOwns      = cells owned by human
-win             = cells that would give ai a miniWin
-deny            = cells that would deny player a miniWin
-continue2       = cells that would 'continue' more than one line
-continueAndNew  = cells that would continue and state a new line
-continue1       = cells that would continue just one line
-posLines        = cells that would start a new and available lines
-safeDeadNotSafe = playableCells named according to where they would send the playar
+aiArr = [
+coOrds              = co-ordinates for ai to go to
+miniPlayable        = playable miniGames
+playable            = cells not yet taken
+playerOwns          = cells owned by human
+aiOwns              = cells owned by ai
+win                 = cells that would give ai a miniWin
+deny                = cells that would deny player a miniWin
+safe                = cells that have no immediate down-sides 
+notSafe             = cells that send to winnable mini
+dead                = cells that send to taken minis
+continue1           = cells that continue just one line
+continue2           = cells that continue more than one line
+continueAndNew      = cells that continue and start a new line
+continueAndMultiNew = cells that continue and start multiple new lines
+startsNew           = cells that would start a new and available lines
+safeDeadNotSafe     = playableCells named according to where they would send the playar
+
+// below props = attempt at cell/move grading
+
+zeroEffect          = no immediate effect
+ok                  = 
+good                =
+veryGood            = 
+awesome             = safely wins/denies mini,
+                      sends to mini with no good moves for player,
+                      safely denies a miniLine that contributes to a greaterLine 
 
 
 arrays below always : from most occurred to least
@@ -37,11 +52,11 @@ make chosen miniGame smarter
 if move could win main game mark as safe and take winning move    x
 if deny would prevent victory, take it.                           x but needs to be smarter!
 if move would send to a mini that would cause victory, don't!
-if deny sends to the same minigame, mark as safe.
+if deny sends to the same minigame and other win is not possible, mark as safe.
 if move would prevent victory/cause a draw, of miniGame that is crucial 
 to a 'greater board' line, take move.
 
-if move sends them to a mini with no safe moves, send them there
+if move sends them to a mini with no safe moves, send them there / aiArr[][].awesome: true!
 
 
 if no smart move can be made and a good move is available, take best/ most effective move
@@ -53,3 +68,19 @@ Climbing higher == defying gravity
 So code your way to the heavens,
 Defy the unseen forces,
 Only you can confine you
+
+
+if move sends player to a mini where player can deny ai safely,
+and better move is available, take it. // write function
+
+Thoughts for my extreme ai:
+Once ai knows all side effects of the immediate individual move,
+it plays against itself until the end. (during its thought process)
+The amount of moves it takes to end the game are counted.
+If it beats itself, that move is marked as a good one.
+And if it loses to itself that move is marked as a bad one.
+The move that wins and takes least moves is graded higher than one with more moves.
+If no wins occur, it takes the lose that takes most moves to complete. 
+(in hope of human error)
+
+different ai mindsets? defensive, aloof, aggressive ???
