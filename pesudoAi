@@ -33,7 +33,7 @@ safeDeadNotSafe     = playableCells named according to where they would send the
 
 zeroEffect          = no immediate effect
 ok                  = 
-good                =
+good                = 
 veryGood            = 
 awesome             = safely wins/denies mini,
                       sends to mini with no good moves for player,
