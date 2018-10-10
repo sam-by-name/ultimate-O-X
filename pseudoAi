@@ -11,7 +11,7 @@
 
 let arr = [...new Set(startsNew)] (removes duplicates)
 
-aiArr = [
+aiDb = [
 coOrds              = co-ordinates for ai to go to
 miniPlayable        = playable miniGames
 playable            = cells not yet taken
@@ -26,7 +26,7 @@ continue1           = cells that continue just one line
 continue2           = cells that continue more than one line
 continueAndNew      = cells that continue and start a new line
 continueAndMultiNew = cells that continue and start multiple new lines
-startsNew           = cells that would start a new and available lines
+startsNew           = cells that would start a new line
 safeDeadNotSafe     = playableCells named according to where they would send the playar
 
 // below props = attempt at cell/move grading
