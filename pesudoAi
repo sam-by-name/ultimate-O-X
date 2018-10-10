@@ -89,7 +89,24 @@ different ai mindsets? defensive, aloof, aggressive ???
 
 Redefining notSafe 
 
+Sends to mini that would give player victory === UltimateBoBo
+Sends to mini that would give player a free win === prettyBad 
+Sends to mini that results in more wins for player than the ai === notGreat
+
+Sends to mini that player can freely deny === bad           // player denies not currently in safe/notSafe
+Sends to mini that player can deny, but would lead ai to a safe win === soSo
+Sends to mini that player can deny, but would lead ai to a free turn === decent
+
+normalMove : Sends to mini that player wins (if !Vic), but that then sends  ai to safe win  === decent
+winMove : Win sends to mini that player wins (if !Vic), but that then sends ai to safe win === prettyDecent
+Sends to mini that player wins (if !Vic), but player win gives ai free turn === prettyDecent
+
+
 Just because a mini can be won, doesn't make it a bad choice
 
 expand :
-If a mini that can be won by the player, would lead to a mini that that can be won by the ai ... 'tactically safe' ??
+If a mini that can be won by the player (and isn't a victory), would lead to 
+a mini that that can be safely won by the ai ... 'tactically safe' ?? iterate 
+
+If mini can be won by player but would lead to a 
+taken mini/ai free-turn and isn't a playerVictory, mark as safe (or .. 'strategically safe')
