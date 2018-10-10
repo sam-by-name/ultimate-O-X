@@ -50,10 +50,10 @@ continue1           = array of moves that continue only one line
 make chosen miniGame smarter
 
 if move could win main game mark as safe and take winning move    x
-if deny would prevent victory, take it.                           x but needs to be smarter!
+if deny would prevent victory, take it.                           x 
 if move would send to a mini that would cause victory, don't!
-if deny sends to the same minigame and other win is not possible, mark as safe.
-if move would prevent victory/cause a draw, of miniGame that is crucial 
+if deny sends to the same miniGame and other win is not possible, mark as safe. x
+if move would prevent victory/cause a draw, of miniGame that is crucial x half
 to a 'greater board' line, take move.
 
 if move sends them to a mini with no safe moves, send them there / aiArr[][].awesome: true!
@@ -71,7 +71,7 @@ Only you can confine you
 
 
 if move sends player to a mini where player can deny ai safely,
-and better move is available, take it. // write function
+and better move is available, take it better move. // write function
 
 Thoughts for my extreme ai:
 Once ai knows all side effects of the immediate individual move,
@@ -84,3 +84,12 @@ If no wins occur, it takes the lose that takes most moves to complete.
 (in hope of human error)
 
 different ai mindsets? defensive, aloof, aggressive ???
+
+
+
+Redefining notSafe 
+
+Just because a mini can be won, doesn't make it a bad choice
+
+expand :
+If a mini that can be won by the player, would lead to a mini that that can be won by the ai ... 'tactically safe' ??
