@@ -89,9 +89,9 @@ different ai mindsets? defensive, aloof, aggressive ???
 
 Redefining notSafe 
 
-Sends to mini that would give player victory === UltimateBoBo
-Sends to mini that would give player a free win === prettyBad 
-Sends to mini that results in more wins for player than the ai === notGreat
+X. Sends to mini that would give player victory === UltimateBoBo
+X. Sends to mini that would give player a free win === prettyBad 
+Sends to mini that results in more wins (& no vic) for player than the ai === notGreat
 
 Sends to mini that player can freely deny === bad           // player denies not currently in safe/notSafe
 Sends to mini that player can deny, but would lead ai to a safe win === soSo
