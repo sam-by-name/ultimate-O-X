@@ -90,8 +90,10 @@ different ai mindsets? defensive, aloof, aggressive ???
 Redefining notSafe 
 
 X. Sends to mini that would give player victory === UltimateBoBo
-X. Sends to mini that would give player a free win === prettyBad  // player comes out better
-X. Sends to mini that results in less wins (& no vic) for player than the ai === notTerrible
+X. Sends to mini that would give player a free win (& no vic) === prettyBad  // player comes out better
+Sends to mini that results in less wins (& no vic) for ai than the player === notGreat
+
+Sends to mini that results in less wins (& no vic) for player than the ai === notBad
 
 Sends to mini that player can freely deny === bad           // player denies not currently in safe/notSafe
 Sends to mini that player can deny, but would lead ai to a safe win === soSo
@@ -104,9 +106,19 @@ Sends to mini that player wins (if !Vic), but player win gives ai free turn === 
 
 Just because a mini can be won, doesn't make it a bad choice
 
-expand :
-If a mini that can be won by the player (and isn't a victory), would lead to 
-a mini that that can be safely won by the ai ... 'tactically safe' ?? iterate 
 
-If mini can be won by player but would lead to a 
-taken mini/ai free-turn and isn't a playerVictory, mark as safe (or .. 'strategically safe')
+
+
+Ai's move
+sends human to a game that can be won
+check game that human sends ai to 
+
+is game dead    == if ai's first turn was a win or deny, ai would get free go                         == move is strategically decent
+can ai win      == if ai's first turn was a win or deny, decent if destination not is human benefit   == follow
+can ai deny     == if ai's first turn was a win or deny, decent if destination not is human benefit   == follow
+
+if ai can win // check where it would send human ...  
+is game dead    == if ai's first turn was a win or deny,  
+can human win   == if ai's first turn was a win or deny,  
+can human deny  == if ai's first turn was a win or deny, 
+
