@@ -228,7 +228,7 @@ class MainBoard extends Component {
     let arr = this.state.clonedArr
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) {
+        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) { // .wonBy can lose ===
           arr[cell][j].isPlayable = true
           arr[cell][j].boundaryStyle = {border: '5px solid lime'}
         } else if (arr[cell][j].wonBy !== '' && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
