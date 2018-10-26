@@ -180,6 +180,7 @@ class MainBoard extends Component {
     for (let i = 0; i < 9; i++) {
       arr[i].wonBy = player.name
       arr[i].isPlayable = false
+      arr[i].isAlive = false // just added this in, unsure if needed.
       arr[i].winColor = {backgroundColor: `dark${player.color}`}
       arr[i].boundaryStyle = {border: `5px solid ${player.color}`}
     }
