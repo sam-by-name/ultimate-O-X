@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import {createArr, win} from '../../lib/gameArrays'
+import {generateBoard, win} from '../../lib/gameArrays'
 import {easyAi} from '../../lib/ai/easyAi'
 import {mediumAiV2} from '../../lib/medAiV2/medAiV2'
 import {createObj} from '../../lib/gameFunctions'
@@ -9,7 +9,7 @@ class MainBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      clonedArr: createArr(),
+      clonedArr: generateBoard(),
       previousArr: []
     }
     this.backTrack = this.backTrack.bind(this)
@@ -219,7 +219,7 @@ class MainBoard extends Component {
 
   clearBoard () {
     this.setState({
-      clonedArr: createArr()
+      clonedArr: generateBoard()
     })
     document.getElementsByClassName('mainBoard')[0].style.border =
     `5px solid #0E0B16`
