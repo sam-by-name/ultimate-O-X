@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import {createArr, win} from '../../lib/gameArrays'
+import {generateBoard, win} from '../../lib/gameArrays'
 import {easyAi} from '../../lib/ai/easyAi'
-import {mediumAi} from '../../lib/ai/mediumAi'
+import {mediumAiV2} from '../../lib/medAiV2/medAiV2'
 import {createObj} from '../../lib/gameFunctions'
 
 class MainBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      clonedArr: createArr(),
+      clonedArr: generateBoard(),
       previousArr: []
     }
     this.backTrack = this.backTrack.bind(this)
@@ -71,7 +71,7 @@ class MainBoard extends Component {
         }, 100)
       } else if (state.ai && state.aiDifficulty === 'medium' && !this.state.clonedArr[0][0].gameOver) {
         setTimeout(() => {
-          this.computersTurn(state, mediumAi)
+          this.computersTurn(state, mediumAiV2)
         }, 100)
       }
     }
@@ -180,6 +180,7 @@ class MainBoard extends Component {
     for (let i = 0; i < 9; i++) {
       arr[i].wonBy = player.name
       arr[i].isPlayable = false
+      arr[i].isAlive = false // just added this in, unsure if needed.
       arr[i].winColor = {backgroundColor: `dark${player.color}`}
       arr[i].boundaryStyle = {border: `5px solid ${player.color}`}
     }
@@ -218,7 +219,7 @@ class MainBoard extends Component {
 
   clearBoard () {
     this.setState({
-      clonedArr: createArr()
+      clonedArr: generateBoard()
     })
     document.getElementsByClassName('mainBoard')[0].style.border =
     `5px solid #0E0B16`
@@ -228,7 +229,7 @@ class MainBoard extends Component {
     let arr = this.state.clonedArr
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) {
+        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) { // .wonBy can lose ===
           arr[cell][j].isPlayable = true
           arr[cell][j].boundaryStyle = {border: '5px solid lime'}
         } else if (arr[cell][j].wonBy !== '' && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {

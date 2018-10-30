@@ -1,0 +1,124 @@
+// export const winArr = () => { Randomizes an array
+//   let jumbledWin = []
+//   for (let i = 0; i < 8; i++) {
+//     let index = Math.floor(Math.random() * win.length)
+//     jumbledWin.push(win[index])
+//     win.splice(index, 1)
+//   }
+//   win = jumbledWin
+//   return jumbledWin
+// }
+
+let arr = [...new Set(startsNew)] (removes duplicates)
+
+aiDb = [
+coOrds              = co-ordinates for ai to go to
+miniPlayable        = playable miniGames
+playable            = cells not yet taken
+playerOwns          = cells owned by human
+aiOwns              = cells owned by ai
+win                 = cells that would give ai a miniWin
+deny                = cells that would deny player a miniWin
+safe                = cells that have no immediate down-sides 
+notSafe             = cells that send to winnable mini
+dead                = cells that send to taken minis
+continue1           = cells that continue just one line
+continue2           = cells that continue more than one line
+continueAndNew      = cells that continue and start a new line
+continueAndMultiNew = cells that continue and start multiple new lines
+startsNew           = cells that would start a new line
+safeDeadNotSafe     = playableCells named according to where they would send the playar
+
+// below props = attempt at cell/move grading
+
+zeroEffect          = no immediate effect
+ok                  = 
+good                = 
+veryGood            = 
+awesome             = safely wins/denies mini,
+                      sends to mini with no good moves for player,
+                      safely denies a miniLine that contributes to a greaterLine 
+
+
+arrays below always : from most occurred to least
+
+continue2           = array of moves that continue 2 lines
+continueAndNew      = array of moves that continue a line and start a new one 
+continueAndMultiNew = array of moves that continue a line and start multiple new ordinates
+continue1           = array of moves that continue only one line
+
+make chosen miniGame smarter
+
+if move could win main game mark as safe and take winning move    x
+if deny would prevent victory, take it.                           x 
+if move would send to a mini that would cause victory, don't!
+if deny sends to the same miniGame and other win is not possible, mark as safe. x
+if move would prevent victory/cause a draw, of miniGame that is crucial x half
+to a 'greater board' line, take move.
+
+if move sends them to a mini with no safe moves, send them there / aiArr[][].awesome: true!
+
+
+if no smart move can be made and a good move is available, take best/ most effective move
+
+
+
+Coding == building a ladder
+Climbing higher == defying gravity
+So code your way to the heavens,
+Defy the unseen forces,
+Only you can confine you
+
+
+if move sends player to a mini where player can deny ai safely,
+and better move is available, take it better move. // write function
+
+Thoughts for my extreme ai:
+Once ai knows all side effects of the immediate individual move,
+it plays against itself until the end. (during its thought process)
+The amount of moves it takes to end the game are counted.
+If it beats itself, that move is marked as a good one.
+And if it loses to itself that move is marked as a bad one.
+The move that wins and takes least moves is graded higher than one with more moves.
+If no wins occur, it takes the lose that takes most moves to complete. 
+(in hope of human error)
+
+different ai mindsets? defensive, aloof, aggressive ???
+
+
+
+Redefining notSafe 
+
+X. Sends to mini that would give player victory === UltimateBoBo
+X. Sends to mini that would give player a free win (& no vic) === prettyBad  // player comes out better
+Sends to mini that results in less wins (& no vic) for ai than the player === notGreat
+
+Sends to mini that results in less wins (& no vic) for player than the ai === notBad
+
+Sends to mini that player can freely deny === bad           // player denies not currently in safe/notSafe
+Sends to mini that player can deny, but would lead ai to a safe win === soSo
+Sends to mini that player can deny, but would lead ai to a free turn === decent
+
+normalMove : Sends to mini that player wins (if !Vic), but that then sends  ai to safe win  === decent
+winMove : Win sends to mini that player wins (if !Vic), but that then sends ai to safe win === prettyDecent
+Sends to mini that player wins (if !Vic), but player win gives ai free turn === prettyDecent
+
+
+Just because a mini can be won, doesn't make it a bad choice
+
+
+
+
+Ai's move
+sends human to a game that can be won
+check game that human sends ai to 
+
+is game dead    == if ai's first turn was a win or deny, ai would get free go                         == move is strategically decent
+can ai win      == if ai's first turn was a win or deny, decent if destination not is human benefit   == follow
+can ai deny     == if ai's first turn was a win or deny, decent if destination not is human benefit   == follow
+
+if ai can win // check where it would send human ...  
+is game dead    == if ai's first turn was a win or deny,  
+can human win   == if ai's first turn was a win or deny,  
+can human deny  == if ai's first turn was a win or deny, 
+
