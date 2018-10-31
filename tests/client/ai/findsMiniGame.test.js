@@ -1,6 +1,4 @@
-const {findsMiniGame, findsPlayable} = require('../../../lib/medAiV2/lib/getInfoV2')
-// const {aiDb} = require('./lib/aiDbMock')
-// const {alteredAiDb} = require('./lib/alteredAiDbMock')
+const {findsMiniGame} = require('../../../lib/medAiV2/lib/getInfoV2')
 const {arr} = require('./lib/arrMock')
 
 test('finds and returns an array of playable miniGames', () => {
