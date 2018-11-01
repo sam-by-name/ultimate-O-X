@@ -1,8 +1,8 @@
-const {continuesAndStartsNew} = require('../../../lib/medAiV2/lib/getInfoV2')
+const {findsContinuesAndNew} = require('../../../lib/medAiV2/lib/getInfoV2')
 
 test('finds if move that continues an in progress line also starts a new one', () => {
   const expected = [3, 0, 4, 0, 8, 4, 2, 7, 8]
-  const actual = continuesAndStartsNew(playable, counted)
+  const actual = findsContinuesAndNew(playable, counted)
   expect(actual).toEqual(expected)
 })
 
