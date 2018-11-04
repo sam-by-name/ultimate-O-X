@@ -4,6 +4,7 @@ import {generateBoard, win} from '../../lib/gameArrays'
 import {easyAi} from '../../lib/ai/easyAi'
 import {mediumAiV2} from '../../lib/medAiV2/medAiV2'
 import {createObj} from '../../lib/gameFunctions'
+import {deepClone} from '../../lib/medAiV2/lib/deepClone'
 
 class MainBoard extends Component {
   constructor (props) {
@@ -36,7 +37,7 @@ class MainBoard extends Component {
 
   backTrack () {
     if (this.state.previousArr.length) {
-      let previous = JSON.parse(JSON.stringify(this.state.previousArr))
+      let previous = deepClone(this.state.previousArr)
       let lastState = previous[0]
       previous.shift()
       this.props.handleClick(this.backTrack)
@@ -103,7 +104,7 @@ class MainBoard extends Component {
   }
 
   previousArr () {
-    let currentArr = JSON.parse(JSON.stringify(this.state.clonedArr))
+    let currentArr = deepClone(this.state.clonedArr)
     let backUpArr = this.state.previousArr
     backUpArr.unshift(currentArr)
     this.setState({
