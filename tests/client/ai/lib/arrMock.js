@@ -6,8 +6,8 @@ export const arr = [
     {isPlayable: false, takenBy: 'Player1'},
     {isPlayable: false, takenBy: 'Player2'},
     {isPlayable: false, takenBy: 'Player2'},
-    {isPlayable: false, takenBy: ''},
     {isPlayable: false, takenBy: 'Player1'},
+    {isPlayable: false, takenBy: ''},
     {isPlayable: false, takenBy: ''}
   ],
   [
@@ -33,7 +33,7 @@ export const arr = [
     {isPlayable: true, takenBy: ''}
   ],
   [
-    {isPlayable: false, takenBy: '', wonBy: ''},
+    {isPlayable: false, takenBy: '', wonBy: 'Player1'},
     {isPlayable: false, takenBy: 'Player2'},
     {isPlayable: false, takenBy: ''},
     {isPlayable: false, takenBy: 'Player1'},
@@ -77,18 +77,18 @@ export const arr = [
     {isPlayable: false, takenBy: ''}
   ],
   [
-    {isPlayable: false, takenBy: '', wonBy: 'Player1'},
+    {isPlayable: false, takenBy: 'Player1', wonBy: ''},
     {isPlayable: false, takenBy: 'Player2'},
     {isPlayable: false, takenBy: ''},
     {isPlayable: false, takenBy: 'Player1'},
     {isPlayable: false, takenBy: 'Player2'},
     {isPlayable: false, takenBy: 'Player2'},
     {isPlayable: false, takenBy: ''},
-    {isPlayable: false, takenBy: 'Player1'},
-    {isPlayable: false, takenBy: ''}
+    {isPlayable: false, takenBy: ''},
+    {isPlayable: false, takenBy: 'Player1'}
   ],
   [
-    {isPlayable: false, takenBy: '', wonBy: ''},
+    {isPlayable: false, takenBy: '', wonBy: 'Player1'},
     {isPlayable: false, takenBy: 'Player2'},
     {isPlayable: false, takenBy: ''},
     {isPlayable: false, takenBy: 'Player1'},
