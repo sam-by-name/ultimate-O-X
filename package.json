@@ -8,8 +8,7 @@
   "scripts": {
     "start": "node server",
     "build": "webpack --config ./client/webpack.config.js",
-    "test": "jest --watchAll",
-    "postinstall": "yarn build"
+    "test": "jest --watchAll"
   },
   "babel": {
     "presets": [
@@ -33,5 +32,6 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
-  }
+  },
+  "heroku-run-build-script": true
 }
