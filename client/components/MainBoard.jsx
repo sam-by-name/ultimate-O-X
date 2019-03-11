@@ -1,14 +1,16 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import {createArr, win} from '../../lib/gameArrays'
-import {computersChoice} from '../../lib/ai/easyAi'
+import {generateBoard, win} from '../../lib/gameArrays'
+import {easyAi} from '../../lib/ai/easyAi'
+import {mediumAiV2} from '../../lib/medAiV2/medAiV2'
 import {createObj} from '../../lib/gameFunctions'
+import {deepClone} from '../../lib/medAiV2/lib/deepClone'
 
 class MainBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      clonedArr: createArr(),
+      clonedArr: generateBoard(),
       previousArr: []
     }
     this.backTrack = this.backTrack.bind(this)
@@ -35,7 +37,7 @@ class MainBoard extends Component {
 
   backTrack () {
     if (this.state.previousArr.length) {
-      let previous = JSON.parse(JSON.stringify(this.state.previousArr))
+      let previous = deepClone(this.state.previousArr)
       let lastState = previous[0]
       previous.shift()
       this.props.handleClick(this.backTrack)
@@ -64,24 +66,27 @@ class MainBoard extends Component {
     if (arr.isAlive && arr.isPlayable && arr.wonBy === '') {
       this.props.handleClick()
       this.orderOfProcess(mini, cell, player)
-      if (state.ai && !this.state.clonedArr[0][0].gameOver) {
+      if (state.ai && state.aiDifficulty === 'easy' && !this.state.clonedArr[0][0].gameOver) {
         setTimeout(() => {
-          this.computersTurn(state)
+          this.computersTurn(state, easyAi)
+        }, 100)
+      } else if (state.ai && state.aiDifficulty === 'medium' && !this.state.clonedArr[0][0].gameOver) {
+        setTimeout(() => {
+          this.computersTurn(state, mediumAiV2)
         }, 100)
       }
     }
   }
 
   orderOfProcess (mini, cell, player) {
-    // this.props.handleClick()
     this.previousArr()
     this.arrEdit(mini, cell, player)
     this.checkForWin(mini, player)
     this.setBoundaries(cell)
   }
 
-  computersTurn (state) {
-    let {mini, cell} = computersChoice(this.state.clonedArr,
+  computersTurn (state, ai) {
+    let {mini, cell} = ai(this.state.clonedArr,
       state.player2, state.player1)
     this.props.handleClick()
     this.orderOfProcess(mini, cell, state.player2)
@@ -99,7 +104,7 @@ class MainBoard extends Component {
   }
 
   previousArr () {
-    let currentArr = JSON.parse(JSON.stringify(this.state.clonedArr))
+    let currentArr = deepClone(this.state.clonedArr)
     let backUpArr = this.state.previousArr
     backUpArr.unshift(currentArr)
     this.setState({
@@ -149,7 +154,7 @@ class MainBoard extends Component {
       for (let j = 0; j < 9; j++) {
         arr[j].wonBy = 'DRAW'
         arr[j].isPlayable = false
-        arr[j].boundaryStyle = {border: '10px solid orange'}
+        arr[j].boundaryStyle = {border: '5px solid orange'}
       }
     }
   }
@@ -164,7 +169,7 @@ class MainBoard extends Component {
     }
     if (drawPool === 9) {
       document.getElementsByClassName('mainBoard')[0].style.border =
-        '10px solid orange'
+        '5px solid orange'
       this.props.handleVictory("It's a DRAW!", this.clearBoard)
       this.gameOver()
     }
@@ -176,8 +181,9 @@ class MainBoard extends Component {
     for (let i = 0; i < 9; i++) {
       arr[i].wonBy = player.name
       arr[i].isPlayable = false
+      arr[i].isAlive = false // just added this in, unsure if needed.
       arr[i].winColor = {backgroundColor: `dark${player.color}`}
-      arr[i].boundaryStyle = {border: `10px solid ${player.color}`}
+      arr[i].boundaryStyle = {border: `5px solid ${player.color}`}
     }
   }
 
@@ -193,7 +199,7 @@ class MainBoard extends Component {
           temp.includes(win[j][1]) &&
           temp.includes(win[j][2])) {
         document.getElementsByClassName('mainBoard')[0].style.border =
-        `10px solid ${player.color}`
+        `2px solid ${player.color}`
         this.props.handleVictory(`${player.name.toUpperCase()} WINS`, this.clearBoard)
         this.gameOver()
       }
@@ -214,29 +220,27 @@ class MainBoard extends Component {
 
   clearBoard () {
     this.setState({
-      clonedArr: createArr()
+      clonedArr: generateBoard()
     })
     document.getElementsByClassName('mainBoard')[0].style.border =
-    `10px solid #0E0B16`
+    `5px solid #0E0B16`
   }
 
   setBoundaries (cell) {
     let arr = this.state.clonedArr
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        // let arr = this.state.clonedArr[i][j]
-        // let arr[cell][j] = this.state.clonedArr[cell][j]
-        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) {
+        if (arr[cell][j].wonBy === '' && i === Number(cell) && !arr[i][j].gameOver) { // .wonBy can lose ===
           arr[cell][j].isPlayable = true
-          arr[cell][j].boundaryStyle = {border: '10px solid lime'}
+          arr[cell][j].boundaryStyle = {border: '5px solid lime'}
         } else if (arr[cell][j].wonBy !== '' && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
           arr[i][j].isPlayable = true
-          arr[i][j].boundaryStyle = {border: '10px solid lime'}
+          arr[i][j].boundaryStyle = {border: '5px solid lime'}
         } else if (arr[cell][j].wonBy === '' && i !== Number(cell) && arr[i][j].wonBy === '' && !arr[i][j].gameOver) {
           arr[i][j].isPlayable = false
-          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
+          arr[i][j].boundaryStyle = {border: '5px solid #0E0B16'}
         } else if (arr[i][j].wonBy === '' && arr[i][j].gameOver) {
-          arr[i][j].boundaryStyle = {border: '10px solid #0E0B16'}
+          arr[i][j].boundaryStyle = {border: '5px solid #0E0B16'}
         }
       }
     }
